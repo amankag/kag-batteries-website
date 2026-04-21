@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
+import Link from "next/link";
 import { Product, initialProducts } from "@/data/products";
 
 export default function Products() {
@@ -152,14 +152,15 @@ export default function Products() {
                       </svg>
                       Request Quote
                     </button>
-                    <button
+                    <Link
+                      href={`/products/${product.slug}`}
                       className="p-3 rounded-xl bg-slate-50 text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
-                      title="More Details"
+                      title="View Details"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

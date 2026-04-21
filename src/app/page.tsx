@@ -4,6 +4,7 @@ import Header from "./components/header";
 import Hero from "./components/hero";
 import About from "./components/about";
 import Products from "./components/product";
+import DealerCTA from "./components/DealerCTA";
 import ProductBrochures from "./components/ProductBrochures";
 import Gallery from "./components/gallery";
 import Features from "./components/features";
@@ -19,6 +20,7 @@ export default function Home() {
       <Hero />
       <About />
       <Products />
+      <DealerCTA />
       <ProductBrochures />
       <Gallery />
       <Features />
