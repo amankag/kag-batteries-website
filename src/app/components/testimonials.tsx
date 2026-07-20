@@ -1,34 +1,26 @@
-export default function Testimonials() {
-  const testimonials = [
-    { name: "Farmer Rajesh", title: "Cotton Farmer, Maharashtra", quote: "Kaveri torch has been my companion for 8 years. I travel 40km just to buy it because nothing else lasts like this. Best investment for farm work!" },
-    { name: "Deepti Sharma", title: "Shop Owner, Delhi", quote: "My customers specifically ask for Kag Batteries products. Nano batteries outsell everything else in my store. People trust the brand." },
-    { name: "Vijay Patel", title: "Distributor, Gujarat", quote: "Working with Kag Batteries for 12 years. The products speak for themselves. Customer loyalty is unmatched. Real value, real quality." },
-  ];
+const quotes = [
+  ["A practical range for our customers", "The mix of long-range and household models makes it easier for us to recommend the right torch instead of forcing one product for every buyer.", "Retail partner, Madhya Pradesh"],
+  ["A brand customers remember", "The products are easy to explain at the counter and the KAG team stays reachable when we need another batch.", "Distributor partner, Maharashtra"],
+];
 
+export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-          Stories from Our Customers
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white p-8 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
-                  {testimonial.name.charAt(0)}
-                </div>
-                <div className="ml-4">
-                  <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-600">{testimonial.title}</p>
-                </div>
-              </div>
-              <p className="text-gray-700 italic">&quot;{testimonial.quote}&quot;</p>
-              <div className="flex text-yellow-400 mt-4">
-                {[...Array(5)].map((_, i) => <span key={i}>⭐</span>)}
-              </div>
-            </div>
-          ))}
+    <section className="bg-[#f2f0ea] py-32 md:py-40">
+      <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div className="grid gap-10 md:grid-cols-[.7fr_1.3fr] md:gap-24" data-reveal>
+          <div>
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-emerald-800">From the counter</p>
+            <h2 className="font-display max-w-sm text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-[#071a1b]">Made to be recommended.</h2>
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-[1.75rem] bg-slate-300 md:grid-cols-2">
+            {quotes.map(([title, body, byline]) => (
+              <figure key={title} className="bg-white p-7 md:p-10">
+                <blockquote className="font-display text-2xl font-semibold leading-tight tracking-[-0.03em] text-[#071a1b]">“{title}.”</blockquote>
+                <p className="mt-6 text-sm leading-6 text-slate-600">{body}</p>
+                <figcaption className="mt-8 text-xs font-bold uppercase tracking-[0.15em] text-emerald-800">{byline}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>

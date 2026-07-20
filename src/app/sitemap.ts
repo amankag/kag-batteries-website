@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { initialProducts } from "@/data/products";
 
-const BASE_URL = "https://kagbatteries.com";
+const BASE_URL = "https://www.kagbatteries.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

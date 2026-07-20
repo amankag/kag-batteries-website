@@ -1,215 +1,69 @@
-'use client';
-import { useState } from 'react';
+"use client";
+
+import { FormEvent, useState } from "react";
+import Link from "next/link";
+import { DEALER_WHATSAPP } from "@/data/products";
+
+type FormState = { contactPerson: string; companyName: string; phone: string; city: string; state: string; inquiryType: string; estimatedQty: string; message: string };
+const initialForm: FormState = { contactPerson: "", companyName: "", phone: "", city: "", state: "", inquiryType: "", estimatedQty: "", message: "" };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: '',
-  });
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const [submitted, setSubmitted] = useState(false);
+  function update(name: keyof FormState, value: string) {
+    setForm((current) => ({ ...current, [name]: value }));
+  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      if (!response.ok) throw new Error("Inquiry service unavailable");
+      setStatus("success");
+      setForm(initialForm);
+    } catch {
+      setStatus("error");
+    }
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // यहाँ API call करो या email service use करो
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', company: '', message: '' });
-    }, 3000);
-  };
+  const inputClass = "w-full border-b border-slate-300 bg-transparent px-0 py-3 text-base text-[#071a1b] outline-none transition placeholder:text-slate-400 focus:border-emerald-700";
+  const whatsapp = `https://wa.me/${DEALER_WHATSAPP}?text=${encodeURIComponent("Hi KAG Batteries, I would like to know more about your products.")}`;
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-          Get In Touch
-        </h2>
+    <section id="contact" className="bg-white py-32 md:py-48">
+      <div className="mx-auto grid max-w-[1440px] gap-16 px-5 md:grid-cols-[.75fr_1.25fr] md:gap-24 md:px-10">
+        <div data-reveal>
+          <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-emerald-800">Start a conversation</p>
+          <h2 className="font-display max-w-md text-6xl font-semibold leading-[0.9] tracking-[-0.05em] text-[#071a1b] md:text-8xl">Tell us what you need.</h2>
+          <p className="mt-8 max-w-sm text-base leading-7 text-slate-600">For a quick response, share your city, business and expected monthly quantity. The KAG team will send the right range and price information.</p>
+          <div className="mt-12 space-y-6 border-t border-slate-200 pt-6 text-sm">
+            <div><p className="text-xs uppercase tracking-[0.14em] text-slate-400">Call</p><a href="tel:+919826918636" className="mt-1 block font-semibold text-[#071a1b] hover:text-emerald-700">+91 98269 18636</a><a href="tel:+919752256636" className="mt-1 block font-semibold text-[#071a1b] hover:text-emerald-700">+91 97522 56636</a></div>
+            <div><p className="text-xs uppercase tracking-[0.14em] text-slate-400">Email</p><a href="mailto:info@kagbatteries.in" className="mt-1 block font-semibold text-[#071a1b] hover:text-emerald-700">info@kagbatteries.in</a></div>
+            <div><p className="text-xs uppercase tracking-[0.14em] text-slate-400">Visit</p><p className="mt-1 max-w-xs leading-6 text-slate-700">B-3, AKVN Industrial Area, Rangwasa, Indore, Madhya Pradesh 453310</p></div>
+          </div>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Quick Enquiry</h3>
-
-            {submitted && (
-              <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                ✅ Thank you! We&apos;ll get back to you soon.
+        <div data-reveal>
+          {status === "success" ? (
+            <div className="flex min-h-[520px] flex-col justify-center rounded-[1.75rem] bg-[#071a1b] p-8 text-white md:p-14"><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9f36b]">Message received</p><h3 className="mt-5 max-w-xl font-display text-5xl font-semibold leading-tight tracking-[-0.04em]">Thank you. The KAG team will be in touch.</h3><p className="mt-6 max-w-md leading-7 text-emerald-50/65">During working hours, our team usually responds within two hours. For the fastest route, you can also message sales on WhatsApp.</p><a href={whatsapp} target="_blank" rel="noreferrer" className="mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-[#d9f36b] px-6 py-3.5 text-sm font-bold text-[#071a1b]">Open WhatsApp <span aria-hidden="true">↗</span></a></div>
+          ) : (
+            <form onSubmit={handleSubmit} className="rounded-[1.75rem] bg-[#f2f0ea] p-7 md:p-12">
+              <div className="grid gap-x-8 gap-y-6 md:grid-cols-2">
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Your name<input required value={form.contactPerson} onChange={(e) => update("contactPerson", e.target.value)} className={inputClass} placeholder="Full name" /></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Shop or company<input required value={form.companyName} onChange={(e) => update("companyName", e.target.value)} className={inputClass} placeholder="Business name" /></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Mobile number<input required type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputClass} placeholder="+91 00000 00000" /></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">City<input required value={form.city} onChange={(e) => update("city", e.target.value)} className={inputClass} placeholder="Indore" /></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">State<input required value={form.state} onChange={(e) => update("state", e.target.value)} className={inputClass} placeholder="Madhya Pradesh" /></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Monthly quantity<input required type="number" min="1" value={form.estimatedQty} onChange={(e) => update("estimatedQty", e.target.value)} className={inputClass} placeholder="Approx. units" /></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500 md:col-span-2">What are you looking for?<select required value={form.inquiryType} onChange={(e) => update("inquiryType", e.target.value)} className={inputClass}><option value="">Choose one</option><option>Dealer partnership</option><option>Distributor partnership</option><option>Bulk order</option><option>Product information</option></select></label>
+                <label className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500 md:col-span-2">Message<textarea value={form.message} onChange={(e) => update("message", e.target.value)} rows={3} className={`${inputClass} resize-none`} placeholder="Tell us what you want to stock or order" /></label>
               </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                  placeholder="Enter your name"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                  placeholder="+91 9826918636"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                  placeholder="Your company (optional)"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100"
-                  placeholder="Tell us about your inquiry..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-3 rounded-full hover:from-orange-500 hover:to-orange-700 transition duration-300 shadow-md hover:shadow-lg"
-              >
-                Send Enquiry
-              </button>
+              {status === "error" && <p className="mt-6 border-l-2 border-amber-600 pl-3 text-sm leading-6 text-amber-800">We could not send the form right now. Please use WhatsApp for an immediate response.</p>}
+              <div className="mt-8 flex flex-wrap items-center gap-4"><button disabled={status === "sending"} type="submit" className="inline-flex items-center gap-3 rounded-full bg-[#071a1b] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-emerald-800 disabled:cursor-wait disabled:opacity-60">{status === "sending" ? "Sending..." : "Send inquiry"}<span aria-hidden="true">↗</span></button><Link href={whatsapp} target="_blank" className="text-sm font-semibold text-[#071a1b] underline decoration-slate-300 underline-offset-4 hover:text-emerald-700">Prefer WhatsApp?</Link></div>
             </form>
-          </div>
-
-          {/* Contact Information */}
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-
-            <div className="space-y-6">
-              {/* Address */}
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <span className="text-green-600 text-lg">📍</span>
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-1">Customer Care Address</h4>
-                  <p className="text-gray-600">B-3, AKVN Industrial Area</p>
-                  <p className="text-gray-600">Rangwasa, Indore (M.P.)</p>
-                  <p className="text-gray-600">PIN: 453310</p>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <span className="text-green-600 text-lg">📞</span>
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-1">Phone</h4>
-                  <div className="flex flex-col gap-1">
-                    <a href="tel:+919826918636" className="text-green-600 hover:text-green-700 font-semibold">
-                      +91 98269 18636
-                    </a>
-                    <a href="tel:+919752256636" className="text-green-600 hover:text-green-700 font-semibold">
-                      +91 97522 56636
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <span className="text-green-600 text-lg">✉️</span>
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-1">Email</h4>
-                  <a href="mailto:info@kaveryled.in" className="text-green-600 hover:text-green-700 block">
-                    info@kaveryled.in
-                  </a>
-                  <a href="mailto:sales@kaveryled.in" className="text-green-600 hover:text-green-700">
-                    sales@kaveryled.in
-                  </a>
-                </div>
-              </div>
-
-              {/* Business Hours */}
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <span className="text-green-600 text-lg">🕐</span>
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-1">Business Hours</h4>
-                  <p className="text-gray-600">Monday - Saturday: :00 AM - 5:00 PM</p>
-                  <p className="text-gray-600">Sunday: Closed</p>
-                </div>
-              </div>
-
-              {/* Delivery */}
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                  <span className="text-green-600 text-lg">📦</span>
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-1">Delivery</h4>
-                  <p className="text-gray-600">2-4 Days Delivery Across India</p>
-                  <p className="text-gray-600">Free Packaging for Indore & Nearby</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import InquiryForm from "./InquiryForm";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export const metadata: Metadata = {
   title: "Dealer / Bulk Order Inquiry – KAG Batteries | Torch Manufacturer Indore",
@@ -19,79 +20,33 @@ export const metadata: Metadata = {
 
 export default function InquiryPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Top bar */}
-      <header className="bg-slate-950 border-b border-white/10">
-        <div className="max-w-5xl mx-auto flex items-center gap-3 px-4 md:px-6 py-3">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-slate-300 hover:text-white transition text-sm font-medium"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Home
-          </Link>
-          <div className="ml-auto text-white font-semibold text-sm">KAG Batteries</div>
-        </div>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-16">
-        {/* Hero section */}
-        <div className="text-center mb-10">
-          <span className="inline-block py-1 px-3 rounded-full bg-green-100 text-green-700 text-xs font-bold tracking-widest uppercase mb-4">
-            Dealer & Distributor Inquiry
-          </span>
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-3">
-            Partner with KAG Batteries
-          </h1>
-          <p className="text-slate-500 text-base max-w-xl mx-auto leading-relaxed">
-            Manufacturing premium LED torches since 1997 in Indore. Direct factory pricing for dealers and distributors across Madhya Pradesh and Maharashtra.
-          </p>
-        </div>
-
-        {/* Trust strip */}
-        <div className="grid grid-cols-3 gap-4 mb-10">
-          {[
-            { stat: "25+", label: "Years of manufacturing" },
-            { stat: "17+", label: "Torch models in range" },
-            { stat: "2 hrs", label: "WhatsApp response time" },
-          ].map((item) => (
-            <div
-              key={item.stat}
-              className="bg-white rounded-2xl border border-slate-100 p-4 text-center shadow-sm"
-            >
-              <p className="text-2xl font-black text-slate-900">{item.stat}</p>
-              <p className="text-xs text-slate-500 mt-1">{item.label}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Form card */}
-        <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-8">
-          <div className="flex items-start gap-4 mb-7">
-            <div className="w-10 h-10 rounded-2xl bg-green-100 flex items-center justify-center flex-shrink-0">
-              <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-            </div>
-            <div>
-              <h2 className="text-xl font-black text-slate-900">Submit Your Inquiry</h2>
-              <p className="text-sm text-slate-500 mt-0.5">
-                Fill in your details and select the products you're interested in. We'll send you our dealer price list on WhatsApp within 2 hours.
-              </p>
-            </div>
+    <div className="min-h-screen bg-[#f2f0ea]">
+      <Header />
+      <main>
+        <section className="bg-[#071a1b] py-24 text-white md:py-32">
+          <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+            <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-[#d9f36b]">Dealer and distributor partnership</p>
+            <h1 className="font-display max-w-5xl text-6xl font-semibold leading-[0.9] tracking-[-0.05em] md:text-8xl">Let&apos;s put the right range in your market.</h1>
+            <p className="mt-8 max-w-2xl text-base leading-7 text-emerald-50/65 md:text-lg">Share a few details about your business and territory. We will follow up with the most relevant models, pricing tiers and next steps.</p>
           </div>
+        </section>
 
-          <InquiryForm />
-        </div>
-
-        {/* Bottom note */}
-        <p className="text-center text-xs text-slate-400 mt-6">
-          By submitting, you agree to be contacted on WhatsApp by KAG Batteries, Indore.
-          Your information is kept confidential.
-        </p>
+        <section className="py-20 md:py-32">
+          <div className="mx-auto max-w-[920px] px-5 md:px-10">
+            <div className="mb-10 grid grid-cols-3 gap-3 border-y border-slate-300 py-5 text-center md:text-left">
+              <div><p className="font-display text-3xl font-semibold text-[#071a1b]">25+</p><p className="mt-1 text-xs text-slate-500">years of manufacturing</p></div>
+              <div><p className="font-display text-3xl font-semibold text-[#071a1b]">22</p><p className="mt-1 text-xs text-slate-500">catalogue entries</p></div>
+              <div><p className="font-display text-3xl font-semibold text-[#071a1b]">2 hrs</p><p className="mt-1 text-xs text-slate-500">typical response window</p></div>
+            </div>
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(7,26,27,0.08)] md:p-10">
+              <div className="mb-8"><h2 className="font-display text-4xl font-semibold tracking-[-0.04em] text-[#071a1b]">Tell us about your business.</h2><p className="mt-2 max-w-xl text-sm leading-6 text-slate-500">Required fields help us share a useful response instead of a generic catalogue.</p></div>
+              <InquiryForm />
+            </div>
+            <p className="mt-5 text-center text-xs leading-5 text-slate-500">By submitting, you agree to be contacted by KAG Batteries, Indore. Your information is kept confidential.</p>
+          </div>
+        </section>
       </main>
+      <Footer />
     </div>
   );
 }

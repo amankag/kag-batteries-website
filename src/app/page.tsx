@@ -1,5 +1,3 @@
-'use client';
-
 import Header from "./components/header";
 import Hero from "./components/hero";
 import About from "./components/about";
@@ -12,22 +10,24 @@ import Testimonials from "./components/testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import SiteMotion from "./components/site-motion";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#f2f0ea] text-slate-950">
       <Header />
       <Hero />
       <About />
       <Products />
+      <Features />
+      <Gallery />
       <DealerCTA />
       <ProductBrochures />
-      <Gallery />
-      <Features />
       <Testimonials />
       <Contact />
       <Footer />
       <WhatsAppButton />
+      <SiteMotion />
     </main>
   );
 }

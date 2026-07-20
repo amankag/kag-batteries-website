@@ -1,182 +1,71 @@
 "use client";
 
-import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Product, initialProducts } from "@/data/products";
+import { initialProducts, DEALER_WHATSAPP } from "@/data/products";
+
+const featured = [initialProducts[0], initialProducts[1], initialProducts[2], initialProducts[3]];
+
+function WhatsAppIcon() {
+  return <svg aria-hidden="true" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.01 2C6.49 2 2 6.49 2 12c0 1.76.46 3.41 1.27 4.88L2 22l5.28-1.23A9.96 9.96 0 0 0 12.01 22C17.52 22 22 17.51 22 12S17.52 2 12.01 2Zm0 18.2c-1.56 0-3.08-.42-4.4-1.21l-.31-.18-3.13.73.75-3.05-.2-.32A8.2 8.2 0 1 1 12.01 20.2Zm4.51-6.1c-.25-.13-1.49-.73-1.72-.82-.23-.08-.4-.13-.57.13-.17.25-.65.82-.8.99-.15.17-.3.19-.55.06-1.49-.74-2.47-1.32-3.45-2.98-.26-.45.26-.42.75-1.4.08-.17.04-.31-.02-.44-.06-.13-.57-1.37-.78-1.88-.2-.49-.41-.42-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.24 3.74 1.58.68 2.2.74 2.98.62.48-.07 1.49-.61 1.7-1.2.21-.59.21-1.09.15-1.2-.06-.1-.23-.16-.48-.29Z" /></svg>;
+}
 
 export default function Products() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [productList, setProductList] = useState<Product[]>(initialProducts);
-
-  // Filter products based on search term
-  const filteredProducts = productList.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.tagline.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Handle temporary image upload preview
-  const handleImageUpload = (id: number, event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProductList((prev) =>
-        prev.map((p) => (p.id === id ? { ...p, image: imageUrl } : p))
-      );
-      // Determine the ideal path for the user to save the file
-      const idealPath = `/images/${file.name}`;
-      alert(`Preview updated! To make this permanent:\n1. Move '${file.name}' to 'public/images/' folder\n2. Update code to use '${idealPath}'`);
-    }
-  };
-
   return (
-    <section id="products" className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block py-1 px-3 rounded-full bg-green-100 text-green-700 text-xs font-bold tracking-widest uppercase mb-4">
-            Our Collection
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
-            Explore Our <span className="text-green-600">Power Range</span>
-          </h2>
-          <p className="text-lg text-slate-600 leading-relaxed mb-10">
-            Engineered for durability and performance. Find the perfect lighting solution for your needs.
-          </p>
-
-          {/* Search Bar */}
-          <div className="relative max-w-lg mx-auto">
-            <input
-              type="text"
-              placeholder="Search by model name (e.g., L55, Safari)..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 rounded-full shadow-sm border border-slate-200 focus:ring-4 focus:ring-green-100 focus:border-green-500 transition-all text-slate-700 outline-none"
-            />
-            <svg
-              className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+    <section id="products" className="bg-white py-32 md:py-48">
+      <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div className="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end" data-reveal>
+          <div>
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-emerald-800">The range</p>
+            <h2 className="font-display max-w-3xl text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-[#071a1b] md:text-7xl">The right beam for every kind of night.</h2>
+          </div>
+          <div className="max-w-xs text-sm leading-6 text-slate-600">
+            From 1,500m long-range Li-Ion torches to dependable lead-acid workhorses. Start with the range, then ask us for dealer pricing.
           </div>
         </div>
 
-        {/* Products Grid */}
-        {filteredProducts.length > 0 ? (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group relative bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-slate-100 flex flex-col"
-              >
-                {/* Image / Placeholder Area */}
-                <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden flex items-center justify-center group-hover:bg-slate-200 transition-colors">
-                  {product.image ? (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center text-slate-300">
-                      <svg className="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                      <span className="text-sm font-medium">No Image</span>
-                    </div>
-                  )}
-
-                  {/* Upload Overlay */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                    <label className="cursor-pointer bg-white text-slate-900 px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                      </svg>
-                      Upload Image
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => handleImageUpload(product.id, e)}
-                      />
-                    </label>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="mb-4">
-                    <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-green-600 transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-sm font-medium text-slate-500">
-                      {product.tagline}
-                    </p>
-                  </div>
-
-                  {/* Specs Mini-Grid */}
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    {product.specs.beamDistance && (
-                      <div className="bg-slate-50 p-2 rounded-lg">
-                        <span className="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Range</span>
-                        <span className="text-sm font-semibold text-slate-700">{product.specs.beamDistance}</span>
-                      </div>
-                    )}
-                    {product.specs.body && (
-                      <div className="bg-slate-50 p-2 rounded-lg">
-                        <span className="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Body</span>
-                        <span className="text-sm font-semibold text-slate-700">{product.specs.body}</span>
-                      </div>
-                    )}
-                    {product.specs.sideLight && (
-                      <div className="bg-slate-50 p-2 rounded-lg col-span-2">
-                        <span className="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Side Light</span>
-                        <span className="text-sm font-semibold text-slate-700">{product.specs.sideLight}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-                    <button
-                      onClick={() => {
-                        const phone = "919826918636";
-                        const msg = encodeURIComponent(`Hi, I'm interested in the ${product.name}. Please send me the price.`);
-                        window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
-                      }}
-                      className="flex-1 bg-slate-900 hover:bg-green-600 text-white py-3 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2"
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12.0117 21C6.68166 21 2.3457 16.5361 2.3457 11.0498C2.3457 5.54883 6.69141 1.09961 12.0264 1.09961C17.3662 1.09961 21.7119 5.54883 21.7119 11.0498C21.7119 16.5361 17.3662 21 12.0117 21ZM12.0117 2.19336C7.2793 2.19336 3.4082 6.16699 3.4082 11.0498C3.4082 15.9326 7.2793 19.9062 12.0117 19.9062C16.7441 19.9062 20.6494 15.9326 20.6494 11.0498C20.6494 6.16699 16.7441 2.19336 12.0117 2.19336ZM16.0391 14.7393C15.8633 15.2227 15.2422 15.4268 14.8145 15.3535C14.3311 15.2754 12.3086 14.7002 9.94434 12.2617C7.57031 9.81348 7.02344 7.73828 6.94043 7.24512C6.8623 6.81152 7.0625 6.18164 7.53125 5.99609C7.83887 5.86914 8.08203 5.87402 8.24219 5.89844C8.58398 5.92773 8.65723 5.94238 8.81836 6.32324C9.02344 6.80664 9.47754 7.91016 9.53125 8.02246C9.58496 8.14453 9.61426 8.28125 9.55566 8.42285C9.4873 8.56934 9.42383 8.65723 9.17969 8.91602C8.94043 9.1748 8.91602 9.22363 8.96973 9.38965C9.07715 9.71191 9.63867 10.8789 10.4541 11.7236C11.5137 12.8223 12.3926 13.0615 12.7295 13.1201C12.8906 13.1494 12.9834 13.0908 13.208 12.8418C13.4668 12.5488 13.7842 12.085 13.9111 11.9678C14.0723 11.8164 14.248 11.8311 14.4336 11.9092C14.624 11.9824 15.6592 12.4951 15.8691 12.6074C16.0889 12.7148 16.2305 12.7686 16.2939 12.876C16.3574 12.9834 16.3574 13.4717 16.0391 14.7393Z" />
-                      </svg>
-                      Request Quote
-                    </button>
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="p-3 rounded-xl bg-slate-50 text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
-                      title="View Details"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20">
-            <div className="inline-block p-4 rounded-full bg-slate-50 mb-4">
-              <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+        <div className="grid grid-flow-dense grid-cols-1 gap-4 md:grid-cols-4 md:auto-rows-[210px]" data-reveal>
+          <article className="group relative overflow-hidden rounded-[1.75rem] bg-[#071a1b] md:col-span-2 md:row-span-2">
+            <Image src={featured[0].image!} alt={featured[0].name} fill className="object-contain p-7 mix-blend-multiply transition duration-700 group-hover:scale-105 md:p-12" sizes="(max-width: 768px) 100vw, 50vw" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#071a1b] via-[#071a1b]/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-7 text-white md:p-9">
+              <p className="mb-3 text-xs uppercase tracking-[0.18em] text-[#d9f36b]">Flagship long range</p>
+              <h3 className="font-display text-4xl font-semibold tracking-[-0.03em]">{featured[0].name}</h3>
+              <p className="mt-2 max-w-md text-sm leading-6 text-white/65">{featured[0].specs.batteryCapacity} power, {featured[0].specs.beamDistance} reach, built for extended outdoor use.</p>
+              <Link href={`/products/${featured[0].slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white transition hover:text-[#d9f36b]">View model <span aria-hidden="true">↗</span></Link>
             </div>
-            <h3 className="text-xl font-bold text-slate-900">No products found</h3>
-            <p className="text-slate-500 mt-2">Try adjusting your search terms.</p>
-          </div>
-        )}
+          </article>
+
+          <article className="group relative overflow-hidden rounded-[1.75rem] bg-[#d9f36b] p-7 md:col-span-2">
+            <div className="relative z-10 max-w-sm">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#071a1b]/60">For shops and distributors</p>
+              <h3 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-[-0.03em] text-[#071a1b]">A range that earns the next order.</h3>
+              <p className="mt-3 max-w-md text-sm leading-6 text-[#071a1b]/70">Clear MRP, factory-direct dealer tiers and models that cover everyday use through heavy-duty demand.</p>
+              <Link href="/inquiry" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#071a1b] transition hover:gap-3">Get dealer pricing <span aria-hidden="true">↗</span></Link>
+            </div>
+            <div className="absolute -bottom-10 -right-4 h-44 w-44 rounded-full border-[28px] border-[#071a1b]/10 transition duration-700 group-hover:scale-125" />
+          </article>
+
+          {[featured[1], featured[2]].map((product) => (
+            <article key={product.id} className="group relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[#f2f0ea] p-5 md:col-span-1">
+              <div className="relative h-32 w-full md:h-28">
+                {product.image ? <Image src={product.image} alt={product.name} fill className="object-contain p-1 mix-blend-multiply transition duration-700 group-hover:scale-110" sizes="180px" /> : null}
+              </div>
+              <div className="mt-4 flex items-end justify-between gap-3">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-slate-500">{product.category === "lithium-ion" ? "Li-Ion" : "Lead acid"}</p>
+                  <h3 className="mt-1 text-sm font-bold text-[#071a1b]">{product.name}</h3>
+                </div>
+                <a href={`https://wa.me/${DEALER_WHATSAPP}?text=${encodeURIComponent(`Hi, I need dealer pricing for ${product.name}.`)}`} target="_blank" rel="noreferrer" aria-label={`Request a quote for ${product.name}`} className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#071a1b] text-white transition hover:bg-emerald-700"><WhatsAppIcon /></a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 pt-6" data-reveal>
+          <p className="text-sm text-slate-600">22 catalogue entries across lithium-ion and lead-acid ranges.</p>
+          <Link href="/products" className="inline-flex items-center gap-2 text-sm font-bold text-[#071a1b] transition hover:text-emerald-700">See the complete catalogue <span aria-hidden="true">↗</span></Link>
+        </div>
       </div>
     </section>
   );

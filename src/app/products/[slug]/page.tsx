@@ -13,7 +13,7 @@ function getProduct(slug: string) {
   return initialProducts.find((p) => p.slug === slug);
 }
 
-// ─── Static params for all 17 products ───────────────────────────────────────
+// ─── Static params for all catalogue products ────────────────────────────────
 export function generateStaticParams() {
   return initialProducts.map((p) => ({ slug: p.slug }));
 }
@@ -79,6 +79,9 @@ export default async function ProductPage({ params }: PageProps) {
     .slice(0, 3);
 
   // JSON-LD Product schema
+  const retailPrice = product.pricingTiers[0].price.match(/\d/)
+    ? product.pricingTiers[0].price.replace(/[^0-9]/g, "")
+    : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -98,17 +101,21 @@ export default async function ProductPage({ params }: PageProps) {
         addressCountry: "IN",
       },
     },
-    image: product.image ? `https://kagbatteries.com${product.image}` : undefined,
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "INR",
-      price: product.pricingTiers[0].price.replace(/[^0-9]/g, ""),
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "Organization",
-        name: "KAG Batteries",
-      },
-    },
+    image: product.image ? `https://www.kagbatteries.in${product.image}` : undefined,
+    ...(retailPrice
+      ? {
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "INR",
+            price: retailPrice,
+            availability: "https://schema.org/InStock",
+            seller: {
+              "@type": "Organization",
+              name: "KAG Batteries",
+            },
+          },
+        }
+      : {}),
   };
 
   const isLithium = product.category === "lithium-ion";

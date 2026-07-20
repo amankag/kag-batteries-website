@@ -133,7 +133,7 @@ export default function ProductCatalogueClient({ products }: Props) {
                     alt={product.name}
                     fill
                     loading="lazy"
-                    className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain p-2 mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                 ) : (
@@ -196,7 +196,7 @@ export default function ProductCatalogueClient({ products }: Props) {
                       alt={product.name}
                       fill
                       loading="lazy"
-                      className="object-contain p-1.5"
+                      className="object-contain p-1.5 mix-blend-multiply"
                       sizes="80px"
                     />
                   ) : (

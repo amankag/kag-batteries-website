@@ -1,63 +1,20 @@
-'use client';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Logo + brand */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="bg-white rounded-md p-1.5">
-                <img
-                  src="/logo.png" // same logo from public
-                  alt="KagBatteries Logo"
-                  className="h-8 w-8 object-contain"
-                />
-              </div>
-              <span className="font-bold text-xl tracking-wide">
-                KagBatteries
-              </span>
-            </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Premium long-range rechargeable torches engineered for everyday
-              household, farm and professional use.
-            </p>
-          </div>
-
+    <footer className="bg-[#071a1b] py-14 text-white md:py-20">
+      <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div className="grid gap-12 border-b border-white/15 pb-14 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide text-gray-300">
-              Products
-            </h3>
-            <p className="text-gray-400 text-sm">
-              17 rechargeable torch models covering long-range, security and
-              emergency use.
-            </p>
+            <Link href="/" className="flex items-center gap-3"><span className="relative h-10 w-10 overflow-hidden rounded-xl bg-white"><Image src="/logo.png" alt="KAG Batteries" fill className="object-contain p-1" /></span><span className="font-display text-xl font-semibold tracking-[-0.02em]">KAG Batteries</span></Link>
+            <p className="mt-6 max-w-sm text-sm leading-6 text-emerald-50/60">Long-range rechargeable torches made in Indore for people, shops and distribution partners across India.</p>
           </div>
-
-          <div>
-            <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide text-gray-300">
-              Support
-            </h3>
-            <p className="text-gray-400 text-sm">
-              For bulk enquiries or dealership, use the contact form or WhatsApp
-              button on the site.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide text-gray-300">
-              Contact
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Email / phone details you want to show can be placed here.
-            </p>
-          </div>
+          <div><p className="mb-4 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">Explore</p><div className="grid gap-3 text-sm text-emerald-50/70"><Link href="/products" className="hover:text-white">Catalogue</Link><Link href="/#about" className="hover:text-white">The company</Link><Link href="/#gallery" className="hover:text-white">Factory proof</Link></div></div>
+          <div><p className="mb-4 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">Work with us</p><div className="grid gap-3 text-sm text-emerald-50/70"><Link href="/inquiry" className="hover:text-white">Dealer inquiry</Link><Link href="/#contact" className="hover:text-white">Bulk orders</Link><a href="/brochures/kag batteries product poster.pdf" className="hover:text-white">Product PDF</a></div></div>
+          <div><p className="mb-4 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">Reach sales</p><div className="grid gap-3 text-sm text-emerald-50/70"><a href="tel:+919826918636" className="hover:text-white">+91 98269 18636</a><a href="mailto:info@kagbatteries.in" className="hover:text-white">info@kagbatteries.in</a><p>B-3, AKVN Industrial Area, Indore</p></div></div>
         </div>
-
-        <div className="border-t border-gray-800 pt-4 text-center text-gray-500 text-xs">
-          <p>© {new Date().getFullYear()} Kag Batteries. All rights reserved.</p>
-        </div>
+        <div className="flex flex-col justify-between gap-3 pt-5 text-xs text-emerald-50/45 md:flex-row"><p>© {new Date().getFullYear()} KAG Batteries. All rights reserved.</p><p>Made for long nights.</p></div>
       </div>
     </footer>
   );
