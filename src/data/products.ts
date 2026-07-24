@@ -27,6 +27,7 @@ export interface Product {
   specs: ProductSpecs;
   pricingTiers: PricingTier[];
   image?: string;
+  colors?: { name: string; hex: string; type?: "body" | "trim" }[];
 }
 
 export const DEALER_WHATSAPP = "919826918636";
@@ -61,6 +62,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹1,180", locked: true },
     ],
     image: "/product-images/51d42876-58d1-4e6d-a7c6-c2d1bea7933a.png",
+    colors: [
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Black", hex: "#1F2937", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+    ],
   },
   {
     id: 2,
@@ -90,6 +97,10 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹760", locked: true },
     ],
     image: "/product-images/0b23afc0-b570-41d4-89ed-29646aa357f1.png",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+    ],
   },
   {
     id: 3,
@@ -120,6 +131,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹600", locked: true },
     ],
     image: "/product-images/88685858-bba5-4c70-a6c8-7b81003aa6fa.png",
+    colors: [
+      { name: "Green", hex: "#16A34A", type: "body" },
+      { name: "Black", hex: "#1F2937", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "trim" },
+    ],
   },
   {
     id: 4,
@@ -149,6 +166,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹480", locked: true },
     ],
     image: "/product-images/efdf10ce-60c0-483c-8cba-31168e514c54.png",
+    colors: [
+      { name: "Yellow", hex: "#EAB308", type: "trim" },
+      { name: "Red", hex: "#DC2626", type: "trim" },
+      { name: "Pink", hex: "#DB2777", type: "trim" },
+      { name: "Green", hex: "#16A34A", type: "trim" },
+    ],
   },
   {
     id: 5,
@@ -178,6 +201,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹670", locked: true },
     ],
     image: "/product-images/3be40299-0ee8-43e4-b296-5302a4496ff5.png",
+    colors: [
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Black", hex: "#1F2937", type: "body" },
+    ],
   },
   {
     id: 6,
@@ -232,6 +261,10 @@ export const initialProducts: Product[] = [
       { label: "Dealer Price", moq: "10+ units", price: "₹730", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "₹600", locked: true },
     ],
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+    ],
   },
   {
     id: 8,
@@ -258,6 +291,10 @@ export const initialProducts: Product[] = [
       { label: "Retail MRP", moq: "1 unit+", price: "₹950", locked: false },
       { label: "Dealer Price", moq: "10+ units", price: "₹730", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "₹600", locked: true },
+    ],
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
     ],
   },
   {
@@ -286,6 +323,13 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹700", locked: true },
     ],
     image: "/product-images/k22.png",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Green", hex: "#16A34A", type: "body" },
+      { name: "Blue", hex: "#2563EB", type: "body" },
+    ],
   },
   {
     id: 10,
@@ -313,6 +357,13 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹600", locked: true },
     ],
     image: "/product-images/220.png",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Green", hex: "#16A34A", type: "body" },
+      { name: "Blue", hex: "#2563EB", type: "body" },
+    ],
   },
   {
     id: 11,
@@ -342,6 +393,11 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹540", locked: true },
     ],
     image: "/product-images/d78c23f6-3f15-4593-96ec-ef729be4d229.png",
+    colors: [
+      { name: "Blue", hex: "#2563EB", type: "body" },
+      { name: "Green", hex: "#16A34A", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+    ],
   },
   {
     id: 12,
@@ -372,6 +428,11 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹415", locked: true },
     ],
     image: "/product-images/abbb458f-cafa-4637-aa51-5895a0acae51.png",
+    colors: [
+      { name: "Blue", hex: "#2563EB", type: "body" },
+      { name: "Green", hex: "#16A34A", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+    ],
   },
   {
     id: 13,
@@ -402,6 +463,10 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹760", locked: true },
     ],
     image: "/product-images/63b2c61a-8d5e-4629-8eeb-9cc60a0455ad.png",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Green", hex: "#16A34A", type: "body" },
+    ],
   },
   {
     id: 14,
@@ -460,6 +525,10 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹445", locked: true },
     ],
     image: "/product-images/97210700-73d9-42bd-a663-ba7f999a096e.png",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+    ],
   },
   {
     id: 16,
@@ -489,6 +558,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹415", locked: true },
     ],
     image: "/product-images/da0dc403-f103-4957-8774-32bec4ca6213.png",
+    colors: [
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Black", hex: "#1F2937", type: "body" },
+    ],
   },
   {
     id: 17,
@@ -517,6 +592,11 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "₹380", locked: true },
     ],
     image: "/product-images/6483f3d0-fee8-4aa0-a200-310f3b43e68a.png",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+    ],
   },
   {
     id: 18,
@@ -545,6 +625,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
     image: "/product-images/pdf-kisan-sainik-kb-80.jpg",
+    colors: [
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Black", hex: "#1F2937", type: "body" },
+    ],
   },
   {
     id: 19,
@@ -573,6 +659,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
     image: "/product-images/pdf-tiger-kb-81.jpg",
+    colors: [
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Black", hex: "#1F2937", type: "body" },
+      { name: "Yellow", hex: "#EAB308", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+    ],
   },
   {
     id: 20,
@@ -601,6 +693,12 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
     image: "/product-images/pdf-venus-kb-68.jpg",
+    colors: [
+      { name: "Black", hex: "#1F2937", type: "body" },
+      { name: "Red", hex: "#DC2626", type: "body" },
+      { name: "Orange", hex: "#EA580C", type: "body" },
+      { name: "Green", hex: "#16A34A", type: "body" },
+    ],
   },
   {
     id: 21,
