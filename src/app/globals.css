@@ -21,6 +21,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, sans-serif;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 a, button { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }

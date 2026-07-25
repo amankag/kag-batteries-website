@@ -14,7 +14,7 @@ import SiteMotion from "./components/site-motion";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#f2f0ea] text-slate-950">
+    <main className="min-h-screen w-full max-w-full bg-[#f2f0ea] text-slate-950">
       <Header />
       <Hero />
       <About />
