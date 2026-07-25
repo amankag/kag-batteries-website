@@ -1,6 +1,6 @@
 import Header from "./components/header";
 import Hero from "./components/hero";
-import About from "./components/about";
+import InsideKagStory from "./components/InsideKagStory";
 import Products from "./components/product";
 import DealerCTA from "./components/DealerCTA";
 import ProductBrochures from "./components/ProductBrochures";
@@ -17,7 +17,7 @@ export default function Home() {
     <main className="min-h-screen w-full max-w-full bg-[#f2f0ea] text-slate-950">
       <Header />
       <Hero />
-      <About />
+      <InsideKagStory />
       <Products />
       <Features />
       <Gallery />
