@@ -1,17 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useImageRotator } from "./useImageRotator";
 
 interface RotatingProduct {
   slug: string;
   name: string;
   image: string;
 }
-
-const ROTATE_MS = 3500;
-const RESUME_DELAY_MS = 600;
 
 export default function RotatingHeroImage({
   products,
@@ -22,39 +19,7 @@ export default function RotatingHeroImage({
   className?: string;
   sizes?: string;
 }) {
-  const [index, setIndex] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const pausedRef = useRef(false);
-  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-
-  useEffect(() => {
-    if (reducedMotion || products.length <= 1) return;
-    const id = setInterval(() => {
-      if (!pausedRef.current) setIndex((i) => (i + 1) % products.length);
-    }, ROTATE_MS);
-    return () => clearInterval(id);
-  }, [reducedMotion, products.length]);
-
-  const pause = () => {
-    pausedRef.current = true;
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-  };
-
-  const resume = () => {
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-    resumeTimeoutRef.current = setTimeout(() => {
-      pausedRef.current = false;
-    }, RESUME_DELAY_MS);
-  };
-
+  const { index, reducedMotion, pause, resume } = useImageRotator(products.length);
   const current = products[index];
   if (!current) return null;
 
