@@ -2,6 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { initialProducts } from "@/data/products";
+import RotatingHeroImage from "./RotatingHeroImage";
+
+const HERO_ROTATION_SLUGS = [
+  "model-kb-555",
+  "kisan-sainik-model-kb-80",
+  "tiger-model-kb-81",
+  "star-beam-model-kb-22",
+  "jio-model-kb-88",
+];
+
+const heroProducts = HERO_ROTATION_SLUGS.map((slug) => initialProducts.find((p) => p.slug === slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p?.image))
+  .map((p) => ({ slug: p!.slug, name: p!.name, image: p!.image! }));
 
 export default function Hero() {
   return (
@@ -29,6 +43,12 @@ export default function Hero() {
               Talk to sales <span aria-hidden="true">↗</span>
             </Link>
           </div>
+          <div data-hero-line className="mt-8 md:hidden">
+            <div className="relative aspect-square w-36 overflow-hidden rounded-[1.5rem] border-4 border-[#d9f36b]/30 bg-[#f2f0ea] shadow-xl">
+              <RotatingHeroImage products={heroProducts} className="h-full w-full p-2" sizes="144px" />
+            </div>
+          </div>
+
           <div data-hero-line className="mt-14 flex items-center gap-5 text-xs uppercase tracking-[0.17em] text-emerald-50/55">
             <span className="h-px w-12 bg-[#d9f36b]" />
             Built for long nights and hard use
@@ -45,7 +65,7 @@ export default function Hero() {
             </div>
           </div>
           <div className="absolute -bottom-4 left-0 h-44 w-44 overflow-hidden rounded-[1.5rem] border-8 border-[#071a1b] bg-[#f2f0ea] shadow-xl">
-            <Image src="/product-images/51d42876-58d1-4e6d-a7c6-c2d1bea7933a.png" alt="KAG KB-555 rechargeable torch" fill className="object-contain p-2 mix-blend-multiply" sizes="176px" />
+            <RotatingHeroImage products={heroProducts} className="h-full w-full p-2" sizes="176px" />
           </div>
         </div>
       </div>
