@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { initialProducts, DEALER_WHATSAPP } from "@/data/products";
 import BulkInquiryForm from "./BulkInquiryForm";
+import ColorSwatches from "@/app/components/ColorSwatches";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -198,9 +199,12 @@ export default async function ProductPage({ params }: PageProps) {
               <p className="text-xs font-bold uppercase tracking-widest text-green-600 mb-2">
                 KAG Batteries
               </p>
-              <h1 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-3">
+              <h1 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-2">
                 {product.name}
               </h1>
+              <div className="mb-3">
+                <ColorSwatches colors={product.colors} />
+              </div>
               <p className="text-base text-slate-500 font-medium mb-5">{product.tagline}</p>
 
               {/* Highlights */}

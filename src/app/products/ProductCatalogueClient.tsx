@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product, DEALER_WHATSAPP } from "@/data/products";
+import ColorSwatches from "@/app/components/ColorSwatches";
 
 type Category = "all" | "lithium-ion" | "lead-acid";
 type ViewMode = "grid" | "list";
@@ -157,9 +158,12 @@ export default function ProductCatalogueClient({ products }: Props) {
                 <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mb-0.5">
                   {product.specs.batteryCapacity ?? product.category}
                 </p>
-                <h2 className="text-sm font-bold text-slate-900 group-hover:text-green-600 transition-colors line-clamp-2 leading-snug mb-auto">
+                <h2 className="text-sm font-bold text-slate-900 group-hover:text-green-600 transition-colors line-clamp-2 leading-snug">
                   {product.name}
                 </h2>
+                <div className="mt-1 mb-auto">
+                  <ColorSwatches colors={product.colors} />
+                </div>
                 <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100">
                   <span className="text-sm font-black text-slate-900">
                     {product.pricingTiers[0].price}
@@ -224,6 +228,9 @@ export default function ProductCatalogueClient({ products }: Props) {
                   <h2 className="text-sm sm:text-base font-bold text-slate-900 truncate">
                     {product.name}
                   </h2>
+                  <div className="mt-1">
+                    <ColorSwatches colors={product.colors} />
+                  </div>
                   <p className="text-xs text-slate-500 truncate">{product.tagline}</p>
 
                   {/* Inline specs */}

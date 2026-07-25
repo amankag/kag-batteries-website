@@ -261,6 +261,7 @@ export const initialProducts: Product[] = [
       { label: "Dealer Price", moq: "10+ units", price: "₹730", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "₹600", locked: true },
     ],
+    image: "/product-images/new/jio-hipower.png",
     colors: [
       { name: "Red", hex: "#DC2626", type: "body" },
       { name: "Yellow", hex: "#EAB308", type: "body" },
@@ -292,6 +293,7 @@ export const initialProducts: Product[] = [
       { label: "Dealer Price", moq: "10+ units", price: "₹730", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "₹600", locked: true },
     ],
+    image: "/product-images/new/jio-hipower.png",
     colors: [
       { name: "Red", hex: "#DC2626", type: "body" },
       { name: "Yellow", hex: "#EAB308", type: "body" },
@@ -620,11 +622,11 @@ export const initialProducts: Product[] = [
       body: "Heavy Duty",
     },
     pricingTiers: [
-      { label: "Retail MRP", moq: "1 unit+", price: "Contact", locked: false },
+      { label: "Retail MRP", moq: "1 unit+", price: "₹1,150", locked: false },
       { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
-    image: "/product-images/pdf-kisan-sainik-kb-80.jpg",
+    image: "/product-images/new/kisan-sainik-kb80.png",
     colors: [
       { name: "Red", hex: "#DC2626", type: "body" },
       { name: "Yellow", hex: "#EAB308", type: "body" },
@@ -654,11 +656,11 @@ export const initialProducts: Product[] = [
       body: "Heavy Duty",
     },
     pricingTiers: [
-      { label: "Retail MRP", moq: "1 unit+", price: "Contact", locked: false },
+      { label: "Retail MRP", moq: "1 unit+", price: "₹1,050", locked: false },
       { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
-    image: "/product-images/pdf-tiger-kb-81.jpg",
+    image: "/product-images/new/tiger-kb81.png",
     colors: [
       { name: "Orange", hex: "#EA580C", type: "body" },
       { name: "Black", hex: "#1F2937", type: "body" },
@@ -688,11 +690,11 @@ export const initialProducts: Product[] = [
       body: "Durable Body",
     },
     pricingTiers: [
-      { label: "Retail MRP", moq: "1 unit+", price: "Contact", locked: false },
+      { label: "Retail MRP", moq: "1 unit+", price: "₹1,000", locked: false },
       { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
-    image: "/product-images/pdf-venus-kb-68.jpg",
+    image: "/product-images/new/venus-kb68.png",
     colors: [
       { name: "Black", hex: "#1F2937", type: "body" },
       { name: "Red", hex: "#DC2626", type: "body" },
@@ -724,11 +726,11 @@ export const initialProducts: Product[] = [
       body: "Compact",
     },
     pricingTiers: [
-      { label: "Retail MRP", moq: "1 unit+", price: "Contact", locked: false },
+      { label: "Retail MRP", moq: "1 unit+", price: "₹950", locked: false },
       { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
-    image: "/product-images/pdf-champion.jpg",
+    image: "/product-images/new/champion.png",
   },
   {
     id: 22,
@@ -752,10 +754,10 @@ export const initialProducts: Product[] = [
       body: "Heavy Duty",
     },
     pricingTiers: [
-      { label: "Retail MRP", moq: "1 unit+", price: "Contact", locked: false },
+      { label: "Retail MRP", moq: "1 unit+", price: "₹1,100", locked: false },
       { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
-    image: "/product-images/pdf-power-house-roxy.jpg",
+    image: "/product-images/new/power-house-roxy.png",
   },
 ];
