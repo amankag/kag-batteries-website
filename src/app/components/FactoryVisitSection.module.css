@@ -437,7 +437,16 @@
   .finale .chapterCopy > a { margin-top: 13px; padding: 11px 14px; font-size: 13px; }
   .proofWall { height: auto; min-height: 0; gap: 7px; }
   .proofPhoto { border-radius: 13px; }
-  .proofPhoto > span, .photoDeck button > span { font-size: 12px; }
+  .proofPhoto > span, .photoDeck button > span {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    align-items: center;
+    padding: 9px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
 
   .lightbox { padding: 56px 12px 20px; }
   .lightbox figure img { max-height: 76vh; border-radius: 11px; }
