@@ -72,7 +72,7 @@ export default function Header() {
             <nav className="hidden items-center gap-8 text-sm font-medium text-emerald-50/80 md:flex">
               <Link href="/#about" className="transition hover:text-white">The company</Link>
               <Link href="/products" className="transition hover:text-white">Catalogue</Link>
-              <Link href="/#gallery" className="transition hover:text-white">Factory proof</Link>
+              <Link href="/#factory-visit" className="transition hover:text-white">Factory proof</Link>
               <Link href="/#contact" className="transition hover:text-white">Contact</Link>
               <Link
                 href="/inquiry"
@@ -116,7 +116,7 @@ export default function Header() {
             {[
               ["The company", "/#about"],
               ["Catalogue", "/products"],
-              ["Factory proof", "/#gallery"],
+              ["Factory proof", "/#factory-visit"],
               ["Contact", "/#contact"],
             ].map(([label, href]) => (
               <Link

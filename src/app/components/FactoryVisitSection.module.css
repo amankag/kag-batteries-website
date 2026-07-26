@@ -1,0 +1,458 @@
+.track {
+  --paper: #f4f1e9;
+  --ink: #11120f;
+  --orange: #ff7900;
+  --lime: #d9f36b;
+  height: 430vh;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgba(17, 18, 15, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(17, 18, 15, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 48px 48px;
+}
+
+/* ── Top nav strip ─ sits directly below the site's persistent sticky
+   header (same offset pattern as ProductRangeShowcase/WhyUsSection),
+   not a second duplicate header. */
+
+.meta {
+  position: absolute;
+  z-index: 30;
+  top: 24px;
+  left: clamp(24px, 3.4vw, 56px);
+  right: clamp(24px, 3.4vw, 56px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(17, 18, 15, 0.18);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.meta > span { color: var(--orange); }
+.meta > p { margin: 0; color: #65716e; }
+.meta > b { justify-self: end; }
+
+.tabs {
+  position: absolute;
+  z-index: 31;
+  top: 67px;
+  left: clamp(24px, 3.4vw, 56px);
+  right: clamp(24px, 3.4vw, 56px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid rgba(17, 18, 15, 0.18);
+}
+
+.tabs button {
+  display: flex;
+  gap: 9px;
+  min-width: 0;
+  padding: 11px 4px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  color: #77817f;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.tabs button.isActive { color: var(--orange); border-bottom-color: var(--orange); }
+
+.tabs small {
+  overflow: hidden;
+  font: inherit;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.scene { position: absolute; z-index: 5; inset: 107px 0 0; }
+
+.opening, .founders, .production, .finale {
+  position: absolute;
+  inset: 0;
+}
+
+.openingPhoto {
+  object-fit: cover;
+  will-change: opacity, transform;
+}
+
+.exterior { object-position: center 54%; }
+
+.openingScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(244, 241, 233, 0.96) 0%,
+    rgba(244, 241, 233, 0.82) 34%,
+    rgba(244, 241, 233, 0.28) 58%,
+    transparent 76%
+  );
+  pointer-events: none;
+}
+
+.openingCopy {
+  position: absolute;
+  z-index: 3;
+  top: 8%;
+  left: clamp(24px, 5vw, 78px);
+  width: min(58vw, 860px);
+}
+
+.openingCopy p, .chapterCopy p {
+  margin: 0 0 16px;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.openingCopy h1, .chapterCopy h1 {
+  margin: 0;
+  font-size: clamp(48px, 6vw, 94px);
+  font-weight: 900;
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+}
+
+.openingCopy em, .chapterCopy em { color: var(--orange); font-style: normal; }
+
+.openingCopy > span, .chapterCopy > span {
+  display: block;
+  max-width: 560px;
+  margin-top: 22px;
+  color: #52615e;
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.5;
+}
+
+.scrollEntry {
+  position: absolute;
+  right: clamp(24px, 4vw, 64px);
+  bottom: 7%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-shadow: 0 1px 12px rgba(17, 18, 15, 0.8);
+}
+
+.scrollEntry i { width: 46px; height: 2px; background: var(--orange); }
+
+.founders, .finale {
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: clamp(22px, 3vw, 54px);
+  align-items: center;
+  padding: 3.2% clamp(24px, 4vw, 64px) 5%;
+  background: radial-gradient(circle at 74% 44%, rgba(255, 121, 0, 0.12), transparent 30%), var(--paper);
+}
+
+.founders .chapterCopy h1, .finale .chapterCopy h1 { font-size: clamp(44px, 4.9vw, 76px); }
+
+.founderMedia {
+  width: min(100%, calc((100svh - 268px) * 1.7778), 980px);
+  justify-self: center;
+}
+
+.founderPhoto {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(17, 18, 15, 0.16);
+  border-radius: 24px;
+  background: #eee5d6;
+  box-shadow: 0 30px 80px rgba(17, 18, 15, 0.12);
+  cursor: zoom-in;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .founderPhoto:hover { transform: translateY(-7px) rotateY(-1.5deg); }
+}
+
+.founderPhoto > span, .photoDeck button > span, .proofPhoto > span {
+  position: absolute;
+  z-index: 3;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 13px;
+  border-radius: 999px;
+  color: white;
+  background: rgba(17, 18, 15, 0.76);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.founderStatement {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: clamp(10px, 1.5vw, 24px);
+  margin-top: 14px;
+  font-size: clamp(17px, 1.65vw, 25px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.founderStatement strong {
+  opacity: var(--reveal);
+  transform: translateY(calc((1 - var(--reveal)) * 12px));
+}
+
+.founderStatement .teamLine { color: var(--orange); }
+
+.production {
+  overflow: hidden;
+  padding: 4% clamp(24px, 4vw, 64px) 7%;
+  background: radial-gradient(circle at 72% 55%, rgba(217, 243, 107, 0.24), transparent 31%), #f4f2e8;
+}
+
+.production .chapterCopy {
+  position: absolute;
+  z-index: 12;
+  top: 10%;
+  left: clamp(24px, 4vw, 64px);
+  width: min(41vw, 620px);
+}
+
+.production .chapterCopy h1 { font-size: clamp(43px, 4.8vw, 74px); }
+
+.photoDeck {
+  position: absolute;
+  top: 6%;
+  right: clamp(24px, 4vw, 64px);
+  bottom: 9%;
+  width: min(53vw, 830px);
+  perspective: 1200px;
+}
+
+.photoDeck button {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(17, 18, 15, 0.14);
+  border-radius: 34px;
+  background: #ddd;
+  box-shadow: 0 28px 70px rgba(17, 18, 15, 0.16);
+  cursor: zoom-in;
+  opacity: var(--opacity);
+  transform: translate3d(var(--x), var(--y), var(--z)) rotateY(var(--rotate)) scale(var(--scale));
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.55s ease;
+}
+
+.photoDeck button.isActive { z-index: 6; }
+
+.finale { grid-template-columns: 0.72fr 1.28fr; }
+
+.finale .chapterCopy > a {
+  display: flex;
+  width: fit-content;
+  gap: 30px;
+  margin-top: 28px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--lime);
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.proofWall {
+  height: min(59vh, 610px);
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 11px;
+  perspective: 1200px;
+}
+
+.proofPhoto {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: 24px;
+  cursor: zoom-in;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proofPhoto:hover { z-index: 4; transform: translateZ(24px) scale(1.025); }
+}
+
+.photo1 { grid-row: 1 / 3; }
+
+.progress {
+  position: absolute;
+  z-index: 50;
+  inset: auto 0 0;
+  height: 4px;
+  background: rgba(17, 18, 15, 0.1);
+}
+
+.progress i { display: block; height: 100%; background: var(--orange); }
+
+.lightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 4vh 4vw;
+  background: rgba(6, 20, 18, 0.92);
+  backdrop-filter: blur(18px);
+}
+
+.lightbox > button {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  color: white;
+  background: transparent;
+  border: 0;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.lightbox figure { width: min(92vw, 1500px); margin: 0; }
+
+.lightbox figure img {
+  display: block;
+  width: 100%;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.lightbox figcaption { margin-top: 12px; color: white; font-size: 16px; }
+
+@media (max-width: 760px) {
+  .track { height: 440vh; }
+  .stage { min-height: 620px; }
+
+  .meta {
+    top: 16px;
+    left: 20px;
+    right: 20px;
+    grid-template-columns: 1fr auto;
+    padding-bottom: 9px;
+    font-size: 12px;
+  }
+  .meta > p { display: none; }
+
+  .tabs {
+    top: 51px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button {
+    flex: 0 0 auto;
+    min-width: 140px;
+    padding: 10px 5px;
+    font-size: 12px;
+  }
+  .tabs small { max-width: 108px; }
+  .scene { inset: 92px 0 0; }
+
+  .openingCopy { top: 6%; left: 20px; right: 20px; width: auto; }
+  .openingCopy p, .chapterCopy p { margin-bottom: 10px; font-size: 12px; }
+  .openingCopy h1 { font-size: clamp(34px, 10vw, 46px); }
+  .openingCopy > span, .chapterCopy > span {
+    margin-top: 13px;
+    font-size: 16px;
+    line-height: 1.42;
+  }
+  .exterior { object-position: 44% 54%; }
+  .openingScrim {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 241, 233, 0.96) 0%,
+      rgba(244, 241, 233, 0.82) 35%,
+      rgba(244, 241, 233, 0.22) 65%,
+      transparent 82%
+    );
+  }
+
+  .founders, .finale {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 14px;
+    align-items: stretch;
+    padding: 5% 20px 8%;
+  }
+  .founders .chapterCopy h1, .finale .chapterCopy h1 { font-size: clamp(30px, 8.8vw, 40px); }
+  .founderMedia { width: 100%; }
+  .founderPhoto { width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; }
+  .founderPhoto > span { left: 9px; right: 9px; bottom: 8px; font-size: 12px; }
+  .founderStatement {
+    grid-template-columns: 1fr;
+    gap: 3px;
+    margin-top: 8px;
+    font-size: clamp(17px, 4.7vw, 21px);
+    line-height: 1;
+  }
+
+  .production { padding: 5% 20px 8%; }
+  .production .chapterCopy { top: 5%; left: 20px; right: 20px; width: auto; }
+  .production .chapterCopy h1 { font-size: clamp(30px, 8.5vw, 39px); }
+  .photoDeck { top: 39%; left: 20px; right: 20px; bottom: 9%; width: auto; }
+  .photoDeck button { border-radius: 19px; }
+
+  .finale .chapterCopy > a { margin-top: 13px; padding: 11px 14px; font-size: 13px; }
+  .proofWall { height: auto; min-height: 0; gap: 7px; }
+  .proofPhoto { border-radius: 13px; }
+  .proofPhoto > span, .photoDeck button > span { font-size: 12px; }
+
+  .lightbox { padding: 56px 12px 20px; }
+  .lightbox figure img { max-height: 76vh; border-radius: 11px; }
+}
+
+@media (max-width: 760px) and (max-height: 690px) {
+  .openingCopy h1 { font-size: clamp(30px, 8.8vw, 39px); }
+  .founders .chapterCopy h1, .production .chapterCopy h1, .finale .chapterCopy h1 {
+    font-size: clamp(27px, 7.8vw, 34px);
+  }
+  .photoDeck { top: 40%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .founderPhoto, .photoDeck button, .proofPhoto {
+    animation: none;
+    transition: none;
+  }
+}

@@ -5,7 +5,7 @@ import WhyUsSection from "./components/WhyUsSection";
 import ProductRangeShowcase from "./components/ProductRangeShowcase";
 import DealerCTA from "./components/DealerCTA";
 import ProductBrochures from "./components/ProductBrochures";
-import Gallery from "./components/gallery";
+import FactoryVisitSection from "./components/FactoryVisitSection";
 import Testimonials from "./components/testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
@@ -20,7 +20,7 @@ export default function Home() {
       <InsideKagStory />
       <ProductRangeShowcase />
       <WhyUsSection />
-      <Gallery />
+      <FactoryVisitSection />
       <DealerCTA />
       <ProductBrochures />
       <Testimonials />
