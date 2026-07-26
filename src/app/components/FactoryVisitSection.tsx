@@ -42,7 +42,7 @@ const finalImages: GalleryImage[] = [
   {
     src: "/images/Copy of IMG_5876.jpg",
     alt: "Wide view of the torch manufacturing floor",
-    caption: "Torches taking shape",
+    caption: "Taking shape",
   },
   {
     src: "/images/Copy of IMG_5877.jpg",

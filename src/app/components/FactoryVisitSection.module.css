@@ -195,15 +195,35 @@
   .founderPhoto:hover { transform: translateY(-7px) rotateY(-1.5deg); }
 }
 
-.founderPhoto > span, .photoDeck button > span, .proofPhoto > span {
+.founderPhoto > span {
   position: absolute;
   z-index: 3;
-  left: 16px;
-  right: 16px;
-  bottom: 14px;
+  left: 15px;
+  right: 15px;
+  bottom: 13px;
   display: flex;
   justify-content: space-between;
-  padding: 11px 13px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: white;
+  background: rgba(17, 18, 15, 0.76);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.photoDeck button > span, .proofPhoto > span {
+  position: absolute;
+  z-index: 3;
+  left: 13px;
+  right: auto;
+  bottom: 12px;
+  max-width: calc(100% - 26px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
   border-radius: 999px;
   color: white;
   background: rgba(17, 18, 15, 0.76);
@@ -438,15 +458,17 @@
   .proofWall { height: auto; min-height: 0; gap: 7px; }
   .proofPhoto { border-radius: 13px; }
   .proofPhoto > span, .photoDeck button > span {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    align-items: center;
-    padding: 9px 12px;
-    border-radius: 14px;
+    left: 8px;
+    right: auto;
+    bottom: 8px;
+    max-width: calc(100% - 16px);
+    gap: 5px;
+    padding: 6px 9px;
+    border-radius: 999px;
     font-size: 12px;
     line-height: 1.25;
   }
+  .proofPhoto > span b, .photoDeck button > span b { flex-shrink: 0; }
 
   .lightbox { padding: 56px 12px 20px; }
   .lightbox figure img { max-height: 76vh; border-radius: 11px; }
