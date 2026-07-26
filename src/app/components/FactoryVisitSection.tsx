@@ -122,7 +122,8 @@ export default function FactoryVisitSection() {
                 alt="KAG Batteries factory in Indore"
                 fill
                 priority
-                sizes="100vw"
+                quality={92}
+                sizes="(max-width: 760px) 250vw, 100vw"
                 className={`${styles.openingPhoto} ${styles.exterior}`}
                 style={{
                   opacity: 1 - interior,
@@ -134,7 +135,8 @@ export default function FactoryVisitSection() {
                 alt=""
                 aria-hidden="true"
                 fill
-                sizes="100vw"
+                quality={92}
+                sizes="(max-width: 760px) 250vw, 100vw"
                 className={styles.openingPhoto}
                 style={{
                   opacity: interior,
