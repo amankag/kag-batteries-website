@@ -1,0 +1,316 @@
+.track {
+  --ink: #071a1b;
+  --lime: #d9f36b;
+  --paper: #f9f8f3;
+  --orange: #ff7900;
+  height: 280vh;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background 0.65s ease;
+}
+
+.stage.scene1 {
+  background: radial-gradient(circle at 78% 60%, rgba(7, 26, 27, 0.08), transparent 34%), var(--lime);
+}
+
+.stage.scene2 {
+  background: radial-gradient(circle at 76% 40%, rgba(255, 121, 0, 0.08), transparent 32%), var(--paper);
+}
+
+/* ── Top nav ─ same offset pattern as the other scroll sections, sitting
+   directly below the site's persistent sticky header. */
+
+.topline {
+  position: absolute;
+  z-index: 30;
+  top: 24px;
+  left: clamp(24px, 3.4vw, 56px);
+  right: clamp(24px, 3.4vw, 56px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(7, 26, 27, 0.18);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.topline > span { color: var(--ink); opacity: 0.6; }
+.topline > b { justify-self: end; }
+
+.beam {
+  position: absolute;
+  z-index: 31;
+  left: clamp(24px, 3.4vw, 56px);
+  right: clamp(24px, 3.4vw, 56px);
+  top: 77px;
+  height: 2px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(7, 26, 27, 0.14);
+}
+
+.beam > i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  max-width: 100%;
+  background: linear-gradient(90deg, var(--ink), rgba(7, 26, 27, 0.7));
+  transition: width 0.15s linear;
+}
+
+.beam button {
+  position: relative;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  margin-top: -14px;
+  border: 1px solid rgba(7, 26, 27, 0.25);
+  border-radius: 50%;
+  color: rgba(7, 26, 27, 0.6);
+  background: var(--paper);
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.stage.scene1 .beam button { background: var(--lime); }
+
+.beam button.isActive {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+  transform: scale(1.08);
+}
+
+.beam button.isPassed { color: var(--ink); border-color: var(--ink); }
+
+/* ── Scene content ─────────────────────────────────────────────────── */
+
+.scene1Content,
+.scene2Content {
+  position: absolute;
+  inset: 107px 0 0;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding: 0 clamp(24px, 4vw, 64px) 6%;
+  animation: dealerFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes dealerFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+}
+
+.copy > p {
+  margin: 0 0 16px;
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.copy h1 {
+  margin: 0;
+  font-size: clamp(40px, 5vw, 76px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+}
+
+.copy h1 em { color: var(--orange); font-style: normal; }
+
+.copy > span {
+  display: block;
+  max-width: 480px;
+  margin-top: 20px;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.55;
+  color: rgba(7, 26, 27, 0.72);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.ctaPrimary {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ctaPrimary:hover { background: var(--orange); }
+}
+
+.ctaSecondary {
+  color: var(--ink);
+  border: 1px solid rgba(7, 26, 27, 0.3);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ctaSecondary:hover { border-color: var(--ink); }
+}
+
+/* ── Chapter 1 — reveal list ──────────────────────────────────────── */
+
+.pointList {
+  border-top: 1px solid rgba(7, 26, 27, 0.2);
+}
+
+.pointRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(7, 26, 27, 0.2);
+  opacity: var(--reveal);
+  transform: translateX(calc((1 - var(--reveal)) * 24px));
+}
+
+.pointRow > span {
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pointRow > b { color: rgba(7, 26, 27, 0.5); font-size: 13px; font-weight: 700; }
+
+/* ── Chapter 2 — stat list + brochure deck ────────────────────────── */
+
+.statList {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  opacity: var(--reveal);
+  transform: translateX(calc((1 - var(--reveal)) * 18px));
+}
+
+.statList li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.brochureDeck {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 38vh, 420px);
+}
+
+.deckCard {
+  position: absolute;
+  inset: 0;
+  width: 62%;
+  height: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  border: 1px solid rgba(7, 26, 27, 0.14);
+  border-radius: 22px;
+  background: #eee;
+  box-shadow: 0 24px 60px rgba(7, 26, 27, 0.16);
+  transform: translateX(calc(var(--i) * 34px)) translateY(calc(var(--i) * 10px)) rotate(calc(var(--i) * 6deg));
+  z-index: calc(3 - var(--i));
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brochureDeck:hover .deckCard {
+    transform: translateX(calc(var(--i) * 46px)) translateY(calc(var(--i) * 6px)) rotate(calc(var(--i) * 7deg));
+  }
+}
+
+.progress {
+  position: absolute;
+  z-index: 40;
+  inset: auto 0 0;
+  height: 4px;
+  background: rgba(7, 26, 27, 0.12);
+}
+
+.progress i { display: block; height: 100%; background: var(--ink); }
+
+@media (max-width: 760px) {
+  .track { height: 320vh; }
+  .stage { min-height: 640px; }
+
+  .topline { top: 26px; left: 20px; right: 20px; font-size: 11px; padding-bottom: 9px; }
+  .beam { top: 77px; left: 20px; right: 20px; }
+  .beam button { width: 27px; height: 27px; margin-top: -12px; font-size: 10px; }
+
+  .scene1Content,
+  .scene2Content {
+    inset: 107px 0 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    gap: 22px;
+    padding: 0 20px 6%;
+    overflow-y: auto;
+  }
+
+  .copy h1 { font-size: clamp(32px, 9vw, 46px); }
+  .copy > span { margin-top: 13px; font-size: 15px; line-height: 1.45; }
+  .ctaRow { margin-top: 20px; }
+  .ctaPrimary, .ctaSecondary { padding: 11px 16px; font-size: 12px; }
+
+  .pointRow { padding: 13px 0; }
+  .pointRow > span { font-size: 18px; }
+
+  .brochureDeck { height: clamp(220px, 30vh, 300px); }
+  .deckCard { width: 58%; }
+}
+
+@media (max-width: 760px) and (max-height: 690px) {
+  .copy h1 { font-size: clamp(28px, 8vw, 38px); }
+  .brochureDeck { height: 190px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene1Content, .scene2Content, .pointRow, .statList li, .deckCard {
+    animation: none;
+    transition: none;
+  }
+}

@@ -3,9 +3,8 @@ import Hero from "./components/hero";
 import InsideKagStory from "./components/InsideKagStory";
 import WhyUsSection from "./components/WhyUsSection";
 import ProductRangeShowcase from "./components/ProductRangeShowcase";
-import DealerCTA from "./components/DealerCTA";
-import ProductBrochures from "./components/ProductBrochures";
 import FactoryVisitSection from "./components/FactoryVisitSection";
+import DealerHubSection from "./components/DealerHubSection";
 import Testimonials from "./components/testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
@@ -21,8 +20,7 @@ export default function Home() {
       <ProductRangeShowcase />
       <WhyUsSection />
       <FactoryVisitSection />
-      <DealerCTA />
-      <ProductBrochures />
+      <DealerHubSection />
       <Testimonials />
       <Contact />
       <Footer />
