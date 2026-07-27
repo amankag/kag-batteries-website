@@ -68,6 +68,14 @@ const demandCards = [
   ["SECURITY", "Night rounds"],
 ];
 
+const loopFrames: [string, string][] = [
+  ["STEP 01", "LISTEN"],
+  ["STEP 02", "IMPROVE"],
+  ["STEP 03", "REFINE"],
+  ["STEP 04", "TEST"],
+  ["ONE LOOP", "EVERY BATCH"],
+];
+
 const testGates = [
   ["01", "Material quality", "Wiring, battery and body checked"],
   ["02", "Repeated charging", "Checked through charge and use cycles"],
@@ -78,6 +86,7 @@ function ChapterVisual({ active }: { active: number }) {
   const distributorCount = useCountUp(active === 2, DISTRIBUTOR_COUNT);
   const retailerCount = useCountUp(active === 2, RETAILER_COUNT);
   const [demandIndex, setDemandIndex] = useState(0);
+  const [loopIndex, setLoopIndex] = useState(0);
 
   useEffect(() => {
     if (active !== 1) return;
@@ -85,19 +94,29 @@ function ChapterVisual({ active }: { active: number }) {
     return () => clearInterval(id);
   }, [active]);
 
+  useEffect(() => {
+    if (active !== 0) return;
+    const id = setInterval(() => setLoopIndex((i) => (i + 1) % loopFrames.length), 1500);
+    return () => clearInterval(id);
+  }, [active]);
+
   if (active === 0) {
     return (
       <div className={styles.legacyVisual}>
-        <div className={styles.legacyOrbit} aria-hidden="true">
-          <i /><i /><i /><i />
-        </div>
-        <div className={styles.legacyOrbitLabels} aria-hidden="true">
-          <span>LISTEN</span><span>IMPROVE</span><span>REFINE</span><span>TEST</span>
-        </div>
-        <div className={styles.legacyCenter}>
-          <span>ONE SIMPLE LOOP</span>
-          <strong>4</strong>
-          <b>STEPS.<br />EVERY BATCH.</b>
+        <div className={styles.legacyOrbitWrap}>
+          <div className={styles.legacyOrbit} aria-hidden="true">
+            <i /><i /><i /><i />
+          </div>
+          <div className={styles.legacyOrbitLabels} aria-hidden="true">
+            <span>LISTEN</span><span>IMPROVE</span><span>REFINE</span><span>TEST</span>
+          </div>
+          <div className={styles.legacyCenter}>
+            <span>THE KAG LOOP</span>
+            <div key={loopFrames[loopIndex][1]} className={styles.centerFrame}>
+              <b>{loopFrames[loopIndex][0]}</b>
+              <strong>{loopFrames[loopIndex][1]}</strong>
+            </div>
+          </div>
         </div>
         <div className={styles.legacyYears}>
           <div><small>HEARD IN</small><strong>THE FIELD</strong><span>DEALERS &amp; USERS</span></div>

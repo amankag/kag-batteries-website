@@ -15,7 +15,7 @@ const chapters = [
 const dealerPoints = [
   "Factory-direct pricing",
   "24–48 hour dispatch",
-  "Clear MOQs, no surprises",
+  "Clear minimum order quantities",
   "Reorder on WhatsApp",
 ];
 
@@ -88,7 +88,7 @@ export default function DealerHubSection() {
                 <br />
                 <em>MADE SIMPLE.</em>
               </h1>
-              <span>Factory-direct pricing. Clear MOQs. A team that answers on WhatsApp, not hold music.</span>
+              <span>Factory-direct pricing. Clear minimum order quantities. A team that answers on WhatsApp, not hold music.</span>
               <div className={styles.ctaRow}>
                 <Link href="/inquiry" className={styles.ctaPrimary}>
                   Start a dealer inquiry <b aria-hidden="true">↗</b>

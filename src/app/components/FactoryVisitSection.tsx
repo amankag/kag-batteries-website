@@ -151,7 +151,7 @@ export default function FactoryVisitSection() {
                   <br />
                   <em>SEE HOW TORCHES ARE MADE.</em>
                 </h1>
-                <span>One factory. Real machines. Real people. Nothing staged.</span>
+                <span>One factory. Real machines. Real people. Made with pride in Indore.</span>
               </div>
               <div className={styles.scrollEntry}>
                 SCROLL TO STEP INSIDE <i />
@@ -169,8 +169,8 @@ export default function FactoryVisitSection() {
                   <em>A SIMPLE PROMISE.</em>
                 </h1>
                 <span>
-                  Build a torch a farmer can afford—and never let it fail them in a dark field. Our founders
-                  made that promise to rural India, and this factory keeps it every day.
+                  Build a torch a farmer can afford. Our founders come from a farming family—they know those
+                  needs first-hand, and this factory still builds for them every day.
                 </span>
               </div>
               <div className={styles.founderMedia}>
