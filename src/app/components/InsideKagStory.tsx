@@ -10,9 +10,9 @@ const TORCHES_MANUFACTURED = 1_000_000;
 const scenes = [
   {
     number: "01",
-    eyebrow: "THE PEOPLE BEHIND KAG",
-    title: "Born in Indore.",
-    body: "A family-run manufacturer building dependable rechargeable torches since 1997.",
+    eyebrow: "A FAMILY NAME ON EVERY TORCH",
+    title: "KAG is our surname.",
+    body: "When your family name is printed on every torch, you build it like your reputation depends on it—because it does. Family-run in Indore since 1997.",
     proof: "1997",
     proofLabel: "Production began in Indore",
     image: "/directors-1.jpg",
@@ -20,7 +20,7 @@ const scenes = [
     height: 1208,
     alt: "The two founders of KAG Batteries together at the company office",
     imageClass: styles.founders,
-    caption: "01 — THE PEOPLE BEHIND KAG",
+    caption: "01 — A FAMILY NAME ON EVERY TORCH",
   },
   {
     number: "02",

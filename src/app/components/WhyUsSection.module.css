@@ -242,6 +242,11 @@
     line-height: 0.92;
   }
 
+  .stage.scene3 .copy h1 {
+    font-size: clamp(31px, 8.8vw, 40px);
+    line-height: 0.92;
+  }
+
   .copy > div {
     max-width: 96%;
     margin-top: 13px;
@@ -310,6 +315,11 @@
   .stage.scene2 .visual {
     top: 51%;
     height: 42.5%;
+  }
+
+  .stage.scene3 .visual {
+    top: 56%;
+    height: 38%;
   }
 }
 
@@ -635,25 +645,51 @@
 
 .buildDemands > div > b { display: block; margin-top: 7px; font-size: 13px; line-height: 1.25; }
 
-.buildDemands ul {
+.demandRotator {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  justify-items: start;
   gap: 7px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
-.buildDemands li {
-  min-width: 0;
-  padding: 8px 10px;
+.demandCard {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 16px;
   border: 1px solid rgba(17, 18, 15, 0.14);
   border-radius: 12px;
   background: #f4eee3;
+  animation: whyDemandIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-.buildDemands li strong { display: block; color: var(--why-orange); font-size: 10px; }
-.buildDemands li small { display: block; margin-top: 5px; color: #66716e; font-size: 9px; }
+@keyframes whyDemandIn {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+}
+
+.demandCard strong { color: var(--why-orange); font-size: 15px; letter-spacing: 0.04em; }
+.demandCard small { color: #66716e; font-size: 11px; }
+
+.demandDots {
+  display: flex;
+  gap: 5px;
+  padding-left: 4px;
+}
+
+.demandDots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(17, 18, 15, 0.18);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.demandDots i.isOn {
+  background: var(--why-orange);
+  transform: scale(1.25);
+}
 
 @media (max-width: 760px) {
   .buildVisual { grid-template-rows: auto 1fr auto; gap: 7px; padding: 10px; border-radius: 16px; }
@@ -665,13 +701,13 @@
   .buildMaterials h3 { font-size: 12px; }
   .buildMaterials article p { margin-top: 3px; font-size: 10px; line-height: 1.25; }
   .buildMaterials article > span { font-size: 8px; letter-spacing: 0.07em; }
-  .buildDemands { grid-template-columns: 0.82fr 1.5fr; gap: 7px; padding-top: 6px; }
+  .buildDemands { grid-template-columns: 1fr auto; gap: 7px; padding-top: 6px; align-items: center; }
   .buildDemands > div > span { font-size: 8.5px; letter-spacing: 0.09em; }
   .buildDemands > div > b { margin-top: 4px; font-size: 11px; }
-  .buildDemands ul { grid-template-columns: repeat(2, 1fr); gap: 4px; }
-  .buildDemands li { padding: 6px; border-radius: 7px; }
-  .buildDemands li strong { font-size: 9.5px; }
-  .buildDemands li small { margin-top: 3px; font-size: 8.5px; }
+  .demandRotator { gap: 5px; justify-items: end; }
+  .demandCard { gap: 7px; padding: 8px 11px; border-radius: 9px; }
+  .demandCard strong { font-size: 13px; }
+  .demandCard small { font-size: 10px; }
 }
 
 /* ── Chapter 03 — checks + dealer network ─────────────────────────── */

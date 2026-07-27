@@ -402,11 +402,12 @@
   .tabs::-webkit-scrollbar { display: none; }
   .tabs button {
     flex: 0 0 auto;
-    min-width: 140px;
-    padding: 10px 5px;
+    min-width: 0;
+    padding: 10px 7px;
     font-size: 12px;
   }
-  .tabs small { max-width: 108px; }
+  .tabs small { display: none; }
+  .tabs button.isActive small { display: block; max-width: 52vw; }
   .scene { inset: 107px 0 0; }
 
   .openingCopy { top: 6%; left: 20px; right: 20px; width: auto; }
@@ -458,17 +459,21 @@
   .proofWall { height: auto; min-height: 0; gap: 7px; }
   .proofPhoto { border-radius: 13px; }
   .proofPhoto > span, .photoDeck button > span {
-    left: 8px;
-    right: auto;
-    bottom: 8px;
-    max-width: calc(100% - 16px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    display: flex;
     gap: 5px;
-    padding: 6px 9px;
-    border-radius: 999px;
-    font-size: 12px;
-    line-height: 1.25;
+    padding: 16px 9px 7px;
+    border-radius: 0;
+    background: linear-gradient(180deg, transparent, rgba(17, 18, 15, 0.74) 58%);
+    backdrop-filter: none;
+    font-size: 10.5px;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
   }
-  .proofPhoto > span b, .photoDeck button > span b { flex-shrink: 0; }
+  .proofPhoto > span b, .photoDeck button > span b { flex-shrink: 0; margin-left: auto; }
 
   .lightbox { padding: 56px 12px 20px; }
   .lightbox figure img { max-height: 76vh; border-radius: 11px; }

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { DEALER_WHATSAPP } from "@/data/products";
 import styles from "./Contact.module.css";
@@ -18,6 +18,12 @@ const trustStats = [
 export default function Contact() {
   const [form, setForm] = useState<FormState>(initialForm);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [statIndex, setStatIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setStatIndex((i) => (i + 1) % trustStats.length), 2400);
+    return () => clearInterval(id);
+  }, []);
 
   function update(name: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [name]: value }));
@@ -52,13 +58,16 @@ export default function Contact() {
             day one. Twenty-seven years in, we&apos;re still the name shopkeepers ask for by name.
           </p>
 
-          <div className={styles.statGrid}>
-            {trustStats.map(([value, label]) => (
-              <div key={label} className={styles.statCard}>
-                <strong>{value}</strong>
-                <span>{label}</span>
-              </div>
-            ))}
+          <div className={styles.statRotator}>
+            <div key={trustStats[statIndex][0]} className={styles.statCard}>
+              <strong>{trustStats[statIndex][0]}</strong>
+              <span>{trustStats[statIndex][1]}</span>
+            </div>
+            <div className={styles.statDots} aria-hidden="true">
+              {trustStats.map(([value], index) => (
+                <i key={value} className={index === statIndex ? styles.isOn : ""} />
+              ))}
+            </div>
           </div>
         </div>
 

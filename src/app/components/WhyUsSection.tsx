@@ -1,11 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./WhyUsSection.module.css";
 import { useScrollProgress } from "./useScrollProgress";
 import { useCountUp } from "./useCountUp";
 
-const YEARS_SINCE_1997 = new Date().getFullYear() - 1997;
 const DISTRIBUTOR_COUNT = 120;
 const RETAILER_COUNT = 300;
 
@@ -15,15 +15,15 @@ const chapters = [
     label: "TRUST, REFINED",
     title: (
       <>
-        <span className={styles.headlineLock}>BETTER TORCHES.</span>
+        <span className={styles.headlineLock}>WE LISTEN.</span>
         <br />
-        <span className={styles.headlineLock}>BETTER BATTERIES.</span>
+        <span className={styles.headlineLock}>WE IMPROVE.</span>
         <br />
-        <em className={styles.headlineLock}>SINCE 1997.</em>
+        <em className={styles.headlineLock}>WE REPEAT.</em>
       </>
     ),
     summary:
-      "We listen to the people who depend on our torches every night, then improve, refine and test what comes next.",
+      "Dealers tell us what sells. Users tell us what lasts. Every batch of torches comes out a little better than the one before.",
   },
   {
     number: "02",
@@ -51,7 +51,7 @@ const chapters = [
       </>
     ),
     summary:
-      `Every torch is checked before assembly, while charging and once again before shipping—then carried by ${DISTRIBUTOR_COUNT}+ distributors and ${RETAILER_COUNT}+ retailers across Madhya Pradesh, Maharashtra and beyond.`,
+      `Checked three times before it ships—then carried by ${DISTRIBUTOR_COUNT}+ distributors and ${RETAILER_COUNT}+ retailers across MP, Maharashtra and beyond.`,
   },
 ];
 
@@ -77,6 +77,13 @@ const testGates = [
 function ChapterVisual({ active }: { active: number }) {
   const distributorCount = useCountUp(active === 2, DISTRIBUTOR_COUNT);
   const retailerCount = useCountUp(active === 2, RETAILER_COUNT);
+  const [demandIndex, setDemandIndex] = useState(0);
+
+  useEffect(() => {
+    if (active !== 1) return;
+    const id = setInterval(() => setDemandIndex((i) => (i + 1) % demandCards.length), 1700);
+    return () => clearInterval(id);
+  }, [active]);
 
   if (active === 0) {
     return (
@@ -88,14 +95,14 @@ function ChapterVisual({ active }: { active: number }) {
           <span>LISTEN</span><span>IMPROVE</span><span>REFINE</span><span>TEST</span>
         </div>
         <div className={styles.legacyCenter}>
-          <span>MORE THAN</span>
-          <strong>{YEARS_SINCE_1997}</strong>
-          <b>YEARS OF<br />IMPROVEMENT</b>
+          <span>ONE SIMPLE LOOP</span>
+          <strong>4</strong>
+          <b>STEPS.<br />EVERY BATCH.</b>
         </div>
         <div className={styles.legacyYears}>
-          <div><small>STARTED</small><strong>1997</strong><span>INDORE</span></div>
+          <div><small>HEARD IN</small><strong>THE FIELD</strong><span>DEALERS &amp; USERS</span></div>
           <i />
-          <div><small>STILL</small><strong>NOW</strong><span>IMPROVING</span></div>
+          <div><small>FIXED ON</small><strong>THE FLOOR</strong><span>NEXT BATCH</span></div>
         </div>
       </div>
     );
@@ -123,11 +130,17 @@ function ChapterVisual({ active }: { active: number }) {
             <span>ONE RANGE. MANY NEEDS.</span>
             <b>MADE FOR THE WAY<br />INDIA ACTUALLY WORKS</b>
           </div>
-          <ul>
-            {demandCards.map(([name, use]) => (
-              <li key={name}><strong>{name}</strong><small>{use}</small></li>
-            ))}
-          </ul>
+          <div className={styles.demandRotator}>
+            <div key={demandCards[demandIndex][0]} className={styles.demandCard}>
+              <strong>{demandCards[demandIndex][0]}</strong>
+              <small>{demandCards[demandIndex][1]}</small>
+            </div>
+            <div className={styles.demandDots} aria-hidden="true">
+              {demandCards.map(([name], index) => (
+                <i key={name} className={index === demandIndex ? styles.isOn : ""} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -217,7 +230,7 @@ export default function WhyUsSection() {
         </div>
 
         <section className={styles.copy} key={`copy-${active}`}>
-          <p>{chapter.number} — {chapter.label}</p>
+          <p>{chapter.label}</p>
           <h1>{chapter.title}</h1>
           <div>{chapter.summary}</div>
         </section>

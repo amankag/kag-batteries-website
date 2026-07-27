@@ -151,7 +151,7 @@ export default function FactoryVisitSection() {
                   <br />
                   <em>SEE HOW TORCHES ARE MADE.</em>
                 </h1>
-                <span>One factory. Real production. Built here since 1997.</span>
+                <span>One factory. Real machines. Real people. Nothing staged.</span>
               </div>
               <div className={styles.scrollEntry}>
                 SCROLL TO STEP INSIDE <i />
@@ -162,15 +162,15 @@ export default function FactoryVisitSection() {
           {active === 1 && (
             <section className={styles.founders}>
               <div className={styles.chapterCopy}>
-                <p>02 — FAMILY-RUN SINCE 1997</p>
+                <p>02 — THE PEOPLE BEHIND IT</p>
                 <h1>
-                  BUILT BY PEOPLE.
+                  IT STARTED WITH
                   <br />
-                  <em>REFINED OVER TIME.</em>
+                  <em>A SIMPLE PROMISE.</em>
                 </h1>
                 <span>
-                  Our founders set the direction in 1997. Since then, factory teams, distributors and customers
-                  have helped shape KAG Batteries.
+                  Build a torch a farmer can afford—and never let it fail them in a dark field. Our founders
+                  made that promise to rural India, and this factory keeps it every day.
                 </span>
               </div>
               <div className={styles.founderMedia}>

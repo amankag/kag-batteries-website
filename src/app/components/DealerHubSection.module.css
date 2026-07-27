@@ -246,19 +246,36 @@
   margin: 0 auto;
   left: 0;
   right: 0;
+  padding: 0;
   overflow: hidden;
   border: 1px solid rgba(7, 26, 27, 0.14);
   border-radius: 22px;
   background: #eee;
   box-shadow: 0 24px 60px rgba(7, 26, 27, 0.16);
-  transform: translateX(calc(var(--i) * 34px)) translateY(calc(var(--i) * 10px)) rotate(calc(var(--i) * 6deg));
-  z-index: calc(3 - var(--i));
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  transform-origin: 50% 135%;
+  transform: rotate(calc(var(--a) * 7deg)) translateY(calc(var(--o) * 6px));
+  z-index: calc(3 - var(--o));
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  /* Hovering the deck fans the three cards out like a hand of playing cards. */
   .brochureDeck:hover .deckCard {
-    transform: translateX(calc(var(--i) * 46px)) translateY(calc(var(--i) * 6px)) rotate(calc(var(--i) * 7deg));
+    transform: rotate(calc(var(--a) * 17deg)) translateY(calc(var(--o) * 4px));
+  }
+
+  /* Hovering one card lifts it, like pulling a card from the hand. */
+  .brochureDeck:hover .deckCard:hover {
+    transform: rotate(calc(var(--a) * 17deg)) translateY(-16px) scale(1.04);
+    box-shadow: 0 34px 80px rgba(7, 26, 27, 0.28);
+    z-index: 5;
+  }
+}
+
+@media (hover: none) or (pointer: coarse) {
+  .deckCard:active {
+    transform: rotate(calc(var(--a) * 7deg)) translateY(calc(var(--o) * 6px)) scale(0.97);
   }
 }
 

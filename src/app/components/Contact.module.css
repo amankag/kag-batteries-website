@@ -8,32 +8,66 @@
   background-size: auto, auto, 48px 48px, 48px 48px, auto;
 }
 
-.statGrid {
+.statRotator {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 40px;
+  gap: 9px;
+  margin-top: 36px;
+  max-width: 380px;
 }
 
 .statCard {
-  padding: 16px 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 15px 18px;
   border: 1px solid rgba(17, 18, 15, 0.12);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.55);
+  animation: contactStatIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes contactStatIn {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
 }
 
 .statCard strong {
-  display: block;
   font-size: 20px;
   font-weight: 900;
   letter-spacing: -0.02em;
   color: #ff7900;
+  white-space: nowrap;
 }
 
 .statCard span {
-  display: block;
-  margin-top: 4px;
   font-size: 12.5px;
   line-height: 1.4;
   color: rgba(17, 18, 15, 0.62);
+}
+
+.statDots {
+  display: flex;
+  gap: 5px;
+  padding-left: 6px;
+}
+
+.statDots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(17, 18, 15, 0.18);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.statDots i.isOn {
+  background: #ff7900;
+  transform: scale(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statCard {
+    animation: none;
+  }
 }

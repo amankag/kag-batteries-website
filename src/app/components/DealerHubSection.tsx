@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./DealerHubSection.module.css";
@@ -39,6 +40,7 @@ const WHATSAPP_BROCHURE_HREF = `https://wa.me/${DEALER_WHATSAPP}?text=${encodeUR
 
 export default function DealerHubSection() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
+  const [frontCard, setFrontCard] = useState(0);
 
   const active = Math.min(1, Math.floor(progress * 2));
   const local = progress * 2 - active;
@@ -143,12 +145,23 @@ export default function DealerHubSection() {
               </div>
             </div>
 
-            <div className={styles.brochureDeck} aria-hidden="true">
-              {brochureDeck.map((item, index) => (
-                <div key={item.src} className={styles.deckCard} style={{ "--i": index } as React.CSSProperties}>
-                  <Image src={item.src} alt={item.alt} fill sizes="(max-width: 760px) 70vw, 30vw" style={{ objectFit: "cover" }} />
-                </div>
-              ))}
+            <div className={styles.brochureDeck}>
+              {brochureDeck.map((item, index) => {
+                const order = (index - frontCard + brochureDeck.length) % brochureDeck.length;
+                const angle = [0, 1, -1][order];
+                return (
+                  <button
+                    type="button"
+                    key={item.src}
+                    className={styles.deckCard}
+                    onClick={() => setFrontCard(index)}
+                    aria-label={`Bring ${item.alt} to the front`}
+                    style={{ "--o": order, "--a": angle } as React.CSSProperties}
+                  >
+                    <Image src={item.src} alt={item.alt} fill sizes="(max-width: 760px) 70vw, 30vw" style={{ objectFit: "cover" }} />
+                  </button>
+                );
+              })}
             </div>
           </section>
         )}

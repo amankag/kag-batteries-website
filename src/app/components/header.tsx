@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { DEALER_WHATSAPP } from "@/data/products";
+import { useOverHero } from "./useOverHero";
 
 const navLinks: [string, string][] = [
   ["Our Story", "/#about"],
@@ -19,24 +20,13 @@ const navLinks: [string, string][] = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [overHero, setOverHero] = useState(true);
+  const overHero = useOverHero();
   const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const heroEl = document.getElementById("tiger-hero");
-    if (!heroEl) {
-      setOverHero(false);
-      return;
-    }
-    const observer = new IntersectionObserver(([entry]) => setOverHero(entry.isIntersecting), { threshold: 0 });
-    observer.observe(heroEl);
-    return () => observer.disconnect();
   }, []);
 
   const light = overHero;
@@ -103,21 +93,34 @@ export default function Header() {
               </Link>
             </nav>
 
-            <button
-              onClick={() => setOpen((o) => !o)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-emerald-50 transition hover:bg-white/10 lg:hidden"
-              aria-label="Toggle menu"
-            >
-              {open ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <div className="flex items-center gap-2 lg:hidden">
+              <a
+                href={`https://wa.me/${DEALER_WHATSAPP}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Chat on WhatsApp"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:bg-[#20b85a] active:scale-95"
+              >
+                <svg viewBox="0 0 32 32" className="h-[18px] w-[18px]" fill="currentColor">
+                  <path d="M16.04 4C9.94 4 4.98 8.96 4.98 15.06c0 2.4.78 4.63 2.1 6.45L6 28l6.64-2c1.74.96 3.73 1.51 5.8 1.51 6.1 0 11.06-4.96 11.06-11.06C29.5 8.96 22.14 4 16.04 4zm5.87 15.75c-.25.7-1.45 1.33-2.02 1.39-.52.05-1.17.07-1.89-.12-.44-.11-1-.33-1.73-.65-3.05-1.32-5.03-4.4-5.18-4.61-.15-.21-1.24-1.65-1.24-3.15 0-1.49.79-2.22 1.07-2.52.28-.3.61-.38.81-.38h.58c.19 0 .45-.07.71.54.27.65.92 2.25.99 2.41.08.16.13.35.03.56-.09.21-.14.34-.28.52-.15.17-.31.39-.44.52-.15.15-.31.31-.13.62.19.31.83 1.37 1.78 2.22 1.23 1.1 2.27 1.45 2.6 1.61.34.16.54.14.74-.09.2-.22.85-.99 1.08-1.33.23-.34.46-.28.77-.17.31.11 2.01.95 2.36 1.12.35.17.58.25.67.39.08.14.08.8-.17 1.5z" />
                 </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
+              </a>
+              <button
+                onClick={() => setOpen((o) => !o)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-emerald-50 transition hover:bg-white/10"
+                aria-label="Toggle menu"
+              >
+                {open ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </>
         )}
       </div>
