@@ -1,0 +1,39 @@
+.section {
+  background:
+    radial-gradient(circle at 82% 15%, rgba(255, 121, 0, 0.07), transparent 34%),
+    radial-gradient(circle at 8% 90%, rgba(217, 243, 107, 0.16), transparent 30%),
+    linear-gradient(90deg, rgba(17, 18, 15, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(17, 18, 15, 0.03) 1px, transparent 1px),
+    #f4f1e9;
+  background-size: auto, auto, 48px 48px, 48px 48px, auto;
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.statCard {
+  padding: 16px 18px;
+  border: 1px solid rgba(17, 18, 15, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.statCard strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ff7900;
+}
+
+.statCard span {
+  display: block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(17, 18, 15, 0.62);
+}

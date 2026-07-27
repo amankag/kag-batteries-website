@@ -5,7 +5,7 @@ import WhyUsSection from "./components/WhyUsSection";
 import ProductRangeShowcase from "./components/ProductRangeShowcase";
 import FactoryVisitSection from "./components/FactoryVisitSection";
 import DealerHubSection from "./components/DealerHubSection";
-import Testimonials from "./components/testimonials";
+import TestimonialsSection from "./components/TestimonialsSection";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -21,7 +21,7 @@ export default function Home() {
       <WhyUsSection />
       <FactoryVisitSection />
       <DealerHubSection />
-      <Testimonials />
+      <TestimonialsSection />
       <Contact />
       <Footer />
       <WhatsAppButton />
