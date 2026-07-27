@@ -3,12 +3,24 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { DEALER_WHATSAPP } from "@/data/products";
+
+const navLinks: [string, string][] = [
+  ["Our Story", "/#about"],
+  ["Catalogue", "/products"],
+  ["Why Us", "/#why-us"],
+  ["Factory Tour", "/#factory-visit"],
+  ["Become a Dealer", "/#become-dealer"],
+  ["Reviews", "/#reviews"],
+  ["Contact", "/#contact"],
+];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [overHero, setOverHero] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -29,6 +41,13 @@ export default function Header() {
 
   const light = overHero;
 
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <header
       className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-colors duration-200 ${
@@ -36,7 +55,7 @@ export default function Header() {
       } ${scrolled ? "shadow-[0_12px_40px_rgba(0,0,0,0.18)]" : ""}`}
     >
       <div className="relative mx-auto flex max-w-[1440px] items-center justify-between px-5 py-3.5 md:px-10">
-        <Link href="/" aria-label="KAG Batteries home" className="flex items-center">
+        <Link href="/" onClick={handleLogoClick} aria-label="KAG Batteries — back to top" className="flex items-center">
           <div className={`relative h-10 w-10 transition-[filter] duration-200 ${light ? "" : "invert"}`}>
             <Image src="/kag-logo.png" alt="KAG Batteries" fill priority className="object-contain" />
           </div>
@@ -69,14 +88,15 @@ export default function Header() {
           </button>
         ) : (
           <>
-            <nav className="hidden items-center gap-8 text-sm font-medium text-emerald-50/80 md:flex">
-              <Link href="/#about" className="transition hover:text-white">The company</Link>
-              <Link href="/products" className="transition hover:text-white">Catalogue</Link>
-              <Link href="/#factory-visit" className="transition hover:text-white">Factory proof</Link>
-              <Link href="/#contact" className="transition hover:text-white">Contact</Link>
+            <nav className="hidden items-center gap-5 text-[13px] font-medium text-emerald-50/80 lg:flex">
+              {navLinks.map(([label, href]) => (
+                <Link key={href} href={href} className="whitespace-nowrap transition hover:text-white">
+                  {label}
+                </Link>
+              ))}
               <Link
                 href="/inquiry"
-                className="inline-flex items-center gap-2 rounded-full bg-[#d9f36b] px-4 py-2 text-xs font-bold text-[#071a1b] transition hover:bg-white"
+                className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#d9f36b] px-4 py-2 text-xs font-bold text-[#071a1b] transition hover:bg-white"
               >
                 Open a dealer line
                 <span aria-hidden="true">↗</span>
@@ -85,7 +105,7 @@ export default function Header() {
 
             <button
               onClick={() => setOpen((o) => !o)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-emerald-50 transition hover:bg-white/10 md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-emerald-50 transition hover:bg-white/10 lg:hidden"
               aria-label="Toggle menu"
             >
               {open ? (
@@ -113,12 +133,7 @@ export default function Header() {
               light ? "text-[#11120f]" : "text-emerald-50"
             }`}
           >
-            {[
-              ["The company", "/#about"],
-              ["Catalogue", "/products"],
-              ["Factory proof", "/#factory-visit"],
-              ["Contact", "/#contact"],
-            ].map(([label, href]) => (
+            {navLinks.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}

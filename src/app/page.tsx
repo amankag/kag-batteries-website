@@ -9,11 +9,14 @@ import TestimonialsSection from "./components/TestimonialsSection";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import BackToTopButton from "./components/BackToTopButton";
+import ScrollProgressBar from "./components/ScrollProgressBar";
 import SiteMotion from "./components/site-motion";
 
 export default function Home() {
   return (
     <main className="min-h-screen w-full max-w-full bg-[#f2f0ea] text-slate-950">
+      <ScrollProgressBar />
       <Header />
       <Hero />
       <InsideKagStory />
@@ -25,6 +28,7 @@ export default function Home() {
       <Contact />
       <Footer />
       <WhatsAppButton />
+      <BackToTopButton />
       <SiteMotion />
     </main>
   );
