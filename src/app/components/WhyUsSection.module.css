@@ -524,6 +524,26 @@
   .legacyYears small, .legacyYears span { font-size: 5.2px; letter-spacing: 0.11em; }
 }
 
+/* Devanagari's more intricate letterforms lose legibility at the very
+   small sizes these micro-labels use in English (5-5.5px on mobile) —
+   nudge those specific ones up in Hindi mode instead of shrinking text
+   elsewhere to compensate. */
+@media (max-width: 760px) {
+  html.lang-hi .legacyOrbitLabels span { font-size: 7.5px; }
+  html.lang-hi .legacyCenter > span { font-size: 6.5px; }
+  html.lang-hi .centerFrame b { font-size: 7px; }
+  html.lang-hi .legacyYears small,
+  html.lang-hi .legacyYears span { font-size: 6.5px; }
+}
+
+/* Same legibility bump for the desktop sizes (7-8px), a smaller nudge
+   since desktop isn't as severely tiny as mobile's. */
+html.lang-hi .legacyOrbitLabels span { font-size: 8.5px; }
+html.lang-hi .legacyCenter > span { font-size: 8px; }
+html.lang-hi .centerFrame b { font-size: 9px; }
+html.lang-hi .legacyYears small,
+html.lang-hi .legacyYears span { font-size: 7px; }
+
 /* ── Chapter 02 — materials inspection panel ─────────────────────── */
 
 .buildVisual {

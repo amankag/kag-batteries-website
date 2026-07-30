@@ -6,6 +6,7 @@ import Link from "next/link";
 import { initialProducts, type Product } from "@/data/products";
 import styles from "./ProductRangeShowcase.module.css";
 import { useScrollProgress } from "./useScrollProgress";
+import { useLanguage, type Language } from "./LanguageContext";
 
 /**
  * The four flagship models shown as scroll-driven scenes. Rotate these as
@@ -27,33 +28,57 @@ interface SceneCopy {
 }
 
 /** Hand-tuned copy for the current featured four. */
-const SCENE_COPY: Record<string, SceneCopy> = {
-  "tiger-model-kb-81": {
-    kicker: "TIGER SERIES · LONG-RANGE",
-    headline: "Heavy-duty light, built to keep going.",
-    chips: ["Farms", "Security", "Power cuts"],
+const SCENE_COPY: Record<Language, Record<string, SceneCopy>> = {
+  en: {
+    "tiger-model-kb-81": {
+      kicker: "TIGER SERIES · LONG-RANGE",
+      headline: "Heavy-duty light, built to keep going.",
+      chips: ["Farms", "Security", "Power cuts"],
+    },
+    "champion-model": {
+      kicker: "CHAMPION SERIES · EVERYDAY CARRY",
+      headline: "Compact power, every day.",
+      chips: ["Home", "Shops", "Daily use"],
+    },
+    "venus-model-kb-68": {
+      kicker: "VENUS SERIES · 3X BATTERY LIFE",
+      headline: "Light that goes the distance.",
+      chips: ["Farms", "Outdoor", "Long backup"],
+    },
+    "power-house-roxy": {
+      kicker: "POWER HOUSE · HIGH-POWER LED",
+      headline: "Serious brightness, built tough.",
+      chips: ["Security", "Outdoor", "Heavy-duty"],
+    },
   },
-  "champion-model": {
-    kicker: "CHAMPION SERIES · EVERYDAY CARRY",
-    headline: "Compact power, every day.",
-    chips: ["Home", "Shops", "Daily use"],
-  },
-  "venus-model-kb-68": {
-    kicker: "VENUS SERIES · 3X BATTERY LIFE",
-    headline: "Light that goes the distance.",
-    chips: ["Farms", "Outdoor", "Long backup"],
-  },
-  "power-house-roxy": {
-    kicker: "POWER HOUSE · HIGH-POWER LED",
-    headline: "Serious brightness, built tough.",
-    chips: ["Security", "Outdoor", "Heavy-duty"],
+  hi: {
+    "tiger-model-kb-81": {
+      kicker: "टाइगर सीरीज़ · लॉन्ग-रेंज",
+      headline: "हैवी-ड्यूटी लाइट, जो लगातार चलती रहे।",
+      chips: ["खेत", "सुरक्षा", "बिजली कटौती"],
+    },
+    "champion-model": {
+      kicker: "चैंपियन सीरीज़ · रोज़ के काम के लिए",
+      headline: "छोटी सी, पर दमदार—रोज़ के काम के लिए।",
+      chips: ["घर", "दुकान", "रोज़ का काम"],
+    },
+    "venus-model-kb-68": {
+      kicker: "वीनस सीरीज़ · 3 गुना बैटरी बैकअप",
+      headline: "रोशनी ऐसी जो बहुत दूर तक जाए।",
+      chips: ["खेत", "बाहर का काम", "लंबा बैकअप"],
+    },
+    "power-house-roxy": {
+      kicker: "पावर हाउस · हाई-पावर एलईडी",
+      headline: "तेज़ रोशनी, मज़बूत बनावट।",
+      chips: ["सुरक्षा", "बाहर का काम", "भारी काम के लिए"],
+    },
   },
 };
 
 /** Any newly-rotated-in slug without hand-tuned copy yet still renders sensibly. */
-function getSceneCopy(product: Product): SceneCopy {
+function getSceneCopy(product: Product, language: Language): SceneCopy {
   return (
-    SCENE_COPY[product.slug] ?? {
+    SCENE_COPY[language][product.slug] ?? {
       kicker: `${product.name.toUpperCase()} · ${product.category === "lithium-ion" ? "LITHIUM-ION" : "LEAD ACID"}`,
       headline: product.tagline,
       chips: product.highlights.slice(0, 3),
@@ -66,7 +91,6 @@ interface ProductScene {
   type: "product";
   tabLabel: string;
   product: Product;
-  copy: SceneCopy;
 }
 
 interface FullRangeScene {
@@ -77,31 +101,46 @@ interface FullRangeScene {
 
 type Scene = ProductScene | FullRangeScene;
 
+const fullRangeTabLabel: Record<Language, string> = { en: "Full Range", hi: "पूरी रेंज" };
+
 const featuredProducts = FEATURED_SLUGS.map((slug) => initialProducts.find((p) => p.slug === slug)).filter(
   (p): p is Product => Boolean(p)
 );
 
-const scenes: Scene[] = [
-  ...featuredProducts.map((product, index) => ({
-    id: String(index + 1).padStart(2, "0"),
-    type: "product" as const,
-    tabLabel: product.name.split(/[–-]/)[0].trim(),
-    product,
-    copy: getSceneCopy(product),
-  })),
-  {
-    id: String(featuredProducts.length + 1).padStart(2, "0"),
-    type: "fullRange" as const,
-    tabLabel: "Full Range",
-  },
-];
+function buildScenes(language: Language): Scene[] {
+  return [
+    ...featuredProducts.map((product, index) => ({
+      id: String(index + 1).padStart(2, "0"),
+      type: "product" as const,
+      tabLabel: product.name.split(/[–-]/)[0].trim(),
+      product,
+    })),
+    {
+      id: String(featuredProducts.length + 1).padStart(2, "0"),
+      type: "fullRange" as const,
+      tabLabel: fullRangeTabLabel[language],
+    },
+  ];
+}
 
 const fullRangeProducts = [...featuredProducts, ...FULL_RANGE_EXTRA_SLUGS.map((slug) => initialProducts.find((p) => p.slug === slug))].filter(
   (p): p is Product => Boolean(p)
 );
 
+const rangeLabel: Record<Language, string> = { en: "THE RANGE", hi: "रेंज" };
+// "Explore {Product}" personifies the product in English; Hindi doesn't do
+// that, so this reads as an info-style CTA instead ("X ki jaankari len").
+const exploreCta: Record<Language, (label: string) => string> = {
+  en: (label) => `Explore ${label}`,
+  hi: (label) => `${label} की जानकारी लें`,
+};
+const fullRangeHeadline: Record<Language, string> = { en: "THE WHOLE RANGE. ONE PLACE.", hi: "पूरी रेंज. एक ही जगह." };
+const fullRangeCtaText: Record<Language, string> = { en: "Explore the full catalogue", hi: "पूरा कैटलॉग देखें" };
+
 export default function ProductRangeShowcase() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
+  const { language } = useLanguage();
+  const scenes = buildScenes(language);
   const activeIndex = Math.min(scenes.length - 1, Math.floor(progress * scenes.length));
   const isFullRangeActive = activeIndex === scenes.length - 1;
 
@@ -138,7 +177,7 @@ export default function ProductRangeShowcase() {
     <section id="products" ref={ref} className={styles.section} aria-label="KAG product range">
       <div className={styles.stage}>
         <div className={`${styles.rangeHead} ${isFullRangeActive ? styles.rangeHeadDark : ""}`}>
-          <span>THE RANGE</span>
+          <span>{rangeLabel[language]}</span>
 
           <div className={styles.productTabs} ref={tabsRef}>
             {scenes.map((scene, index) => (
@@ -160,17 +199,18 @@ export default function ProductRangeShowcase() {
         {scenes.map((scene, index) => {
           if (scene.type !== "product") return null;
           const isActive = index === activeIndex;
+          const copy = getSceneCopy(scene.product, language);
 
           return (
             <div key={scene.id}>
               <div className={`${styles.productCopy} ${isActive ? styles.isActive : ""}`} aria-hidden={!isActive}>
                 <p className={styles.productKicker}>
                   <span className={styles.productKickerIndex}>{scene.id} — </span>
-                  <span>{scene.copy.kicker}</span>
+                  <span>{copy.kicker}</span>
                 </p>
-                <h2>{scene.copy.headline}</h2>
+                <h2>{copy.headline}</h2>
                 <Link href={`/products/${scene.product.slug}`} tabIndex={isActive ? 0 : -1}>
-                  Explore {scene.tabLabel} <span aria-hidden="true">↗</span>
+                  {exploreCta[language](scene.tabLabel)} <span aria-hidden="true">↗</span>
                 </Link>
               </div>
 
@@ -187,7 +227,7 @@ export default function ProductRangeShowcase() {
               </div>
 
               <div className={`${styles.madeFor} ${isActive ? styles.isActive : ""}`} aria-hidden={!isActive}>
-                {scene.copy.chips.map((chip) => (
+                {copy.chips.map((chip) => (
                   <span key={chip}>{chip}</span>
                 ))}
               </div>
@@ -197,9 +237,9 @@ export default function ProductRangeShowcase() {
 
         <div className={`${styles.fullRange} ${isFullRangeActive ? styles.isActive : ""}`} aria-hidden={!isFullRangeActive}>
           <div className={styles.fullRangeCopy}>
-            <h2>THE WHOLE RANGE. ONE PLACE.</h2>
+            <h2>{fullRangeHeadline[language]}</h2>
             <Link href="/products" className={styles.fullRangeCta} tabIndex={isFullRangeActive ? 0 : -1}>
-              Explore the full catalogue <span aria-hidden="true">↗</span>
+              {fullRangeCtaText[language]} <span aria-hidden="true">↗</span>
             </Link>
           </div>
 

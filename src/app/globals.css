@@ -44,6 +44,16 @@ html.lang-hi * {
   font-family: var(--font-devanagari), var(--font-geist-sans), Arial, sans-serif;
 }
 
+/* Big multi-line headlines sitewide are tuned with very tight line-height
+   (0.82-0.96) for all-caps Latin, which has no descenders. Devanagari
+   matras extend above and below the baseline and collide with the line
+   above/below at that tightness — every stacked headline needs real
+   breathing room in Hindi mode. */
+html.lang-hi h1,
+html.lang-hi h2 {
+  line-height: 1.28 !important;
+}
+
 .kag-marquee { animation: kag-marquee 28s linear infinite; }
 @keyframes kag-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {

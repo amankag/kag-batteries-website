@@ -5,51 +5,223 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./FactoryVisitSection.module.css";
 import { useScrollProgress } from "./useScrollProgress";
+import { useLanguage, type Language } from "./LanguageContext";
 
 type GalleryImage = { src: string; alt: string; caption: string };
 
-const chapters = [
-  ["01", "INDORE · THE FACTORY"],
-  ["02", "THE PEOPLE BEHIND IT"],
-  ["03", "PRODUCTION IN MOTION"],
-  ["04", "PACKED TO GO"],
-] as const;
+const chapters: Record<Language, readonly [string, string][]> = {
+  en: [
+    ["01", "INDORE · THE FACTORY"],
+    ["02", "THE PEOPLE BEHIND IT"],
+    ["03", "PRODUCTION IN MOTION"],
+    ["04", "PACKED TO GO"],
+  ],
+  hi: [
+    ["01", "इंदौर · फैक्ट्री"],
+    ["02", "इसके पीछे के लोग"],
+    ["03", "उत्पादन जारी"],
+    ["04", "भेजने को तैयार"],
+  ],
+};
 
-const productionImages: GalleryImage[] = [
-  {
-    src: "/factory-2.jpg",
-    alt: "KAG Batteries factory team working across the production floor",
-    caption: "A working production floor",
-  },
-  {
-    src: "/images/Copy of IMG_5910.jpg",
-    alt: "Workers inspecting components beside moulding equipment",
-    caption: "Components handled and checked",
-  },
-  {
-    src: "/images/Copy of IMG_5917.jpg",
-    alt: "KAG Batteries assembly team working with battery components",
-    caption: "Hands-on assembly",
-  },
-];
+const productionImages: Record<Language, GalleryImage[]> = {
+  en: [
+    {
+      src: "/factory-2.jpg",
+      alt: "KAG Batteries factory team working across the production floor",
+      caption: "A working production floor",
+    },
+    {
+      src: "/images/Copy of IMG_5910.jpg",
+      alt: "Workers inspecting components beside moulding equipment",
+      caption: "Components handled and checked",
+    },
+    {
+      src: "/images/Copy of IMG_5917.jpg",
+      alt: "KAG Batteries assembly team working with battery components",
+      caption: "Hands-on assembly",
+    },
+  ],
+  hi: [
+    {
+      src: "/factory-2.jpg",
+      alt: "प्रोडक्शन फ्लोर पर काम करती KAG बैटरीज़ की टीम",
+      caption: "काम करता प्रोडक्शन फ्लोर",
+    },
+    {
+      src: "/images/Copy of IMG_5910.jpg",
+      alt: "मोल्डिंग उपकरण के पास पुर्ज़ों की जांच करते कर्मचारी",
+      caption: "पुर्ज़ों की जांच और संभाल",
+    },
+    {
+      src: "/images/Copy of IMG_5917.jpg",
+      alt: "बैटरी के पुर्ज़ों के साथ काम करती KAG बैटरीज़ असेंबली टीम",
+      caption: "हाथ से असेंबली",
+    },
+  ],
+};
 
-const finalImages: GalleryImage[] = [
-  {
-    src: "/images/Copy of IMG_6000.jpg",
-    alt: "A worker securing a packed KAG Batteries shipment",
-    caption: "Packed for dispatch",
+const finalImages: Record<Language, GalleryImage[]> = {
+  en: [
+    {
+      src: "/images/Copy of IMG_6000.jpg",
+      alt: "A worker securing a packed KAG Batteries shipment",
+      caption: "Packed for dispatch",
+    },
+    {
+      src: "/images/Copy of IMG_5876.jpg",
+      alt: "Wide view of the torch manufacturing floor",
+      caption: "Taking shape",
+    },
+    {
+      src: "/images/Copy of IMG_5877.jpg",
+      alt: "Components and cartons organised on the factory floor",
+      caption: "Production at scale",
+    },
+  ],
+  hi: [
+    {
+      src: "/images/Copy of IMG_6000.jpg",
+      alt: "पैक की गई KAG बैटरीज़ की खेप बांधता एक कर्मचारी",
+      caption: "भेजने के लिए पैक",
+    },
+    {
+      src: "/images/Copy of IMG_5876.jpg",
+      alt: "टॉर्च निर्माण फ्लोर का विस्तृत दृश्य",
+      caption: "आकार लेते हुए",
+    },
+    {
+      src: "/images/Copy of IMG_5877.jpg",
+      alt: "फैक्ट्री फ्लोर पर व्यवस्थित पुर्ज़े और कार्टन",
+      caption: "बड़े स्तर पर उत्पादन",
+    },
+  ],
+};
+
+const copy = {
+  en: {
+    meta: "INSIDE KAG BATTERIES",
+    metaSub: "REAL PEOPLE. REAL PRODUCTION.",
+    opening: {
+      eyebrow: "01 — INDORE, MADHYA PRADESH",
+      title: (
+        <>
+          COME INSIDE.
+          <br />
+          <em>SEE HOW TORCHES ARE MADE.</em>
+        </>
+      ),
+      support: "One factory. Real machines. Real people. Made with pride in Indore.",
+      scrollEntry: "SCROLL TO STEP INSIDE",
+    },
+    founders: {
+      eyebrow: "02 — THE PEOPLE BEHIND IT",
+      title: (
+        <>
+          IT STARTED WITH
+          <br />
+          <em>A SIMPLE PROMISE.</em>
+        </>
+      ),
+      support:
+        "Build a torch a farmer can afford. Our founders come from a farming family—they know those needs first-hand, and this factory still builds for them every day.",
+      photoLabel: "KAG BATTERIES · THE FOUNDERS",
+      statement: ["TWO FOUNDERS.", "ONE FACTORY.", "A TEAM THAT KEEPS MOVING FORWARD."],
+    },
+    production: {
+      eyebrow: "03 — THE FACTORY FLOOR",
+      title: (
+        <>
+          WHERE EVERY TORCH
+          <br />
+          <em>TAKES SHAPE.</em>
+        </>
+      ),
+      support: "From moulded components to careful hands-on assembly.",
+    },
+    finale: {
+      eyebrow: "04 — READY TO LEAVE INDORE",
+      title: (
+        <>
+          MADE. CHECKED.
+          <br />
+          <em>PACKED TO GO.</em>
+        </>
+      ),
+      support:
+        "From the production floor to a growing network of dealers and retailers across Madhya Pradesh, Maharashtra and beyond.",
+      cta: "Explore the complete range",
+    },
+    founderFallback: {
+      src: "/images/Founder_pic.jpg",
+      alt: "The two founders of KAG Batteries seated together",
+      caption: "KAG Batteries founders",
+    },
+    founderAlt: "The two founders of KAG Batteries seated together",
+    close: "Close",
   },
-  {
-    src: "/images/Copy of IMG_5876.jpg",
-    alt: "Wide view of the torch manufacturing floor",
-    caption: "Taking shape",
+  hi: {
+    meta: "KAG बैटरीज़ के अंदर",
+    metaSub: "असली लोग. असली उत्पादन.",
+    opening: {
+      eyebrow: "01 — इंदौर, मध्य प्रदेश",
+      title: (
+        <>
+          अंदर आइए।
+          <br />
+          <em>देखिए टॉर्च कैसे बनती है।</em>
+        </>
+      ),
+      support: "एक फैक्ट्री। असली मशीनें। असली लोग। इंदौर में गर्व से बनाया गया।",
+      scrollEntry: "अंदर जाने के लिए स्क्रॉल करें",
+    },
+    founders: {
+      eyebrow: "02 — इसके पीछे के लोग",
+      title: (
+        <>
+          शुरुआत हुई थी
+          <br />
+          <em>एक छोटे से वादे से।</em>
+        </>
+      ),
+      support:
+        "ऐसी टॉर्च बनाना जो हर किसान खरीद सके। हमारे संस्थापक खुद किसान परिवार से हैं—वे यह ज़रूरत खुद जानते हैं, और यह फैक्ट्री आज भी उन्हीं के लिए बनाती है।",
+      photoLabel: "KAG बैटरीज़ · संस्थापक",
+      statement: ["दो संस्थापक।", "एक फैक्ट्री।", "टीम जो लगातार आगे बढ़ती है।"],
+    },
+    production: {
+      eyebrow: "03 — फैक्ट्री फ्लोर पर",
+      title: (
+        <>
+          जहां हर टॉर्च
+          <br />
+          <em>आकार लेती है।</em>
+        </>
+      ),
+      support: "ढले हुए पुर्ज़ों से लेकर सावधानी से हाथ से की गई असेंबली तक।",
+    },
+    finale: {
+      eyebrow: "04 — इंदौर से रवाना होने को तैयार",
+      title: (
+        <>
+          बना। जांचा।
+          <br />
+          <em>भेजने को तैयार।</em>
+        </>
+      ),
+      support:
+        "प्रोडक्शन फ्लोर से लेकर मध्य प्रदेश, महाराष्ट्र और उससे आगे तक फैले डीलर और रिटेलर नेटवर्क तक।",
+      cta: "पूरी रेंज देखें",
+    },
+    founderFallback: {
+      src: "/images/Founder_pic.jpg",
+      alt: "KAG बैटरीज़ के दोनों संस्थापक साथ बैठे हुए",
+      caption: "KAG बैटरीज़ के संस्थापक",
+    },
+    founderAlt: "KAG बैटरीज़ के दोनों संस्थापक साथ बैठे हुए",
+    close: "बंद करें",
   },
-  {
-    src: "/images/Copy of IMG_5877.jpg",
-    alt: "Components and cartons organised on the factory floor",
-    caption: "Production at scale",
-  },
-];
+};
 
 const clamp = (n: number) => Math.min(1, Math.max(0, n));
 const smooth = (n: number) => {
@@ -59,7 +231,12 @@ const smooth = (n: number) => {
 
 export default function FactoryVisitSection() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
+  const { language } = useLanguage();
   const [selected, setSelected] = useState<GalleryImage | null>(null);
+  const t = copy[language];
+  const currentChapters = chapters[language];
+  const production = productionImages[language];
+  const finals = finalImages[language];
 
   useEffect(() => {
     if (!selected) return;
@@ -95,13 +272,13 @@ export default function FactoryVisitSection() {
     <section id="factory-visit" ref={ref} className={styles.track} aria-label="A visit inside the KAG Batteries factory">
       <div className={`${styles.stage} ${styles[`chapter${active + 1}`]}`}>
         <div className={styles.meta}>
-          <span>INSIDE KAG BATTERIES</span>
-          <p>REAL PEOPLE. REAL PRODUCTION.</p>
-          <b>{chapters[active][0]} / 04</b>
+          <span>{t.meta}</span>
+          <p>{t.metaSub}</p>
+          <b>{currentChapters[active][0]} / 04</b>
         </div>
 
         <nav className={styles.tabs} aria-label="Factory visit chapters">
-          {chapters.map(([number, label], index) => (
+          {currentChapters.map(([number, label], index) => (
             <button
               type="button"
               key={number}
@@ -145,16 +322,12 @@ export default function FactoryVisitSection() {
               />
               <div className={styles.openingScrim} aria-hidden="true" />
               <div className={styles.openingCopy} style={{ opacity: local < 0.78 ? 1 : clamp((1 - local) / 0.22) }}>
-                <p>01 — INDORE, MADHYA PRADESH</p>
-                <h1>
-                  COME INSIDE.
-                  <br />
-                  <em>SEE HOW TORCHES ARE MADE.</em>
-                </h1>
-                <span>One factory. Real machines. Real people. Made with pride in Indore.</span>
+                <p>{t.opening.eyebrow}</p>
+                <h1>{t.opening.title}</h1>
+                <span>{t.opening.support}</span>
               </div>
               <div className={styles.scrollEntry}>
-                SCROLL TO STEP INSIDE <i />
+                {t.opening.scrollEntry} <i />
               </div>
             </section>
           )}
@@ -162,16 +335,9 @@ export default function FactoryVisitSection() {
           {active === 1 && (
             <section className={styles.founders}>
               <div className={styles.chapterCopy}>
-                <p>02 — THE PEOPLE BEHIND IT</p>
-                <h1>
-                  IT STARTED WITH
-                  <br />
-                  <em>A SIMPLE PROMISE.</em>
-                </h1>
-                <span>
-                  Build a torch a farmer can afford. Our founders come from a farming family—they know those
-                  needs first-hand, and this factory still builds for them every day.
-                </span>
+                <p>{t.founders.eyebrow}</p>
+                <h1>{t.founders.title}</h1>
+                <span>{t.founders.support}</span>
               </div>
               <div className={styles.founderMedia}>
                 <button
@@ -179,25 +345,25 @@ export default function FactoryVisitSection() {
                   className={styles.founderPhoto}
                   onClick={() =>
                     setSelected({
-                      src: "/images/Founder_pic.jpg",
-                      alt: "The two founders of KAG Batteries seated together",
-                      caption: "KAG Batteries founders",
+                      src: t.founderFallback.src,
+                      alt: t.founderFallback.alt,
+                      caption: t.founderFallback.caption,
                     })
                   }
                 >
                   <Image
                     src="/images/Founder_pic.jpg"
-                    alt="The two founders of KAG Batteries seated together"
+                    alt={t.founderAlt}
                     fill
                     sizes="(max-width: 760px) 100vw, 55vw"
                     style={{ objectFit: "cover" }}
                   />
                   <span>
-                    KAG BATTERIES · THE FOUNDERS <b>↗</b>
+                    {t.founders.photoLabel} <b>↗</b>
                   </span>
                 </button>
                 <div className={styles.founderStatement}>
-                  {["TWO FOUNDERS.", "ONE FACTORY.", "A TEAM THAT KEEPS MOVING FORWARD."].map((line, index) => (
+                  {t.founders.statement.map((line, index) => (
                     <strong
                       key={line}
                       className={index === 2 ? styles.teamLine : ""}
@@ -214,16 +380,12 @@ export default function FactoryVisitSection() {
           {active === 2 && (
             <section className={styles.production}>
               <div className={styles.chapterCopy}>
-                <p>03 — THE FACTORY FLOOR</p>
-                <h1>
-                  WHERE EVERY TORCH
-                  <br />
-                  <em>TAKES SHAPE.</em>
-                </h1>
-                <span>From moulded components to careful hands-on assembly.</span>
+                <p>{t.production.eyebrow}</p>
+                <h1>{t.production.title}</h1>
+                <span>{t.production.support}</span>
               </div>
               <div className={styles.photoDeck}>
-                {productionImages.map((image, index) => {
+                {production.map((image, index) => {
                   const d = index - productionActive;
                   return (
                     <button
@@ -257,22 +419,15 @@ export default function FactoryVisitSection() {
           {active === 3 && (
             <section className={styles.finale}>
               <div className={styles.chapterCopy}>
-                <p>04 — READY TO LEAVE INDORE</p>
-                <h1>
-                  MADE. CHECKED.
-                  <br />
-                  <em>PACKED TO GO.</em>
-                </h1>
-                <span>
-                  From the production floor to a growing network of dealers and retailers across Madhya Pradesh,
-                  Maharashtra and beyond.
-                </span>
+                <p>{t.finale.eyebrow}</p>
+                <h1>{t.finale.title}</h1>
+                <span>{t.finale.support}</span>
                 <Link href="/products">
-                  Explore the complete range <b>↗</b>
+                  {t.finale.cta} <b>↗</b>
                 </Link>
               </div>
               <div className={styles.proofWall}>
-                {finalImages.map((image, index) => (
+                {finals.map((image, index) => (
                   <button
                     type="button"
                     key={image.src}
@@ -298,7 +453,7 @@ export default function FactoryVisitSection() {
 
       {selected && (
         <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label={selected.caption} onClick={() => setSelected(null)}>
-          <button type="button" onClick={() => setSelected(null)} aria-label="Close">
+          <button type="button" onClick={() => setSelected(null)} aria-label={t.close}>
             ×
           </button>
           <figure onClick={(event) => event.stopPropagation()}>

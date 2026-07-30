@@ -5,100 +5,238 @@ import Link from "next/link";
 import styles from "./WhyUsSection.module.css";
 import { useScrollProgress } from "./useScrollProgress";
 import { useCountUp } from "./useCountUp";
+import { useLanguage, type Language } from "./LanguageContext";
 
 const DISTRIBUTOR_COUNT = 120;
 const RETAILER_COUNT = 300;
 
-const chapters = [
-  {
-    number: "01",
-    label: "TRUST, REFINED",
-    title: (
+type Chapter = {
+  number: string;
+  label: string;
+  title: React.ReactNode;
+  summary: string;
+};
+
+const chapters: Record<Language, Chapter[]> = {
+  en: [
+    {
+      number: "01",
+      label: "TRUST, REFINED",
+      title: (
+        <>
+          <span className={styles.headlineLock}>WE LISTEN.</span>
+          <br />
+          <span className={styles.headlineLock}>WE IMPROVE.</span>
+          <br />
+          <em className={styles.headlineLock}>WE REPEAT.</em>
+        </>
+      ),
+      summary:
+        "Dealers tell us what sells. Users tell us what lasts. Every batch of torches comes out a little better than the one before.",
+    },
+    {
+      number: "02",
+      label: "BUILT RIGHT FOR INDIA",
+      title: (
+        <>
+          <span className={styles.headlineLock}>PREMIUM INSIDE.</span>
+          <br />
+          <em className={styles.headlineLock}>TOUGH OUTSIDE.</em>
+        </>
+      ),
+      summary:
+        "Pure copper wiring, dependable batteries and a tough plastic body—chosen for farms, homes, shops and security work across Madhya Pradesh, Maharashtra and beyond.",
+    },
+    {
+      number: "03",
+      label: "TESTED HERE. TRUSTED EVERYWHERE",
+      title: (
+        <>
+          THREE CHECKS.
+          <br />
+          {DISTRIBUTOR_COUNT}+ DISTRIBUTORS.
+          <br />
+          <em>STILL GROWING.</em>
+        </>
+      ),
+      summary: `Checked three times before it ships—then carried by ${DISTRIBUTOR_COUNT}+ distributors and ${RETAILER_COUNT}+ retailers across MP, Maharashtra and beyond.`,
+    },
+  ],
+  hi: [
+    {
+      number: "01",
+      label: "भरोसा, निखरा हुआ",
+      title: (
+        <>
+          <span className={styles.headlineLock}>हम सुनते हैं।</span>
+          <br />
+          <span className={styles.headlineLock}>हम सुधारते हैं।</span>
+          <br />
+          <em className={styles.headlineLock}>हम दोहराते हैं।</em>
+        </>
+      ),
+      summary:
+        "डीलर बताते हैं क्या बिकता है। ग्राहक बताते हैं क्या टिकता है। हर नई खेप पिछली से थोड़ी बेहतर होती है।",
+    },
+    {
+      number: "02",
+      label: "भारत के लिए सही बना",
+      title: (
+        <>
+          <span className={styles.headlineLock}>अंदर से प्रीमियम।</span>
+          <br />
+          <em className={styles.headlineLock}>बाहर से मज़बूत।</em>
+        </>
+      ),
+      summary:
+        "शुद्ध कॉपर वायरिंग, भरोसेमंद बैटरी और मज़बूत प्लास्टिक बॉडी—मध्य प्रदेश, महाराष्ट्र और उससे आगे तक, खेत, घर, दुकान और सुरक्षा के काम के लिए चुनी गई।",
+    },
+    {
+      number: "03",
+      label: "यहां जांचा। हर जगह भरोसा।",
+      title: (
+        <>
+          तीन बार जांच।
+          <br />
+          {DISTRIBUTOR_COUNT}+ डिस्ट्रिब्यूटर्स।
+          <br />
+          <em>बढ़ना जारी।</em>
+        </>
+      ),
+      summary: `भेजने से पहले तीन बार जांचा जाता है—फिर मध्य प्रदेश, महाराष्ट्र और उससे आगे तक ${DISTRIBUTOR_COUNT}+ डिस्ट्रिब्यूटर्स और ${RETAILER_COUNT}+ रिटेलर्स तक पहुंचता है।`,
+    },
+  ],
+};
+
+const materialCards: Record<Language, [string, string, string][]> = {
+  en: [
+    ["01", "Pure copper wiring", "Carries power reliably"],
+    ["02", "Dependable batteries", "Chosen for long working hours"],
+    ["03", "Tough plastic body", "Made for rough daily handling"],
+  ],
+  hi: [
+    ["01", "शुद्ध कॉपर वायरिंग", "भरोसे के साथ पावर पहुंचाए"],
+    ["02", "भरोसेमंद बैटरी", "लंबे काम के घंटों के लिए चुनी गई"],
+    ["03", "मज़बूत प्लास्टिक बॉडी", "रोज़ के सख्त इस्तेमाल के लिए बनी"],
+  ],
+};
+
+const demandCards: Record<Language, [string, string][]> = {
+  en: [
+    ["FARMS", "Field checks"],
+    ["HOMES", "Power backup"],
+    ["SHOPS", "Long work hours"],
+    ["SECURITY", "Night rounds"],
+  ],
+  hi: [
+    ["खेत", "फील्ड जांच"],
+    ["घर", "पावर बैकअप"],
+    ["दुकान", "लंबे काम के घंटे"],
+    ["सुरक्षा", "रात की गश्त"],
+  ],
+};
+
+const loopFrames: Record<Language, [string, string][]> = {
+  en: [
+    ["STEP 01", "LISTEN"],
+    ["STEP 02", "IMPROVE"],
+    ["STEP 03", "REFINE"],
+    ["STEP 04", "TEST"],
+    ["ONE LOOP", "EVERY BATCH"],
+  ],
+  hi: [
+    ["चरण 01", "सुनना"],
+    ["चरण 02", "सुधार"],
+    ["चरण 03", "निखार"],
+    ["चरण 04", "जांच"],
+    ["एक लूप", "हर खेप में"],
+  ],
+};
+
+const testGates: Record<Language, [string, string, string][]> = {
+  en: [
+    ["01", "Material quality", "Wiring, battery and body checked"],
+    ["02", "Repeated charging", "Checked through charge and use cycles"],
+    ["03", "Final working check", "Light output, switch and finish checked"],
+  ],
+  hi: [
+    ["01", "मटीरियल क्वालिटी", "वायरिंग, बैटरी और बॉडी की जांच"],
+    ["02", "बार-बार चार्जिंग", "चार्ज और उपयोग के कई राउंड में जांचा"],
+    ["03", "फाइनल वर्किंग चेक", "रोशनी, स्विच और फिनिश की जांच"],
+  ],
+};
+
+const visualCopy = {
+  en: {
+    orbitLabels: ["LISTEN", "IMPROVE", "REFINE", "TEST"],
+    loopTag: "THE KAG LOOP",
+    yearsTop: { small: "HEARD IN", strong: "THE FIELD", span: "DEALERS & USERS" },
+    yearsBottom: { small: "FIXED ON", strong: "THE FLOOR", span: "NEXT BATCH" },
+    inspectionHead: "WHAT GOES INSIDE A KAG TORCH",
+    inspectionSub: "NO CHEAP SHORTCUTS",
+    checkedBadge: "CHECKED",
+    demandsEyebrow: "ONE RANGE. MANY NEEDS.",
+    demandsHeadline: (
       <>
-        <span className={styles.headlineLock}>WE LISTEN.</span>
+        MADE FOR THE WAY
         <br />
-        <span className={styles.headlineLock}>WE IMPROVE.</span>
-        <br />
-        <em className={styles.headlineLock}>WE REPEAT.</em>
+        INDIA ACTUALLY WORKS
       </>
     ),
-    summary:
-      "Dealers tell us what sells. Users tell us what lasts. Every batch of torches comes out a little better than the one before.",
+    testsHeader: "EVERY TORCH MUST PASS",
+    distributorsLabel: "DISTRIBUTORS",
+    retailersLabel: "RETAILERS",
+    networkCaption: ["MADE IN INDORE", "MP, MAHARASHTRA & BEYOND"],
+    exploreRange: "Explore the range",
   },
-  {
-    number: "02",
-    label: "BUILT RIGHT FOR INDIA",
-    title: (
-      <>
-        <span className={styles.headlineLock}>PREMIUM INSIDE.</span>
-        <br />
-        <em className={styles.headlineLock}>TOUGH OUTSIDE.</em>
-      </>
-    ),
-    summary:
-      "Pure copper wiring, dependable batteries and a tough plastic body—chosen for farms, homes, shops and security work across Madhya Pradesh, Maharashtra and beyond.",
+  hi: {
+    orbitLabels: ["सुनना", "सुधार", "निखार", "जांच"],
+    loopTag: "KAG लूप",
+    yearsTop: { small: "सुना", strong: "मैदान में", span: "डीलर और ग्राहक" },
+    yearsBottom: { small: "सुधारा", strong: "फ्लोर पर", span: "अगली खेप में" },
+    inspectionHead: "KAG टॉर्च के अंदर क्या है",
+    inspectionSub: "कोई सस्ता शॉर्टकट नहीं",
+    checkedBadge: "जांचा गया",
+    demandsEyebrow: "एक रेंज. कई ज़रूरतें.",
+    demandsHeadline: <>भारत की ज़रूरत के हिसाब से बना।</>,
+    testsHeader: "हर टॉर्च की जांच ज़रूरी",
+    distributorsLabel: "डिस्ट्रिब्यूटर्स",
+    retailersLabel: "रिटेलर्स",
+    networkCaption: ["इंदौर में बना", "MP, महाराष्ट्र और उससे आगे"],
+    exploreRange: "पूरी रेंज देखें",
   },
-  {
-    number: "03",
-    label: "TESTED HERE. TRUSTED EVERYWHERE",
-    title: (
-      <>
-        THREE CHECKS.
-        <br />
-        {DISTRIBUTOR_COUNT}+ DISTRIBUTORS.
-        <br />
-        <em>STILL GROWING.</em>
-      </>
-    ),
-    summary:
-      `Checked three times before it ships—then carried by ${DISTRIBUTOR_COUNT}+ distributors and ${RETAILER_COUNT}+ retailers across MP, Maharashtra and beyond.`,
-  },
-];
+};
 
-const materialCards = [
-  ["01", "Pure copper wiring", "Carries power reliably"],
-  ["02", "Dependable batteries", "Chosen for long working hours"],
-  ["03", "Tough plastic body", "Made for rough daily handling"],
-];
+const toplineCopy: Record<Language, { eyebrow: string; sub: string }> = {
+  en: { eyebrow: "WHY US", sub: "PROOF, NOT PROMISES." },
+  hi: { eyebrow: "हम क्यों", sub: "सबूत, वादे नहीं." },
+};
 
-const demandCards = [
-  ["FARMS", "Field checks"],
-  ["HOMES", "Power backup"],
-  ["SHOPS", "Long work hours"],
-  ["SECURITY", "Night rounds"],
-];
+const footWords: Record<Language, string[]> = {
+  en: ["HEAR", "IMPROVE", "REFINE", "TEST"],
+  hi: ["सुनना", "सुधार", "निखार", "जांच"],
+};
 
-const loopFrames: [string, string][] = [
-  ["STEP 01", "LISTEN"],
-  ["STEP 02", "IMPROVE"],
-  ["STEP 03", "REFINE"],
-  ["STEP 04", "TEST"],
-  ["ONE LOOP", "EVERY BATCH"],
-];
-
-const testGates = [
-  ["01", "Material quality", "Wiring, battery and body checked"],
-  ["02", "Repeated charging", "Checked through charge and use cycles"],
-  ["03", "Final working check", "Light output, switch and finish checked"],
-];
-
-function ChapterVisual({ active }: { active: number }) {
+function ChapterVisual({ active, language }: { active: number; language: Language }) {
   const distributorCount = useCountUp(active === 2, DISTRIBUTOR_COUNT);
   const retailerCount = useCountUp(active === 2, RETAILER_COUNT);
   const [demandIndex, setDemandIndex] = useState(0);
   const [loopIndex, setLoopIndex] = useState(0);
+  const v = visualCopy[language];
+  const demands = demandCards[language];
+  const loops = loopFrames[language];
 
   useEffect(() => {
     if (active !== 1) return;
-    const id = setInterval(() => setDemandIndex((i) => (i + 1) % demandCards.length), 1700);
+    const id = setInterval(() => setDemandIndex((i) => (i + 1) % demands.length), 1700);
     return () => clearInterval(id);
-  }, [active]);
+  }, [active, demands.length]);
 
   useEffect(() => {
     if (active !== 0) return;
-    const id = setInterval(() => setLoopIndex((i) => (i + 1) % loopFrames.length), 1500);
+    const id = setInterval(() => setLoopIndex((i) => (i + 1) % loops.length), 1500);
     return () => clearInterval(id);
-  }, [active]);
+  }, [active, loops.length]);
 
   if (active === 0) {
     return (
@@ -108,20 +246,22 @@ function ChapterVisual({ active }: { active: number }) {
             <i /><i /><i /><i />
           </div>
           <div className={styles.legacyOrbitLabels} aria-hidden="true">
-            <span>LISTEN</span><span>IMPROVE</span><span>REFINE</span><span>TEST</span>
+            {v.orbitLabels.map((label) => (
+              <span key={label}>{label}</span>
+            ))}
           </div>
           <div className={styles.legacyCenter}>
-            <span>THE KAG LOOP</span>
-            <div key={loopFrames[loopIndex][1]} className={styles.centerFrame}>
-              <b>{loopFrames[loopIndex][0]}</b>
-              <strong>{loopFrames[loopIndex][1]}</strong>
+            <span>{v.loopTag}</span>
+            <div key={loops[loopIndex][1]} className={styles.centerFrame}>
+              <b>{loops[loopIndex][0]}</b>
+              <strong>{loops[loopIndex][1]}</strong>
             </div>
           </div>
         </div>
         <div className={styles.legacyYears}>
-          <div><small>HEARD IN</small><strong>THE FIELD</strong><span>DEALERS &amp; USERS</span></div>
+          <div><small>{v.yearsTop.small}</small><strong>{v.yearsTop.strong}</strong><span>{v.yearsTop.span}</span></div>
           <i />
-          <div><small>FIXED ON</small><strong>THE FLOOR</strong><span>NEXT BATCH</span></div>
+          <div><small>{v.yearsBottom.small}</small><strong>{v.yearsBottom.strong}</strong><span>{v.yearsBottom.span}</span></div>
         </div>
       </div>
     );
@@ -131,31 +271,31 @@ function ChapterVisual({ active }: { active: number }) {
     return (
       <div className={styles.buildVisual}>
         <div className={styles.inspectionHead}>
-          <span>WHAT GOES INSIDE A KAG TORCH</span>
-          <b>NO CHEAP SHORTCUTS</b>
+          <span>{v.inspectionHead}</span>
+          <b>{v.inspectionSub}</b>
         </div>
         <div className={styles.inspectionGlow} aria-hidden="true" />
         <div className={styles.buildMaterials}>
-          {materialCards.map(([number, name, note], index) => (
+          {materialCards[language].map(([number, name, note], index) => (
             <article key={number} style={{ "--order": index } as React.CSSProperties}>
               <strong>{number}</strong>
               <div><h3>{name}</h3><p>{note}</p></div>
-              <span>CHECKED</span>
+              <span>{v.checkedBadge}</span>
             </article>
           ))}
         </div>
         <div className={styles.buildDemands}>
           <div>
-            <span>ONE RANGE. MANY NEEDS.</span>
-            <b>MADE FOR THE WAY<br />INDIA ACTUALLY WORKS</b>
+            <span>{v.demandsEyebrow}</span>
+            <b>{v.demandsHeadline}</b>
           </div>
           <div className={styles.demandRotator}>
-            <div key={demandCards[demandIndex][0]} className={styles.demandCard}>
-              <strong>{demandCards[demandIndex][0]}</strong>
-              <small>{demandCards[demandIndex][1]}</small>
+            <div key={demands[demandIndex][0]} className={styles.demandCard}>
+              <strong>{demands[demandIndex][0]}</strong>
+              <small>{demands[demandIndex][1]}</small>
             </div>
             <div className={styles.demandDots} aria-hidden="true">
-              {demandCards.map(([name], index) => (
+              {demands.map(([name], index) => (
                 <i key={name} className={index === demandIndex ? styles.isOn : ""} />
               ))}
             </div>
@@ -168,8 +308,8 @@ function ChapterVisual({ active }: { active: number }) {
   return (
     <div className={styles.trustVisual}>
       <div className={styles.trustTests}>
-        <span>EVERY TORCH MUST PASS</span>
-        {testGates.map(([number, title, note], index) => (
+        <span>{v.testsHeader}</span>
+        {testGates[language].map(([number, title, note], index) => (
           <article key={number} style={{ "--order": index } as React.CSSProperties}>
             <b>{number}</b>
             <div><h3>{title}</h3><p>{note}</p></div>
@@ -181,11 +321,11 @@ function ChapterVisual({ active }: { active: number }) {
         <div className={styles.networkCount}>
           <div>
             <strong>{distributorCount}+</strong>
-            <span>DISTRIBUTORS</span>
+            <span>{v.distributorsLabel}</span>
           </div>
           <div>
             <strong>{retailerCount}+</strong>
-            <span>RETAILERS</span>
+            <span>{v.retailersLabel}</span>
           </div>
         </div>
         <div className={styles.networkField} aria-hidden="true">
@@ -194,10 +334,10 @@ function ChapterVisual({ active }: { active: number }) {
           ))}
         </div>
         <div className={styles.networkCaption}>
-          <span>MADE IN INDORE</span><i /><span>MP, MAHARASHTRA &amp; BEYOND</span>
+          <span>{v.networkCaption[0]}</span><i /><span>{v.networkCaption[1]}</span>
         </div>
         <Link href="/products">
-          Explore the range <span aria-hidden="true">↗</span>
+          {v.exploreRange} <span aria-hidden="true">↗</span>
         </Link>
       </div>
     </div>
@@ -206,17 +346,21 @@ function ChapterVisual({ active }: { active: number }) {
 
 export default function WhyUsSection() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
+  const { language } = useLanguage();
+  const currentChapters = chapters[language];
+  const topline = toplineCopy[language];
+  const foot = footWords[language];
 
-  const active = Math.min(chapters.length - 1, Math.floor(progress * chapters.length));
-  const local = progress * chapters.length - active;
-  const chapter = chapters[active];
+  const active = Math.min(currentChapters.length - 1, Math.floor(progress * currentChapters.length));
+  const local = progress * currentChapters.length - active;
+  const chapter = currentChapters[active];
 
   const goToChapter = (index: number) => {
     const section = ref.current;
     if (!section) return;
     const top = window.scrollY + section.getBoundingClientRect().top;
     const travel = section.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: top + travel * ((index + 0.08) / chapters.length), behavior: "smooth" });
+    window.scrollTo({ top: top + travel * ((index + 0.08) / currentChapters.length), behavior: "smooth" });
   };
 
   return (
@@ -228,14 +372,14 @@ export default function WhyUsSection() {
     >
       <div className={`${styles.stage} ${styles[`scene${active + 1}`]}`}>
         <div className={styles.topline}>
-          <span>WHY US</span>
-          <p>PROOF, NOT PROMISES.</p>
+          <span>{topline.eyebrow}</span>
+          <p>{topline.sub}</p>
           <b>{chapter.number} / 03</b>
         </div>
 
         <div className={styles.beam} aria-hidden="true">
-          <i style={{ width: `${(active + local + 0.08) * (100 / chapters.length)}%` }} />
-          {chapters.map((item, index) => (
+          <i style={{ width: `${(active + local + 0.08) * (100 / currentChapters.length)}%` }} />
+          {currentChapters.map((item, index) => (
             <button
               key={item.number}
               type="button"
@@ -255,15 +399,15 @@ export default function WhyUsSection() {
         </section>
 
         <section className={styles.visual} key={`visual-${active}`} aria-label={`${chapter.label} visual`}>
-          <ChapterVisual active={active} />
+          <ChapterVisual active={active} language={language} />
         </section>
 
         <div className={styles.foot}>
-          <span>HEAR</span><i /><span>IMPROVE</span><i /><span>REFINE</span><i /><span>TEST</span>
+          <span>{foot[0]}</span><i /><span>{foot[1]}</span><i /><span>{foot[2]}</span><i /><span>{foot[3]}</span>
         </div>
 
         <div className={styles.progressBar} aria-hidden="true">
-          <i style={{ width: `${(active + local) * (100 / chapters.length)}%` }} />
+          <i style={{ width: `${(active + local) * (100 / currentChapters.length)}%` }} />
         </div>
       </div>
     </section>
