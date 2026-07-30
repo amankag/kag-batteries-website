@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "./components/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const notoDevanagari = Noto_Sans_Devanagari({
+  variable: "--font-devanagari",
+  subsets: ["devanagari"],
+  weight: ["400", "500", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -38,8 +45,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} ${notoDevanagari.variable} antialiased`}>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

@@ -6,22 +6,56 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { DEALER_WHATSAPP } from "@/data/products";
 import { useOverHero } from "./useOverHero";
+import { useLanguage, type Language } from "./LanguageContext";
 
-const navLinks: [string, string][] = [
-  ["Our Story", "/#about"],
-  ["Catalogue", "/products"],
-  ["Why Us", "/#why-us"],
-  ["Factory Tour", "/#factory-visit"],
-  ["Become a Dealer", "/#become-dealer"],
-  ["Reviews", "/#reviews"],
-  ["Contact", "/#contact"],
-];
+const navLinks: Record<Language, [string, string][]> = {
+  en: [
+    ["Our Story", "/#about"],
+    ["Catalogue", "/products"],
+    ["Why Us", "/#why-us"],
+    ["Factory Tour", "/#factory-visit"],
+    ["Become a Dealer", "/#become-dealer"],
+    ["Reviews", "/#reviews"],
+    ["Contact", "/#contact"],
+  ],
+  hi: [
+    ["हमारी कहानी", "/#about"],
+    ["कैटलॉग", "/products"],
+    ["हमारी खासियत", "/#why-us"],
+    ["फैक्ट्री टूर", "/#factory-visit"],
+    ["डीलर बनें", "/#become-dealer"],
+    ["समीक्षाएं", "/#reviews"],
+    ["संपर्क करें", "/#contact"],
+  ],
+};
+
+function LanguageToggle({ light }: { light: boolean }) {
+  const { language, toggleLanguage } = useLanguage();
+  return (
+    <button
+      type="button"
+      onClick={toggleLanguage}
+      aria-label={language === "en" ? "हिंदी में देखें" : "View in English"}
+      className={`inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border px-2.5 text-[11px] font-bold transition-colors duration-200 ${
+        light
+          ? "border-[#11120f]/15 text-[#11120f]/70 hover:bg-[#11120f]/5"
+          : "border-white/20 text-emerald-50/80 hover:bg-white/10"
+      }`}
+    >
+      <span className={language === "en" ? "opacity-100" : "opacity-40"}>EN</span>
+      <span className="opacity-25">/</span>
+      <span className={language === "hi" ? "opacity-100" : "opacity-40"}>हिं</span>
+    </button>
+  );
+}
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const overHero = useOverHero();
   const pathname = usePathname();
+  const { language } = useLanguage();
+  const links = navLinks[language];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -57,43 +91,48 @@ export default function Header() {
             light ? "text-[#11120f]/70 opacity-100" : "opacity-0"
           }`}
         >
-          Rechargeable Torches · Indore
+          {language === "en" ? "Rechargeable Torches · Indore" : "रिचार्जेबल टॉर्च · इंदौर"}
         </p>
 
         {light ? (
-          <button
-            onClick={() => setOpen((o) => !o)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#11120f]/15 text-[#11120f] transition-colors duration-200 hover:bg-[#11120f]/5"
-            aria-label="Toggle menu"
-          >
-            {open ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <LanguageToggle light={light} />
+            <button
+              onClick={() => setOpen((o) => !o)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#11120f]/15 text-[#11120f] transition-colors duration-200 hover:bg-[#11120f]/5"
+              aria-label="Toggle menu"
+            >
+              {open ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         ) : (
           <>
             <nav className="hidden items-center gap-5 text-[13px] font-medium text-emerald-50/80 lg:flex">
-              {navLinks.map(([label, href]) => (
+              {links.map(([label, href]) => (
                 <Link key={href} href={href} className="whitespace-nowrap transition hover:text-white">
                   {label}
                 </Link>
               ))}
+              <LanguageToggle light={light} />
               <Link
                 href="/inquiry"
                 className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#d9f36b] px-4 py-2 text-xs font-bold text-[#071a1b] transition hover:bg-white"
               >
-                Open a dealer line
+                {language === "en" ? "Open a dealer line" : "डीलर लाइन खोलें"}
                 <span aria-hidden="true">↗</span>
               </Link>
             </nav>
 
             <div className="flex items-center gap-2 lg:hidden">
+              <LanguageToggle light={light} />
               <a
                 href={`https://wa.me/${DEALER_WHATSAPP}`}
                 target="_blank"
@@ -136,7 +175,7 @@ export default function Header() {
               light ? "text-[#11120f]" : "text-emerald-50"
             }`}
           >
-            {navLinks.map(([label, href]) => (
+            {links.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
@@ -146,14 +185,17 @@ export default function Header() {
                 {label}
               </Link>
             ))}
-            <a
-              href={`https://wa.me/${DEALER_WHATSAPP}`}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-flex justify-center rounded-full bg-[#d9f36b] px-4 py-3 text-sm font-bold text-[#071a1b]"
-            >
-              Message the sales team
-            </a>
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <a
+                href={`https://wa.me/${DEALER_WHATSAPP}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex flex-1 justify-center rounded-full bg-[#d9f36b] px-4 py-3 text-sm font-bold text-[#071a1b]"
+              >
+                {language === "en" ? "Message the sales team" : "सेल्स टीम को मैसेज करें"}
+              </a>
+              <LanguageToggle light={light} />
+            </div>
           </nav>
         </div>
       )}

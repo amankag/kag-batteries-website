@@ -4,13 +4,43 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./hero.module.css";
 import { useScrollProgress } from "./useScrollProgress";
+import { useLanguage } from "./LanguageContext";
 
 const HEADER_HEIGHT = 74;
 
+const copy = {
+  en: {
+    eyebrow: "01  ───  TIGER SERIES",
+    instructions: ["SCROLL TO MAKE ROOM", "KEEP PUSHING", "MEET TIGER"],
+    blurb: (
+      <>
+        Heavy-duty light,
+        <br />
+        built to keep going.
+      </>
+    ),
+    cta: "Explore Tiger",
+  },
+  hi: {
+    eyebrow: "01  ───  टाइगर सीरीज़",
+    instructions: ["स्क्रॉल करें", "आगे बढ़ते रहें", "टाइगर से मिलें"],
+    blurb: (
+      <>
+        हैवी-ड्यूटी लाइट,
+        <br />
+        जो चलती रहे।
+      </>
+    ),
+    cta: "टाइगर देखें",
+  },
+};
+
 export default function Hero() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
+  const { language } = useLanguage();
+  const t = copy[language];
   const phase = progress < 0.28 ? 1 : progress < 0.68 ? 2 : 3;
-  const instruction = phase === 1 ? "SCROLL TO MAKE ROOM" : phase === 2 ? "KEEP PUSHING" : "MEET TIGER";
+  const instruction = t.instructions[phase - 1];
   const counter = phase === 1 ? "01 / 03" : phase === 2 ? "02 / 03" : "03 / 03";
   const infoInteractive = progress >= 0.7;
 
@@ -28,8 +58,8 @@ export default function Hero() {
       >
         <div aria-hidden="true" className={`pointer-events-none absolute inset-0 ${styles.grain}`} />
 
-        <p className="absolute left-5 top-5 z-10 text-[11px] font-bold uppercase tracking-[0.2em] text-[#11120f]/70 md:left-10 md:top-8">
-          01&nbsp;&nbsp;───&nbsp;&nbsp;TIGER SERIES
+        <p className="absolute left-5 top-5 z-10 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] text-[#11120f]/70 md:left-10 md:top-8">
+          {t.eyebrow}
         </p>
 
         <div aria-hidden="true" className={`z-0 flex px-4 ${styles.typeGroup}`}>
@@ -64,16 +94,14 @@ export default function Hero() {
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff7900]">Tiger KB-81</p>
           <p className="mt-3 text-2xl font-bold leading-snug text-[#11120f] md:text-4xl">
-            Heavy-duty light,
-            <br />
-            built to keep going.
+            {t.blurb}
           </p>
           <Link
             href="/products/tiger-model-kb-81"
             tabIndex={infoInteractive ? 0 : -1}
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#11120f] px-6 py-3 text-sm font-bold text-[#f4f1e9] transition hover:bg-[#ff7900]"
           >
-            Explore Tiger <span aria-hidden="true">↗</span>
+            {t.cta} <span aria-hidden="true">↗</span>
           </Link>
         </div>
 

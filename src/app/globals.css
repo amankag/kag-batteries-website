@@ -27,6 +27,23 @@ a, button { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 ::selection { background: var(--acid); color: #071a1b; }
 
+/* Hindi mode: swap in a Devanagari face everywhere and relax tracking —
+   the tight negative letter-spacing tuned for Latin headlines makes
+   matras collide in Devanagari, so it's neutralised sitewide. */
+html.lang-hi {
+  --font-sans: var(--font-devanagari), var(--font-geist-sans), Arial, sans-serif;
+  --font-display: var(--font-devanagari), var(--font-geist-sans), Arial, sans-serif;
+}
+
+html.lang-hi body {
+  font-family: var(--font-devanagari), var(--font-geist-sans), Arial, sans-serif;
+}
+
+html.lang-hi * {
+  letter-spacing: normal !important;
+  font-family: var(--font-devanagari), var(--font-geist-sans), Arial, sans-serif;
+}
+
 .kag-marquee { animation: kag-marquee 28s linear infinite; }
 @keyframes kag-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
