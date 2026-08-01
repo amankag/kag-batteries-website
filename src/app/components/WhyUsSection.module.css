@@ -556,6 +556,20 @@
   :global(html.lang-hi) .buildDemands > div > span { font-size: 9px; }
   :global(html.lang-hi) .demandCard strong { font-size: 13px; }
   :global(html.lang-hi) .demandCard small { font-size: 10.5px; }
+
+  /* Even with the sizing above, chapter 2's fixed-height .visual box
+     (top:51%,height:42.5% of the stage) is still too tight on shorter
+     phones — measured on a 375x667 viewport: 34px of unused gap sits
+     between the summary paragraph and .visual's top, and another 44px
+     of unused margin sits below .visual before the stage ends.
+     Reclaiming that ~78px (moving .visual up and taller) is what
+     actually fixes the clipping/overlap seen on short viewports —
+     shrinking fonts further has diminishing returns before they stop
+     being legible. */
+  :global(html.lang-hi) .stage.scene2 .visual {
+    top: 44%;
+    height: 53%;
+  }
   :global(html.lang-hi) .trustTests { gap: 4px; }
   :global(html.lang-hi) .trustTests > span { font-size: 8.5px; }
   :global(html.lang-hi) .trustTests h3 { font-size: 11px; }
