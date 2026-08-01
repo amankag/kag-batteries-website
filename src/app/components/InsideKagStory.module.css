@@ -342,19 +342,16 @@
    .copy's bottom edge past .proof's top edge on real laptop-height
    viewports (~650-700px), overlapping "1,000,000+" with the paragraph
    above it. Tighten the vertical rhythm specifically in Hindi mode so
-   the two blocks can never collide, instead of shrinking text. */
-:global(html.lang-hi) .copy {
-  /* .photos sits well clear of .copy (measured ~98px unused gap at
-     1440px viewport) — reclaim some of it so the Hindi headline wraps
-     to 2 lines instead of 3 at the English clamp()'s font size. */
-  width: min(44vw, 630px);
-}
+   the two blocks can never collide, instead of shrinking text.
 
-:global(html.lang-hi) .copy h2 {
-  font-size: clamp(38px, 4.6vw, 66px) !important;
-  line-height: 1.14 !important;
-}
-
+   IMPORTANT: the width/font-size rewrite below is desktop-only
+   (min-width: 761px). Mobile already lays .copy out full-width via
+   its own `left:20px;right:20px;width:auto` media query — an earlier
+   version of this fix applied unconditionally and clobbered that with
+   a ~165px-wide column on phones, which is what broke the mobile
+   "KAG के अंदर" scenes (overlapping photo/text). Margin tightening is
+   safe unconditionally since it only ever removes space, never adds
+   a competing width/position rule. */
 :global(html.lang-hi) .eyebrow {
   margin-bottom: 14px;
 }
@@ -365,6 +362,21 @@
 
 :global(html.lang-hi) .proofSupport {
   margin-top: 8px;
+}
+
+@media (min-width: 761px) {
+  :global(html.lang-hi) .copy {
+    /* .photos sits well clear of .copy (measured ~98px unused gap at
+       1440px viewport) — reclaim some of it so the Hindi headline
+       wraps to 2 lines instead of 3 at the English clamp()'s font
+       size. */
+    width: min(44vw, 630px);
+  }
+
+  :global(html.lang-hi) .copy h2 {
+    font-size: clamp(38px, 4.6vw, 66px) !important;
+    line-height: 1.14 !important;
+  }
 }
 
 @media (max-width: 760px) {
@@ -378,5 +390,12 @@
 
   :global(html.lang-hi) .proofSupport {
     margin-top: 6px;
+  }
+
+  /* Mobile's own h2 clamp (39-54px at 0.93 line-height) already wraps
+     fine within `left:20px;right:20px` — Hindi just needs the same
+     matra breathing room as every other headline sitewide. */
+  :global(html.lang-hi) .copy h2 {
+    line-height: 1.1 !important;
   }
 }

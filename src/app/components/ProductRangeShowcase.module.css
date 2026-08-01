@@ -623,18 +623,18 @@
 
 /* Hindi mode legibility: Small labels in product range need larger sizes.
    `:global()` is required here — see note in WhyUsSection.module.css. */
-:global(html.lang-hi) .rangeHead > span { font-size: 11px; }
-:global(html.lang-hi) .productTabs button { font-size: 12px; }
-:global(html.lang-hi) .productKicker { font-size: 12px; }
-:global(html.lang-hi) .madeFor span { font-size: 12px; }
-:global(html.lang-hi) .rangeProduct span { font-size: 11px; }
+:global(html.lang-hi) .rangeHead > span { font-size: 12px; }
+:global(html.lang-hi) .productTabs button { font-size: 13px; }
+:global(html.lang-hi) .productKicker { font-size: 13px; }
+:global(html.lang-hi) .madeFor span { font-size: 13px; }
+:global(html.lang-hi) .rangeProduct span { font-size: 12px; }
 
 @media (max-width: 760px) {
-  :global(html.lang-hi) .rangeHead > span { font-size: 9px; }
-  :global(html.lang-hi) .productTabs button { font-size: 8.5px; }
-  :global(html.lang-hi) .productKicker { font-size: 9.5px; }
-  :global(html.lang-hi) .madeFor span { font-size: 10px; }
-  :global(html.lang-hi) .rangeProduct span { font-size: 9.5px; }
+  :global(html.lang-hi) .rangeHead > span { font-size: 10px; }
+  :global(html.lang-hi) .productTabs button { font-size: 9.5px; }
+  :global(html.lang-hi) .productKicker { font-size: 10.5px; }
+  :global(html.lang-hi) .madeFor span { font-size: 11px; }
+  :global(html.lang-hi) .rangeProduct span { font-size: 10.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

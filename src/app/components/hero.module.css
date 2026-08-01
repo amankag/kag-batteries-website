@@ -204,3 +204,16 @@
     animation: none;
   }
 }
+
+/* "BUILT FOR LONG NIGHTS" is decorative background type — it's always
+   English, in both languages, it never gets translated. But the
+   sitewide Hindi rule `html.lang-hi * { font-family: devanagari }`
+   still swaps its font, since it doesn't know this text is exempt.
+   Devanagari's metrics are wider/differently-kerned than the Latin
+   display font this block was tuned for, so the overlap layout (each
+   .word positioned with hand-tuned translateX offsets) comes out
+   visibly stretched/misaligned in Hindi mode. Force the original
+   display font back for this specific block regardless of language. */
+:global(html.lang-hi) .word {
+  font-family: var(--font-geist-sans), Arial, sans-serif !important;
+}
