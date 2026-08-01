@@ -325,6 +325,21 @@
   .brochureDeck { height: 190px; }
 }
 
+/* Hindi mode legibility: Devanagari text needs larger sizes for readability */
+html.lang-hi .topline { font-size: 13px; }
+html.lang-hi .beam button { font-size: 12px; }
+html.lang-hi .copy > p { font-size: 13px; }
+html.lang-hi .pointRow > b { font-size: 14px; }
+html.lang-hi .statList li { font-size: 16px; }
+
+@media (max-width: 760px) {
+  html.lang-hi .topline { font-size: 12px; }
+  html.lang-hi .beam button { font-size: 11px; }
+  html.lang-hi .copy > p { font-size: 13px; }
+  html.lang-hi .pointRow > b { font-size: 13.5px; }
+  html.lang-hi .statList li { font-size: 15.5px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scene1Content, .scene2Content, .pointRow, .statList li, .deckCard {
     animation: none;

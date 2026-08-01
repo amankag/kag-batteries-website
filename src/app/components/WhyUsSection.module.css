@@ -529,20 +529,47 @@
    nudge those specific ones up in Hindi mode instead of shrinking text
    elsewhere to compensate. */
 @media (max-width: 760px) {
-  html.lang-hi .legacyOrbitLabels span { font-size: 7.5px; }
-  html.lang-hi .legacyCenter > span { font-size: 6.5px; }
-  html.lang-hi .centerFrame b { font-size: 7px; }
+  html.lang-hi .legacyOrbitLabels span { font-size: 8.5px; }
+  html.lang-hi .legacyCenter > span { font-size: 7.5px; }
+  html.lang-hi .centerFrame b { font-size: 8px; }
   html.lang-hi .legacyYears small,
-  html.lang-hi .legacyYears span { font-size: 6.5px; }
+  html.lang-hi .legacyYears span { font-size: 7px; }
+  html.lang-hi .inspectionHead { font-size: 10.5px; }
+  html.lang-hi .buildMaterials h3 { font-size: 13px; }
+  html.lang-hi .buildMaterials article p { font-size: 11px; }
+  html.lang-hi .buildMaterials article > span { font-size: 9px; }
+  html.lang-hi .buildDemands > div > span { font-size: 10px; }
+  html.lang-hi .demandCard strong { font-size: 14px; }
+  html.lang-hi .demandCard small { font-size: 11px; }
+  html.lang-hi .trustTests > span { font-size: 9.5px; }
+  html.lang-hi .trustTests h3 { font-size: 12px; }
+  html.lang-hi .trustTests article p { font-size: 10px; }
+  html.lang-hi .networkCount span { font-size: 9.5px; }
+  html.lang-hi .networkCaption { font-size: 8.5px; }
 }
 
 /* Same legibility bump for the desktop sizes (7-8px), a smaller nudge
    since desktop isn't as severely tiny as mobile's. */
-html.lang-hi .legacyOrbitLabels span { font-size: 8.5px; }
-html.lang-hi .legacyCenter > span { font-size: 8px; }
-html.lang-hi .centerFrame b { font-size: 9px; }
+html.lang-hi .legacyOrbitLabels span { font-size: 10px; }
+html.lang-hi .legacyCenter > span { font-size: 9px; }
+html.lang-hi .centerFrame b { font-size: 10px; }
 html.lang-hi .legacyYears small,
-html.lang-hi .legacyYears span { font-size: 7px; }
+html.lang-hi .legacyYears span { font-size: 8px; }
+html.lang-hi .inspectionHead { font-size: 11px; }
+html.lang-hi .buildMaterials h3 { font-size: 16px; }
+html.lang-hi .buildMaterials article p { font-size: 12px; }
+html.lang-hi .buildMaterials article > span { font-size: 9.5px; }
+html.lang-hi .buildDemands > div > span { font-size: 10.5px; }
+html.lang-hi .buildDemands > div > b { font-size: 14px; }
+html.lang-hi .demandCard strong { font-size: 16px; }
+html.lang-hi .demandCard small { font-size: 12px; }
+html.lang-hi .trustTests > span { font-size: 10px; }
+html.lang-hi .trustTests h3 { font-size: 16px; }
+html.lang-hi .trustTests article p { font-size: 12px; }
+html.lang-hi .trustTests article > b { font-size: 11px; }
+html.lang-hi .networkCount span { font-size: 10px; }
+html.lang-hi .networkCaption { font-size: 9.5px; }
+html.lang-hi .foot { font-size: 8.5px; }
 
 /* ── Chapter 02 — materials inspection panel ─────────────────────── */
 
