@@ -333,3 +333,50 @@
     transition: none;
   }
 }
+
+/* Hindi mode: the headline/body block and the bottom counter block are
+   both absolutely positioned (one anchored from top, one from bottom)
+   with no shared height budget. Hindi text runs measurably taller here
+   than English — the sitewide `line-height: 1.28` forced on h1/h2 for
+   Devanagari (globals.css) plus longer wrapped body/label copy pushes
+   .copy's bottom edge past .proof's top edge on real laptop-height
+   viewports (~650-700px), overlapping "1,000,000+" with the paragraph
+   above it. Tighten the vertical rhythm specifically in Hindi mode so
+   the two blocks can never collide, instead of shrinking text. */
+:global(html.lang-hi) .copy {
+  /* .photos sits well clear of .copy (measured ~98px unused gap at
+     1440px viewport) — reclaim some of it so the Hindi headline wraps
+     to 2 lines instead of 3 at the English clamp()'s font size. */
+  width: min(44vw, 630px);
+}
+
+:global(html.lang-hi) .copy h2 {
+  font-size: clamp(38px, 4.6vw, 66px) !important;
+  line-height: 1.14 !important;
+}
+
+:global(html.lang-hi) .eyebrow {
+  margin-bottom: 14px;
+}
+
+:global(html.lang-hi) .body {
+  margin-top: 18px;
+}
+
+:global(html.lang-hi) .proofSupport {
+  margin-top: 8px;
+}
+
+@media (max-width: 760px) {
+  :global(html.lang-hi) .eyebrow {
+    margin-bottom: 8px;
+  }
+
+  :global(html.lang-hi) .body {
+    margin-top: 10px;
+  }
+
+  :global(html.lang-hi) .proofSupport {
+    margin-top: 6px;
+  }
+}
