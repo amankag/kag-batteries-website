@@ -551,26 +551,27 @@
 /* Same legibility bump for the desktop sizes (7-8px), a smaller nudge
    since desktop isn't as severely tiny as mobile's. Increased further
    based on user feedback - Devanagari needs more space. */
-html.lang-hi .legacyOrbitLabels span { font-size: 11px; }
-html.lang-hi .legacyCenter > span { font-size: 10px; }
-html.lang-hi .centerFrame b { font-size: 11px; }
+html.lang-hi .legacyOrbitLabels span { font-size: 12px !important; }
+html.lang-hi .legacyCenter > span { font-size: 11px !important; }
+html.lang-hi .centerFrame b { font-size: 12px !important; }
 html.lang-hi .legacyYears small,
-html.lang-hi .legacyYears span { font-size: 9px; }
-html.lang-hi .inspectionHead { font-size: 11px; }
-html.lang-hi .buildMaterials h3 { font-size: 16px; }
-html.lang-hi .buildMaterials article p { font-size: 12px; }
-html.lang-hi .buildMaterials article > span { font-size: 9.5px; }
-html.lang-hi .buildDemands > div > span { font-size: 10.5px; }
-html.lang-hi .buildDemands > div > b { font-size: 14px; }
-html.lang-hi .demandCard strong { font-size: 16px; }
-html.lang-hi .demandCard small { font-size: 12px; }
-html.lang-hi .trustTests > span { font-size: 10px; }
-html.lang-hi .trustTests h3 { font-size: 16px; }
-html.lang-hi .trustTests article p { font-size: 12px; }
-html.lang-hi .trustTests article > b { font-size: 11px; }
-html.lang-hi .networkCount span { font-size: 10px; }
-html.lang-hi .networkCaption { font-size: 9.5px; }
-html.lang-hi .foot { font-size: 8.5px; }
+html.lang-hi .legacyYears span { font-size: 10px !important; }
+html.lang-hi .inspectionHead { font-size: 12px !important; }
+html.lang-hi .buildMaterials h3 { font-size: 17px !important; }
+html.lang-hi .buildMaterials article p { font-size: 13px !important; }
+html.lang-hi .buildMaterials article > span { font-size: 10.5px !important; }
+html.lang-hi .buildDemands > div > span { font-size: 11.5px !important; }
+html.lang-hi .buildDemands > div > b { font-size: 15px !important; }
+html.lang-hi .demandCard strong { font-size: 17px !important; }
+html.lang-hi .demandCard small { font-size: 13px !important; }
+html.lang-hi .trustTests > span { font-size: 11px !important; }
+html.lang-hi .trustTests h3 { font-size: 17px !important; }
+html.lang-hi .trustTests article p { font-size: 13px !important; }
+html.lang-hi .trustTests article > b { font-size: 12px !important; }
+html.lang-hi .networkCount { gap: 20px !important; }
+html.lang-hi .networkCount span { font-size: 11px !important; }
+html.lang-hi .networkCaption { font-size: 10.5px !important; }
+html.lang-hi .foot { font-size: 9.5px !important; }
 
 /* ── Chapter 02 — materials inspection panel ─────────────────────── */
 

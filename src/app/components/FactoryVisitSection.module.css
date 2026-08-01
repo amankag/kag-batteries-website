@@ -223,15 +223,16 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 12px;
+  padding: 11px 14px;
   border-radius: 999px;
   color: white;
-  background: rgba(17, 18, 15, 0.88);
+  background: rgba(17, 18, 15, 0.92);
   backdrop-filter: blur(12px);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.08em;
-  text-shadow: 0 2px 8px rgba(17, 18, 15, 0.6);
+  text-shadow: 0 3px 10px rgba(17, 18, 15, 0.8);
+  box-shadow: 0 0 24px rgba(17, 18, 15, 0.5);
 }
 
 .founderStatement {
@@ -496,20 +497,20 @@
 }
 
 /* Hindi mode legibility: Devanagari captions and labels need larger sizes */
-html.lang-hi .meta { font-size: 14px; }
+html.lang-hi .meta { font-size: 14px !important; }
 html.lang-hi .openingCopy p,
-html.lang-hi .chapterCopy p { font-size: 14px; }
-html.lang-hi .scrollEntry { font-size: 14px; }
-html.lang-hi .founderPhoto > span { font-size: 14.5px; }
+html.lang-hi .chapterCopy p { font-size: 14px !important; }
+html.lang-hi .scrollEntry { font-size: 14px !important; }
+html.lang-hi .founderPhoto > span { font-size: 15px !important; }
 html.lang-hi .photoDeck button > span,
-html.lang-hi .proofPhoto > span { font-size: 14.5px; }
-html.lang-hi .lightbox figcaption { font-size: 19px; }
+html.lang-hi .proofPhoto > span { font-size: 16px !important; }
+html.lang-hi .lightbox figcaption { font-size: 20px !important; }
 
 @media (max-width: 760px) {
-  html.lang-hi .meta { font-size: 13.5px; }
+  html.lang-hi .meta { font-size: 14px !important; }
   html.lang-hi .openingCopy p,
-  html.lang-hi .chapterCopy p { font-size: 13.5px; }
-  html.lang-hi .founderPhoto > span { font-size: 13.5px; }
+  html.lang-hi .chapterCopy p { font-size: 14px !important; }
+  html.lang-hi .founderPhoto > span { font-size: 14px !important; }
   html.lang-hi .proofPhoto > span,
-  html.lang-hi .photoDeck button > span { font-size: 12.5px; }
+  html.lang-hi .photoDeck button > span { font-size: 13.5px !important; }
 }
