@@ -1,0 +1,9 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "kb-website-dev",
+      "url": "http://localhost:3000"
+    }
+  ]
+}

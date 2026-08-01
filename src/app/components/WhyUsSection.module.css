@@ -549,12 +549,13 @@
 }
 
 /* Same legibility bump for the desktop sizes (7-8px), a smaller nudge
-   since desktop isn't as severely tiny as mobile's. */
-html.lang-hi .legacyOrbitLabels span { font-size: 10px; }
-html.lang-hi .legacyCenter > span { font-size: 9px; }
-html.lang-hi .centerFrame b { font-size: 10px; }
+   since desktop isn't as severely tiny as mobile's. Increased further
+   based on user feedback - Devanagari needs more space. */
+html.lang-hi .legacyOrbitLabels span { font-size: 11px; }
+html.lang-hi .legacyCenter > span { font-size: 10px; }
+html.lang-hi .centerFrame b { font-size: 11px; }
 html.lang-hi .legacyYears small,
-html.lang-hi .legacyYears span { font-size: 8px; }
+html.lang-hi .legacyYears span { font-size: 9px; }
 html.lang-hi .inspectionHead { font-size: 11px; }
 html.lang-hi .buildMaterials h3 { font-size: 16px; }
 html.lang-hi .buildMaterials article p { font-size: 12px; }
