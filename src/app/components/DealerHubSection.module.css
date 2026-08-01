@@ -325,19 +325,20 @@
   .brochureDeck { height: 190px; }
 }
 
-/* Hindi mode legibility: Devanagari text needs larger sizes for readability */
-html.lang-hi .topline { font-size: 14px; }
-html.lang-hi .beam button { font-size: 13px; }
-html.lang-hi .copy > p { font-size: 14px; }
-html.lang-hi .pointRow > b { font-size: 15px; }
-html.lang-hi .statList li { font-size: 17px; }
+/* Hindi mode legibility: Devanagari text needs larger sizes for readability.
+   `:global()` is required here — see note in WhyUsSection.module.css. */
+:global(html.lang-hi) .topline { font-size: 13px; }
+:global(html.lang-hi) .beam button { font-size: 12px; }
+:global(html.lang-hi) .copy > p { font-size: 13px; }
+:global(html.lang-hi) .pointRow > b { font-size: 14px; }
+:global(html.lang-hi) .statList li { font-size: 16px; }
 
 @media (max-width: 760px) {
-  html.lang-hi .topline { font-size: 13px; }
-  html.lang-hi .beam button { font-size: 12px; }
-  html.lang-hi .copy > p { font-size: 13.5px; }
-  html.lang-hi .pointRow > b { font-size: 14.5px; }
-  html.lang-hi .statList li { font-size: 16.5px; }
+  :global(html.lang-hi) .topline { font-size: 12px; }
+  :global(html.lang-hi) .beam button { font-size: 11px; }
+  :global(html.lang-hi) .copy > p { font-size: 13px; }
+  :global(html.lang-hi) .pointRow > b { font-size: 13.5px; }
+  :global(html.lang-hi) .statList li { font-size: 15.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

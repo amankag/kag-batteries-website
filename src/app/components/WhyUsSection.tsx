@@ -65,7 +65,7 @@ const chapters: Record<Language, Chapter[]> = {
   hi: [
     {
       number: "01",
-      label: "भरोसा, निखरा हुआ",
+      label: "भरोसा, हर बार निखरा",
       title: (
         <>
           <span className={styles.headlineLock}>हम सुनते हैं।</span>
@@ -192,7 +192,7 @@ const visualCopy = {
   hi: {
     orbitLabels: ["सुनना", "सुधार", "निखार", "जांच"],
     loopTag: "KAG लूप",
-    yearsTop: { small: "सुना", strong: "मैदान में", span: "डीलर और ग्राहक" },
+    yearsTop: { small: "सुना", strong: "हर सुझाव", span: "डीलर और ग्राहक से" },
     yearsBottom: { small: "सुधारा", strong: "फ्लोर पर", span: "अगली खेप में" },
     inspectionHead: "KAG टॉर्च के अंदर क्या है",
     inspectionSub: "कोई सस्ता शॉर्टकट नहीं",
@@ -209,7 +209,7 @@ const visualCopy = {
 
 const toplineCopy: Record<Language, { eyebrow: string; sub: string }> = {
   en: { eyebrow: "WHY US", sub: "PROOF, NOT PROMISES." },
-  hi: { eyebrow: "हम क्यों", sub: "सबूत, वादे नहीं." },
+  hi: { eyebrow: "हम क्यों", sub: "सिर्फ़ वादे नहीं." },
 };
 
 const footWords: Record<Language, string[]> = {
