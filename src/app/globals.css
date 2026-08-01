@@ -54,6 +54,50 @@ html.lang-hi h2 {
   line-height: 1.28 !important;
 }
 
+/* CRITICAL: Hindi Typography Legibility Override
+   Devanagari needs larger sizes for legibility. This applies globally
+   across all scoped CSS modules using high specificity. */
+
+/* Enlarge small/micro text: captions, labels, metadata, eyebrows */
+html.lang-hi span,
+html.lang-hi small,
+html.lang-hi p,
+html.lang-hi button,
+html.lang-hi a,
+html.lang-hi strong,
+html.lang-hi b {
+  font-size: calc(1em * 1.15) !important;
+}
+
+/* Further enlarge caption text on images */
+html.lang-hi [class*="span"],
+html.lang-hi [class*="caption"],
+html.lang-hi [class*="label"],
+html.lang-hi [class*="meta"] {
+  font-size: calc(1em * 1.2) !important;
+}
+
+/* Preserve heading sizes - don't oversca h1/h2/h3 */
+html.lang-hi h1,
+html.lang-hi h2,
+html.lang-hi h3,
+html.lang-hi h4,
+html.lang-hi h5,
+html.lang-hi h6 {
+  font-size: inherit !important;
+}
+
+/* Container elements inherit, don't scale */
+html.lang-hi div,
+html.lang-hi section,
+html.lang-hi article,
+html.lang-hi header,
+html.lang-hi footer,
+html.lang-hi nav,
+html.lang-hi main {
+  font-size: inherit !important;
+}
+
 .kag-marquee { animation: kag-marquee 28s linear infinite; }
 @keyframes kag-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
