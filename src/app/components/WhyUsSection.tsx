@@ -191,10 +191,10 @@ const visualCopy = {
   },
   hi: {
     orbitLabels: ["सुनना", "सुधार", "निखार", "जांच"],
-    loopTag: "KAG लूप",
+    loopTag: "काग लूप",
     yearsTop: { small: "सुना", strong: "हर सुझाव", span: "डीलर और ग्राहक से" },
     yearsBottom: { small: "सुधारा", strong: "फ्लोर पर", span: "अगली खेप में" },
-    inspectionHead: "KAG टॉर्च के अंदर क्या है",
+    inspectionHead: "काग टॉर्च के अंदर क्या है",
     inspectionSub: "कोई सस्ता शॉर्टकट नहीं",
     checkedBadge: "जांचा गया",
     demandsEyebrow: "एक रेंज. कई ज़रूरतें.",

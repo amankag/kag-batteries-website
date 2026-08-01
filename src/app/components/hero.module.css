@@ -206,14 +206,19 @@
 }
 
 /* "BUILT FOR LONG NIGHTS" is decorative background type — it's always
-   English, in both languages, it never gets translated. But the
-   sitewide Hindi rule `html.lang-hi * { font-family: devanagari }`
-   still swaps its font, since it doesn't know this text is exempt.
-   Devanagari's metrics are wider/differently-kerned than the Latin
-   display font this block was tuned for, so the overlap layout (each
-   .word positioned with hand-tuned translateX offsets) comes out
-   visibly stretched/misaligned in Hindi mode. Force the original
-   display font back for this specific block regardless of language. */
+   English, in both languages, it never gets translated. But two
+   sitewide Hindi rules still apply to it because they don't know this
+   text is exempt:
+     1. `html.lang-hi * { font-family: devanagari }` swaps its font
+     2. `html.lang-hi * { letter-spacing: normal !important }` strips
+        its `-0.095em` tight tracking (see .word above) — that tight
+        negative spacing is *why* these giant letters interlock at
+        the container edges by design; removing it makes the same
+        four words measurably wider, so they spread past the edges
+        of the screen instead of sitting flush like in English mode.
+   Force both properties back to their English-mode values for this
+   specific block, regardless of language. */
 :global(html.lang-hi) .word {
   font-family: var(--font-geist-sans), Arial, sans-serif !important;
+  letter-spacing: -0.095em !important;
 }

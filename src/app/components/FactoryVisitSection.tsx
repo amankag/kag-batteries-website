@@ -45,7 +45,7 @@ const productionImages: Record<Language, GalleryImage[]> = {
   hi: [
     {
       src: "/factory-2.jpg",
-      alt: "प्रोडक्शन फ्लोर पर काम करती KAG बैटरीज़ की टीम",
+      alt: "प्रोडक्शन फ्लोर पर काम करती काग बैटरीज़ की टीम",
       caption: "काम करता प्रोडक्शन फ्लोर",
     },
     {
@@ -55,7 +55,7 @@ const productionImages: Record<Language, GalleryImage[]> = {
     },
     {
       src: "/images/Copy of IMG_5917.jpg",
-      alt: "बैटरी के पुर्ज़ों के साथ काम करती KAG बैटरीज़ असेंबली टीम",
+      alt: "बैटरी के पुर्ज़ों के साथ काम करती काग बैटरीज़ असेंबली टीम",
       caption: "हाथ से असेंबली",
     },
   ],
@@ -82,7 +82,7 @@ const finalImages: Record<Language, GalleryImage[]> = {
   hi: [
     {
       src: "/images/Copy of IMG_6000.jpg",
-      alt: "पैक की गई KAG बैटरीज़ की खेप बांधता एक कर्मचारी",
+      alt: "पैक की गई काग बैटरीज़ की खेप बांधता एक कर्मचारी",
       caption: "भेजने के लिए पैक",
     },
     {
@@ -161,7 +161,7 @@ const copy = {
     close: "Close",
   },
   hi: {
-    meta: "KAG बैटरीज़ के अंदर",
+    meta: "काग बैटरीज़ के अंदर",
     metaSub: "असली लोग. असली उत्पादन.",
     opening: {
       eyebrow: "01 — इंदौर, मध्य प्रदेश",
@@ -186,7 +186,7 @@ const copy = {
       ),
       support:
         "ऐसी टॉर्च बनाना जो हर किसान खरीद सके। हमारे संस्थापक खुद किसान परिवार से हैं—वे यह ज़रूरत खुद जानते हैं, और यह फैक्ट्री आज भी उन्हीं के लिए बनाती है।",
-      photoLabel: "KAG बैटरीज़ · संस्थापक",
+      photoLabel: "काग बैटरीज़ · संस्थापक",
       statement: ["दो संस्थापक।", "एक फैक्ट्री।", "टीम जो लगातार आगे बढ़ती है।"],
     },
     production: {
@@ -215,10 +215,10 @@ const copy = {
     },
     founderFallback: {
       src: "/images/Founder_pic.jpg",
-      alt: "KAG बैटरीज़ के दोनों संस्थापक साथ बैठे हुए",
-      caption: "KAG बैटरीज़ के संस्थापक",
+      alt: "काग बैटरीज़ के दोनों संस्थापक साथ बैठे हुए",
+      caption: "काग बैटरीज़ के संस्थापक",
     },
-    founderAlt: "KAG बैटरीज़ के दोनों संस्थापक साथ बैठे हुए",
+    founderAlt: "काग बैटरीज़ के दोनों संस्थापक साथ बैठे हुए",
     close: "बंद करें",
   },
 };

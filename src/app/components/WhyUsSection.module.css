@@ -574,6 +574,23 @@
 :global(html.lang-hi) .networkCaption { font-size: 10px; }
 :global(html.lang-hi) .foot { font-size: 9px; }
 
+/* Chapter 3 ("यहां जांचा। हर जगह भरोसा।") is the one three-line
+   headline in this section with NO desktop font-size override —
+   scene1/scene2 both get smaller clamp()s above that happen to keep
+   them inside the stage even at Hindi's mandatory 1.28 line-height.
+   Scene3 uses the full clamp(52px,6vw,92px) at that line-height,
+   which pushes 3 lines tall enough to run past the summary paragraph
+   below it and get clipped by .stage's overflow:hidden — confirmed
+   from a real screenshot at a MacBook viewport. Desktop-only: mobile
+   already has its own working `.stage.scene3 .copy h1` override just
+   above and isn't affected. */
+@media (min-width: 761px) {
+  :global(html.lang-hi) .stage.scene3 .copy h1 {
+    font-size: clamp(40px, 4.6vw, 68px) !important;
+    line-height: 1.12 !important;
+  }
+}
+
 /* ── Chapter 02 — materials inspection panel ─────────────────────── */
 
 .buildVisual {

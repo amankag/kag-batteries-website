@@ -74,13 +74,13 @@ const scenes: Record<Language, Scene[]> = {
       number: "01",
       eyebrow: "परिवार का नाम, अपनी पहचान",
       title: "हर टॉर्च पर हमारा नाम है।",
-      body: "KAG हमारे परिवार का नाम है। जब अपना नाम हर प्रोडक्ट पर लगता है, तो क्वालिटी सिर्फ एक बात नहीं रह जाती—यह ज़िम्मेदारी बन जाती है। 1997 से इंदौर में परिवार द्वारा संचालित।",
+      body: "काग हमारे परिवार का नाम है। जब अपना नाम हर प्रोडक्ट पर लगता है, तो क्वालिटी सिर्फ एक बात नहीं रह जाती—यह ज़िम्मेदारी बन जाती है। 1997 से इंदौर में परिवार द्वारा संचालित।",
       proof: "1997",
       proofLabel: "इंदौर में उत्पादन की शुरुआत",
       image: "/directors-1.jpg",
       width: 1920,
       height: 1208,
-      alt: "इंदौर कार्यालय में KAG बैटरीज़ के दोनों संस्थापक",
+      alt: "इंदौर कार्यालय में काग बैटरीज़ के दोनों संस्थापक",
       imageClass: styles.founders,
       caption: "01 — परिवार का नाम, अपनी पहचान",
     },
@@ -94,7 +94,7 @@ const scenes: Record<Language, Scene[]> = {
       image: "/factory-2.jpg",
       width: 1920,
       height: 1080,
-      alt: "फैक्ट्री के अंदर रिचार्जेबल टॉर्च बनाती KAG टीम",
+      alt: "फैक्ट्री के अंदर रिचार्जेबल टॉर्च बनाती काग टीम",
       imageClass: styles.factory,
       caption: "02 — एक ही छत के नीचे निर्माण",
     },
@@ -102,13 +102,13 @@ const scenes: Record<Language, Scene[]> = {
       number: "03",
       eyebrow: "अंधेरे के बाद के काम के लिए बना",
       title: "खेत की लंबी रातों के लिए बना।",
-      body: "रात की सिंचाई, खेत का राउंड, बिजली कटौती—KAG बैटरीज़ की टॉर्च हर रात घंटों चलने के लिए बनी है, हर मौसम में, ऐसी कीमत पर जो आपकी मेहनत की कमाई का सम्मान करे।",
+      body: "रात की सिंचाई, खेत का राउंड, बिजली कटौती—काग बैटरीज़ की टॉर्च हर रात घंटों चलने के लिए बनी है, हर मौसम में, ऐसी कीमत पर जो आपकी मेहनत की कमाई का सम्मान करे।",
       proofLabel: "1997 से अब तक बनाई गई टॉर्चें",
       support: "खेत, घर और रात के काम के लिए भरोसेमंद।",
       image: "/kag-farmer-champion.jpg",
       width: 1448,
       height: 1086,
-      alt: "अंधेरे में लाल KAG चैंपियन टॉर्च से फसल जांचता किसान",
+      alt: "अंधेरे में लाल काग चैंपियन टॉर्च से फसल जांचता किसान",
       imageClass: styles.farmer,
       caption: "03 — अंधेरे के बाद के काम के लिए बना",
     },
@@ -127,7 +127,7 @@ export default function InsideKagStory() {
     <section id="about" ref={ref} className={styles.section} aria-label="Inside KAG company story">
       <div className={styles.stage}>
         <div className={styles.progress}>
-          <span>{language === "en" ? "INSIDE KAG" : "KAG के अंदर"}</span>
+          <span>{language === "en" ? "INSIDE KAG" : "काग के अंदर"}</span>
 
           <div className={styles.progressBars} aria-hidden="true">
             {currentScenes.map((scene, index) => (

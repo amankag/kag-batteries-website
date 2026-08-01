@@ -53,7 +53,7 @@ const copy = {
     deckAlts: ["Champion torch spec sheet", "Tiger KB-81 torch spec sheet", "Venus KB-68 torch spec sheet"],
   },
   hi: {
-    topline: "KAG के साथ पार्टनरशिप",
+    topline: "काग के साथ पार्टनरशिप",
     scene1: {
       eyebrow: "01 — डीलर और डिस्ट्रिब्यूटर्स के लिए",
       title: (
