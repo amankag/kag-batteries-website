@@ -546,30 +546,30 @@
      height of inspectionHead + 3 cards + buildDemands past that fixed
      budget, clipping/garbling buildDemands at the bottom (confirmed
      from a real screenshot). Pulled these back to a smaller, safer
-     bump than the rest of the section gets. */
-  :global(html.lang-hi) .inspectionHead { font-size: 9.5px; }
-  :global(html.lang-hi) .buildMaterials { gap: 5px; }
-  :global(html.lang-hi) .buildMaterials h3 { font-size: 12.5px; }
-  :global(html.lang-hi) .buildMaterials article p { font-size: 10px; }
-  :global(html.lang-hi) .buildMaterials article > span { font-size: 8px; }
-  :global(html.lang-hi) .buildDemands { padding-top: 5px; }
-  :global(html.lang-hi) .buildDemands > div > span { font-size: 9px; }
-  :global(html.lang-hi) .demandCard strong { font-size: 13px; }
-  :global(html.lang-hi) .demandCard small { font-size: 10.5px; }
+     bump than the rest of the section gets.
 
-  /* Even with the sizing above, chapter 2's fixed-height .visual box
-     (top:51%,height:42.5% of the stage) is still too tight on shorter
-     phones — measured on a 375x667 viewport: 34px of unused gap sits
-     between the summary paragraph and .visual's top, and another 44px
-     of unused margin sits below .visual before the stage ends.
-     Reclaiming that ~78px (moving .visual up and taller) is what
-     actually fixes the clipping/overlap seen on short viewports —
-     shrinking fonts further has diminishing returns before they stop
-     being legible. */
-  :global(html.lang-hi) .stage.scene2 .visual {
-    top: 44%;
-    height: 53%;
-  }
+     IMPORTANT: a previous attempt fixed this by moving .visual's
+     top/height (reclaiming unused space above/below it). That worked
+     on the two viewports it was tested on, but on a real phone it
+     overlapped .copy's summary paragraph instead — real device
+     heights vary too much to safely reposition a box relative to its
+     neighbours. Reverted that; only ever shrinking padding/gaps here
+     is safe because it can't create a NEW overlap with .copy above —
+     content can only get shorter, never taller. */
+  :global(html.lang-hi) .buildVisual { gap: 4px; padding: 6px; }
+  :global(html.lang-hi) .inspectionHead { font-size: 9.5px; }
+  :global(html.lang-hi) .buildMaterials { gap: 3px; }
+  :global(html.lang-hi) .buildMaterials article { padding: 4px 6px; }
+  :global(html.lang-hi) .buildMaterials article > strong { width: 17px; height: 17px; font-size: 7px; }
+  :global(html.lang-hi) .buildMaterials h3 { font-size: 12px; }
+  :global(html.lang-hi) .buildMaterials article p { margin-top: 1px; font-size: 9.5px; line-height: 1.1; }
+  :global(html.lang-hi) .buildMaterials article > span { font-size: 7.5px; }
+  :global(html.lang-hi) .buildDemands { padding-top: 2px; }
+  :global(html.lang-hi) .buildDemands > div > span { font-size: 9px; }
+  :global(html.lang-hi) .buildDemands > div > b { margin-top: 2px; }
+  :global(html.lang-hi) .demandCard { padding: 6px 9px; }
+  :global(html.lang-hi) .demandCard strong { font-size: 12.5px; }
+  :global(html.lang-hi) .demandCard small { font-size: 10px; }
   :global(html.lang-hi) .trustTests { gap: 4px; }
   :global(html.lang-hi) .trustTests > span { font-size: 8.5px; }
   :global(html.lang-hi) .trustTests h3 { font-size: 11px; }
