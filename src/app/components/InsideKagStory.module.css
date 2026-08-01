@@ -386,16 +386,25 @@
 
   :global(html.lang-hi) .body {
     margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.35;
   }
 
   :global(html.lang-hi) .proofSupport {
     margin-top: 6px;
   }
 
-  /* Mobile's own h2 clamp (39-54px at 0.93 line-height) already wraps
-     fine within `left:20px;right:20px` — Hindi just needs the same
-     matra breathing room as every other headline sitewide. */
+  /* Scene 2's title ("देखभाल से बनाया। हर चरण में जांचा गया।") is two
+     sentences — measurably longer than scenes 1 and 3, which share
+     this same clamp() since InsideKagStory (unlike WhyUsSection) has
+     no per-scene mobile size override. At the English-tuned
+     clamp(39,11.5vw,54) plus Hindi's extra line-height, scene 2 wraps
+     to enough lines to run into .photos below it (confirmed from a
+     real screenshot — the body text visibly overlapped the photo).
+     Shrinking the clamp here (not just line-height) is what actually
+     buys back the lines, same as the desktop scene3 fix. */
   :global(html.lang-hi) .copy h2 {
-    line-height: 1.1 !important;
+    font-size: clamp(30px, 9vw, 42px) !important;
+    line-height: 1.12 !important;
   }
 }
