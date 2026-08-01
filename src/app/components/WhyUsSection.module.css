@@ -570,12 +570,26 @@
   :global(html.lang-hi) .demandCard { padding: 6px 9px; }
   :global(html.lang-hi) .demandCard strong { font-size: 12.5px; }
   :global(html.lang-hi) .demandCard small { font-size: 10px; }
-  :global(html.lang-hi) .trustTests { gap: 4px; }
-  :global(html.lang-hi) .trustTests > span { font-size: 8.5px; }
-  :global(html.lang-hi) .trustTests h3 { font-size: 11px; }
-  :global(html.lang-hi) .trustTests article p { font-size: 9px; }
-  :global(html.lang-hi) .networkCount span { font-size: 9.5px; }
-  :global(html.lang-hi) .networkCaption { font-size: 8.5px; }
+  /* Chapter 3 test cards measured 147px of overflow past .stage's
+     bottom edge at a 375x640 viewport — card 03 started entirely
+     below the clip boundary, invisible (confirmed via
+     getBoundingClientRect, not just a screenshot). trustTests's card
+     titles ("मटीरियल क्वालिटी", "बार-बार चार्जिंग", "फाइनल वर्किंग
+     चेक") were each wrapping to 2 lines — the single biggest height
+     cost, multiplied by 3 cards. Rebalancing the column split gives
+     trustTests more width to fit titles in fewer lines; the network
+     panel's dot pattern and stats are decorative enough to tolerate
+     losing that width. Combined with tighter padding/gaps below. */
+  :global(html.lang-hi) .trustVisual { grid-template-columns: 1.28fr 0.72fr; gap: 5px; }
+  :global(html.lang-hi) .trustTests { gap: 3px; padding: 6px; }
+  :global(html.lang-hi) .trustTests > span { font-size: 8.5px; margin-bottom: 1px; }
+  :global(html.lang-hi) .trustTests article { grid-template-columns: 19px 1fr 16px; padding: 5px; }
+  :global(html.lang-hi) .trustTests article > b { font-size: 8px; }
+  :global(html.lang-hi) .trustTests h3 { font-size: 10.5px; }
+  :global(html.lang-hi) .trustTests article p { margin-top: 2px; font-size: 8.5px; line-height: 1.15; }
+  :global(html.lang-hi) .trustTests article > span { width: 16px; height: 16px; font-size: 8px; }
+  :global(html.lang-hi) .networkCount span { font-size: 9px; }
+  :global(html.lang-hi) .networkCaption { font-size: 8px; }
 }
 
 /* Same legibility bump for the desktop sizes (7-8px), a smaller nudge
