@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import styles from "./WhyUsSection.module.css";
 import { useScrollProgress } from "./useScrollProgress";
 import { useCountUp } from "./useCountUp";
@@ -313,7 +314,7 @@ function ChapterVisual({ active, language }: { active: number; language: Languag
           <article key={number} style={{ "--order": index } as React.CSSProperties}>
             <b>{number}</b>
             <div><h3>{title}</h3><p>{note}</p></div>
-            <span aria-label="Passed">✓</span>
+            <span aria-label="Passed"><Check size="1em" strokeWidth={3} /></span>
           </article>
         ))}
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Star } from "lucide-react";
 import styles from "./TestimonialsSection.module.css";
 import { useScrollProgress } from "./useScrollProgress";
 import { useLanguage, type Language } from "./LanguageContext";
@@ -178,7 +179,9 @@ export default function TestimonialsSection() {
                   &ldquo;
                 </span>
                 <div className={styles.stars} aria-hidden="true">
-                  {"★★★★★"}
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} />
+                  ))}
                 </div>
                 <blockquote>{review.quote}</blockquote>
                 <figcaption>

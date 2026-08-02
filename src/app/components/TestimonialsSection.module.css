@@ -133,10 +133,16 @@
 }
 
 .stars {
+  display: flex;
+  gap: 3px;
   margin-top: 10px;
   color: var(--orange);
-  font-size: 15px;
-  letter-spacing: 3px;
+}
+
+.stars svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
 }
 
 .card blockquote {
