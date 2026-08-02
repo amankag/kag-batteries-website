@@ -9,6 +9,9 @@ import { useLanguage, type Language } from "./LanguageContext";
 type FormState = { contactPerson: string; companyName: string; phone: string; city: string; state: string; inquiryType: string; estimatedQty: string; message: string };
 const initialForm: FormState = { contactPerson: "", companyName: "", phone: "", city: "", state: "", inquiryType: "", estimatedQty: "", message: "" };
 
+const FACTORY_MAP_EMBED_SRC = "https://maps.google.com/maps?q=22.6433024,75.80295&z=16&output=embed";
+const FACTORY_MAP_LINK = "https://maps.app.goo.gl/yQMmgZd4gFkbCw7v8";
+
 const trustStats: Record<Language, [string, string][]> = {
   en: [
     ["1997", "Family-run, still growing"],
@@ -61,6 +64,8 @@ const copy = {
     submit: "Send inquiry",
     preferWhatsapp: "Prefer WhatsApp?",
     whatsappMessage: "Hi KAG Batteries, I would like to know more about your products.",
+    findUs: "Find us",
+    getDirections: "Get directions",
   },
   hi: {
     eyebrow: "काग परिवार से जुड़ें",
@@ -98,6 +103,8 @@ const copy = {
     submit: "पूछताछ भेजें",
     preferWhatsapp: "WhatsApp पसंद करेंगे?",
     whatsappMessage: "नमस्ते काग बैटरीज़, मुझे आपके प्रोडक्ट्स के बारे में और जानना है।",
+    findUs: "हमें यहां खोजें",
+    getDirections: "रास्ता देखें",
   },
 };
 
@@ -156,6 +163,21 @@ export default function Contact() {
                 <i key={value} className={index === statIndex ? styles.isOn : ""} />
               ))}
             </div>
+          </div>
+
+          <div className={styles.mapCard}>
+            <p className={styles.mapLabel}>{t.findUs}</p>
+            <div className={styles.mapFrame}>
+              <iframe
+                src={FACTORY_MAP_EMBED_SRC}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={t.findUs}
+              />
+            </div>
+            <a href={FACTORY_MAP_LINK} target="_blank" rel="noreferrer" className={styles.mapDirections}>
+              {t.getDirections} <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
 

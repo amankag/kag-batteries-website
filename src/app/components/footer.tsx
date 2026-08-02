@@ -34,6 +34,8 @@ const workLinks: Record<Language, [string, string, boolean?][]> = {
   ],
 };
 
+const FACTORY_MAP_LINK = "https://maps.app.goo.gl/yQMmgZd4gFkbCw7v8";
+
 const copy = {
   en: {
     tagline: "Long-range rechargeable torches made in Indore for people, shops and distribution partners across India.",
@@ -71,7 +73,7 @@ export default function Footer() {
           <div className="grid grid-cols-3 gap-5 md:contents">
             <div><p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">{t.explore}</p><div className="grid gap-2 text-xs text-emerald-50/70 md:text-sm">{exploreLinks[language].map(([label, href]) => <Link key={href} href={href} className="hover:text-white">{label}</Link>)}</div></div>
             <div><p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">{t.work}</p><div className="grid gap-2 text-xs text-emerald-50/70 md:text-sm">{workLinks[language].map(([label, href, external]) => external ? <a key={href} href={href} target="_blank" rel="noreferrer" className="hover:text-white">{label}</a> : <Link key={href} href={href} className="hover:text-white">{label}</Link>)}</div></div>
-            <div><p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">{t.sales}</p><div className="grid gap-2 text-xs text-emerald-50/70 md:text-sm"><a href="tel:+919826918636" className="hover:text-white">+91 98269 18636</a><a href="mailto:info@kagbatteries.in" className="hover:text-white">info@kagbatteries.in</a><p className="leading-5">{t.address}</p></div></div>
+            <div><p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-[#d9f36b]">{t.sales}</p><div className="grid gap-2 text-xs text-emerald-50/70 md:text-sm"><a href="tel:+919826918636" className="hover:text-white">+91 98269 18636</a><a href="mailto:info@kagbatteries.in" className="hover:text-white">info@kagbatteries.in</a><a href={FACTORY_MAP_LINK} target="_blank" rel="noreferrer" className="leading-5 hover:text-white">{t.address}</a></div></div>
           </div>
         </div>
         <div className="flex flex-col justify-between gap-3 pt-4 text-xs text-emerald-50/45 md:flex-row"><p>© {new Date().getFullYear()} {language === "en" ? "KAG Batteries" : "काग बैटरीज़"}. {t.rights}</p><p>{t.tail}</p></div>

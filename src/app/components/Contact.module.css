@@ -66,6 +66,55 @@
   transform: scale(1.25);
 }
 
+.mapCard {
+  margin-top: 20px;
+  max-width: 380px;
+}
+
+.mapLabel {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(17, 18, 15, 0.45);
+}
+
+.mapFrame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(17, 18, 15, 0.12);
+  border-radius: 16px;
+  aspect-ratio: 16 / 10;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.mapFrame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.15) contrast(1.02);
+}
+
+.mapDirections {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #11120f;
+  text-decoration: underline;
+  text-decoration-color: rgba(17, 18, 15, 0.25);
+  text-underline-offset: 4px;
+}
+
+.mapDirections:hover {
+  color: #ff7900;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .statCard {
     animation: none;
