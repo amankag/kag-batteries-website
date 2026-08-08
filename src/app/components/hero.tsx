@@ -55,6 +55,7 @@ export default function Hero() {
       id="tiger-hero"
       ref={ref}
       aria-label="Tiger KB-81 product introduction"
+      data-lang={language}
       className="relative h-[300vh] md:h-[330vh]"
       style={{ "--p": progress } as React.CSSProperties}
     >

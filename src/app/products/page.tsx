@@ -3,6 +3,7 @@ import { initialProducts } from "@/data/products";
 import ProductCatalogueClient from "./ProductCatalogueClient";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { LanguageProvider } from "../components/LanguageContext";
 
 export const metadata: Metadata = {
   title: "All Torch Models – KAG Batteries | LED Torch Manufacturer Indore",
@@ -24,19 +25,21 @@ export default function ProductsPage() {
   const leadAcidCount = initialProducts.filter((p) => p.category === "lead-acid").length;
 
   return (
-    <div className="min-h-screen bg-[#f2f0ea]">
-      <Header />
-      <main>
-        <section className="bg-[#071a1b] py-24 text-white md:py-32">
-          <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-            <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-[#d9f36b]">From the Indore factory</p>
-            <h1 className="font-display max-w-6xl text-6xl font-semibold leading-[0.9] tracking-[-0.05em] md:text-8xl">A beam for every kind of night.</h1>
-            <div className="mt-10 flex max-w-3xl flex-wrap items-center gap-x-8 gap-y-3 text-sm text-emerald-50/65"><span>{initialProducts.length} models to compare</span><span>{lithiumCount} lithium-ion choices</span><span>{leadAcidCount} lead-acid workhorses</span></div>
-          </div>
-        </section>
-        <ProductCatalogueClient products={initialProducts} />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen bg-[#f2f0ea]">
+        <Header />
+        <main>
+          <section className="bg-[#071a1b] py-24 text-white md:py-32">
+            <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+              <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-[#d9f36b]">From the Indore factory</p>
+              <h1 className="font-display max-w-6xl text-6xl font-semibold leading-[0.9] tracking-[-0.05em] md:text-8xl">A beam for every kind of night.</h1>
+              <div className="mt-10 flex max-w-3xl flex-wrap items-center gap-x-8 gap-y-3 text-sm text-emerald-50/65"><span>{initialProducts.length} models to compare</span><span>{lithiumCount} lithium-ion choices</span><span>{leadAcidCount} lead-acid workhorses</span></div>
+            </div>
+          </section>
+          <ProductCatalogueClient products={initialProducts} />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }

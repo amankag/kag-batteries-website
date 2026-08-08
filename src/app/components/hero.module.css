@@ -206,25 +206,35 @@
 }
 
 /* "BUILT FOR LONG NIGHTS" used to be decorative background type that
-   never translated — always English regardless of language — which is
-   why an earlier version of this rule force-reverted the sitewide
-   Hindi font-family/letter-spacing swap here. It's now a real
-   translated headline (see heroWords in hero.tsx), so for Hindi mode
-   we WANT the sitewide Devanagari font and normal letter-spacing to
-   apply, same as every other headline on the site — negative tracking
-   on Devanagari causes matra collision, same reasoning as the h1/h2
-   line-height rule in globals.css. No override needed here anymore.
+   never translated — always English regardless of language. It's now
+   a real translated headline (see heroWords in hero.tsx), and for
+   Hindi mode we WANT the sitewide Devanagari font and normal
+   letter-spacing to apply, same as every other headline on the site —
+   negative tracking on Devanagari causes matra collision, same
+   reasoning as the h1/h2 line-height rule in globals.css.
 
-   What DOES still need overriding: this design's overlap effect —
-   0.76 line-height between the two rows, zero gap between same-row
-   words, and large scroll-driven translateX offsets that deliberately
-   cross words over each other — is tuned for plain Latin blocks with
-   no ascenders/descenders. Devanagari matras extend above and below
-   the baseline, so the same tightness would visually collide/clip
-   matras both at rest and while scrolling. Loosen all three for
-   Hindi specifically, independent of the general letter-spacing fix
-   above. */
-:global(html.lang-hi) .typeGroup {
+   These selectors key off [data-lang="hi"] on hero.tsx's own <section>
+   (set directly from this component's language, resolved server-side
+   by page.tsx via a cookie) rather than the sitewide `html.lang-hi`
+   class every other component uses. That's deliberate, not just a
+   naming choice: root layout.tsx is static and can't set html.lang-hi
+   until a client effect runs post-hydration, and this element's
+   overlap-effect rewrite below (top-anchored vs centered, different
+   font-size/line-height/word-gap) is dramatic enough that the resulting
+   flip measured as a 0.199 CLS score in production Lighthouse — the
+   ONLY element on the page that did. [data-lang] is correct from the
+   very first server-rendered paint, so there's no flip to cause one.
+   Every other Hindi-dependent component still safely uses the global
+   class; only this one needed decoupling.
+
+   What's being overridden: this design's overlap effect — 0.76
+   line-height between the two rows, zero gap between same-row words,
+   and large scroll-driven translateX offsets that deliberately cross
+   words over each other — is tuned for plain Latin blocks with no
+   ascenders/descenders. Devanagari matras extend above and below the
+   baseline, so the same tightness would visually collide/clip matras
+   both at rest and while scrolling. Loosened all three for Hindi. */
+[data-lang="hi"] .typeGroup {
   /* English centers the whole block so it interlaces with the torch by
      design. Anchoring to the top instead keeps Hindi's 4 stacked mobile
      lines clear of the torch. Also pulls the box's own top edge up from
@@ -236,12 +246,12 @@
 }
 
 @media (min-width: 701px) {
-  :global(html.lang-hi) .typeGroup {
+  [data-lang="hi"] .typeGroup {
     inset: 15% 2.2% 15%;
   }
 }
 
-:global(html.lang-hi) .word {
+[data-lang="hi"] .word {
   /* First pass shrank this far more than needed out of caution about
      clearing the torch — landed at roughly half of English's vw scale
      (9vw vs 21.5vw mobile) and read as visually weak next to it.
@@ -263,13 +273,13 @@
 }
 
 @media (max-width: 379px) {
-  :global(html.lang-hi) .word {
+  [data-lang="hi"] .word {
     font-size: 24vw;
   }
 }
 
 @media (min-width: 701px) {
-  :global(html.lang-hi) .word {
+  [data-lang="hi"] .word {
     /* Measured at 1440x900: torch top sits at 459px. First attempt
        (132px cap) still overlapped by 37px in practice — trimmed
        further with margin to spare rather than re-measuring to the
@@ -278,8 +288,8 @@
   }
 }
 
-:global(html.lang-hi) .typeTop,
-:global(html.lang-hi) .typeBottom {
+[data-lang="hi"] .typeTop,
+[data-lang="hi"] .typeBottom {
   gap: 3vw;
   /* English stacks one-word-per-line on mobile (flex-col, only switching
      to flex-row at md:768px) because 4 short English words still read
@@ -290,22 +300,22 @@
   flex-direction: row !important;
 }
 
-:global(html.lang-hi) .wordBuilt {
+[data-lang="hi"] .wordBuilt {
   transform: translateX(calc(var(--p) * -3vw));
 }
-:global(html.lang-hi) .wordFor {
+[data-lang="hi"] .wordFor {
   transform: translateX(calc(var(--p) * 4vw));
 }
-:global(html.lang-hi) .wordLong {
+[data-lang="hi"] .wordLong {
   transform: translateX(calc(var(--p) * -4vw));
 }
-:global(html.lang-hi) .wordNights {
+[data-lang="hi"] .wordNights {
   transform: translateX(calc(var(--p) * 3vw));
 }
 
 @media (max-width: 700px) {
-  :global(html.lang-hi) .typeTop,
-  :global(html.lang-hi) .typeBottom {
+  [data-lang="hi"] .typeTop,
+  [data-lang="hi"] .typeBottom {
     gap: 2vw;
   }
 }

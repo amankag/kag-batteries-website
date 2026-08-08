@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "./components/LanguageContext";
-import LanguagePopup from "./components/LanguagePopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,31 +42,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Deliberately stays static (no cookies()/headers() calls) — reading
+  // cookies here would make EVERY route dynamic, since the root layout
+  // wraps all of them. Only the homepage actually needs server-resolved
+  // language (see page.tsx and hero.tsx for why: the hero's CLS bug),
+  // and its LanguageProvider is instantiated there instead, alongside
+  // Header/Footer, which are already per-page rather than shared here.
   return (
     <html lang="en">
-      <head>
-        {/* Runs synchronously before first paint, same pattern as dark-mode
-           flash prevention. Without this, the page always paints once with
-           the English default (server can't read localStorage), then
-           LanguageContext's effect flips to Hindi post-hydration — for most
-           text that's just a content swap, but the hero's typeGroup has
-           entirely different positioning/sizing between languages (see
-           hero.module.css), so that flip was measured as a 0.199 CLS score
-           in production Lighthouse, 100% attributed to that one element.
-           Setting the class before paint means there's no flip to shift
-           from — the correct layout renders from frame one. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{var l=localStorage.getItem('kag-language');if(l==='hi'){document.documentElement.classList.add('lang-hi');document.documentElement.lang='hi';}}catch(e){}})();",
-          }}
-        />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${notoDevanagari.variable} antialiased`}>
-        <LanguageProvider>
-          <LanguagePopup />
-          {children}
-        </LanguageProvider>
+        {children}
       </body>
     </html>
   );
