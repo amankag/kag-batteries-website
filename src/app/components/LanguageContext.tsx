@@ -58,7 +58,12 @@ export function LanguageProvider({
   trustInitialLanguage?: boolean;
 }) {
   const [language, setLanguageState] = useState<Language>(initialLanguage);
-  const [showLanguagePopup, setShowLanguagePopup] = useState(!initialHasChosen && !trustInitialLanguage);
+  // trustInitialLanguage only controls whether the localStorage re-check
+  // effect below runs (server already resolved the value, so it's
+  // redundant) — it must NOT also gate the popup, or a returning visitor
+  // who genuinely never chose a language would never see it on the
+  // homepage specifically, which is exactly the bug this fixes.
+  const [showLanguagePopup, setShowLanguagePopup] = useState(!initialHasChosen);
 
   useEffect(() => {
     if (trustInitialLanguage) {
