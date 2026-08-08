@@ -66,7 +66,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="grid gap-7 border-b border-white/15 pb-8 md:grid-cols-[1.3fr_1fr_1fr_1fr] md:gap-8 md:pb-10">
           <div>
-            <Link href="/" className="flex items-center gap-3"><span className="relative h-9 w-9 overflow-hidden rounded-xl bg-white"><Image src="/logo.png" alt="KAG Batteries" fill className="object-contain p-1" /></span><span className="font-display text-lg font-semibold tracking-[-0.02em]">KAG Batteries</span></Link>
+            <Link href="/" className="flex items-center gap-3"><span className="relative h-9 w-9 overflow-hidden rounded-xl bg-white"><Image src="/logo.png" alt="KAG Batteries" fill sizes="36px" className="object-contain p-1" /></span><span className="font-display text-lg font-semibold tracking-[-0.02em]">KAG Batteries</span></Link>
             <p className="mt-4 max-w-sm text-sm leading-6 text-emerald-50/60">{t.tagline}</p>
           </div>
 

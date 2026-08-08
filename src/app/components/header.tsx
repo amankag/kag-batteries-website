@@ -81,7 +81,7 @@ export default function Header() {
       <div className="relative mx-auto flex max-w-[1440px] items-center justify-between px-5 py-3.5 md:px-10">
         <Link href="/" onClick={handleLogoClick} aria-label="KAG Batteries — back to top" className="flex items-center">
           <div className={`relative h-10 w-10 transition-[filter] duration-200 ${light ? "" : "invert"}`}>
-            <Image src="/kag-logo.png" alt="KAG Batteries" fill priority className="object-contain" />
+            <Image src="/kag-logo.png" alt="KAG Batteries" fill priority sizes="40px" className="object-contain" />
           </div>
         </Link>
 

@@ -18,7 +18,7 @@ export default function LanguagePopup() {
       <div className="w-full max-w-sm rounded-[1.75rem] border border-white/10 bg-[#071a1b] p-8 text-center shadow-[0_40px_120px_rgba(0,0,0,0.5)] md:p-10">
         <div className="mx-auto mb-6 h-12 w-12 overflow-hidden rounded-2xl bg-white p-1.5">
           <div className="relative h-full w-full invert">
-            <Image src="/kag-logo.png" alt="KAG Batteries" fill className="object-contain" />
+            <Image src="/kag-logo.png" alt="KAG Batteries" fill sizes="48px" className="object-contain" />
           </div>
         </div>
 

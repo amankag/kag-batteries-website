@@ -132,8 +132,8 @@ export default function DealerHubSection() {
           <b>{currentChapters[active][0]} / 02</b>
         </div>
 
-        <div className={styles.beam} aria-hidden="true">
-          <i style={{ width: `${(active + local + 0.08) * 50}%` }} />
+        <div className={styles.beam}>
+          <i aria-hidden="true" style={{ width: `${(active + local + 0.08) * 50}%` }} />
           {currentChapters.map((item, index) => (
             <button
               type="button"

@@ -46,6 +46,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Runs synchronously before first paint, same pattern as dark-mode
+           flash prevention. Without this, the page always paints once with
+           the English default (server can't read localStorage), then
+           LanguageContext's effect flips to Hindi post-hydration — for most
+           text that's just a content swap, but the hero's typeGroup has
+           entirely different positioning/sizing between languages (see
+           hero.module.css), so that flip was measured as a 0.199 CLS score
+           in production Lighthouse, 100% attributed to that one element.
+           Setting the class before paint means there's no flip to shift
+           from — the correct layout renders from frame one. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var l=localStorage.getItem('kag-language');if(l==='hi'){document.documentElement.classList.add('lang-hi');document.documentElement.lang='hi';}}catch(e){}})();",
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${notoDevanagari.variable} antialiased`}>
         <LanguageProvider>
           <LanguagePopup />

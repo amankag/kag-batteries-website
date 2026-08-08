@@ -298,7 +298,6 @@ export default function FactoryVisitSection() {
                 src="/hero-bg.jpg"
                 alt="KAG Batteries factory in Indore"
                 fill
-                priority
                 quality={92}
                 sizes="(max-width: 760px) 250vw, 100vw"
                 className={`${styles.openingPhoto} ${styles.exterior}`}

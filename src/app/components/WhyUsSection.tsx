@@ -378,8 +378,8 @@ export default function WhyUsSection() {
           <b>{chapter.number} / 03</b>
         </div>
 
-        <div className={styles.beam} aria-hidden="true">
-          <i style={{ width: `${(active + local + 0.08) * (100 / currentChapters.length)}%` }} />
+        <div className={styles.beam}>
+          <i aria-hidden="true" style={{ width: `${(active + local + 0.08) * (100 / currentChapters.length)}%` }} />
           {currentChapters.map((item, index) => (
             <button
               key={item.number}
