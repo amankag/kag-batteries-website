@@ -8,6 +8,11 @@ import { useLanguage } from "./LanguageContext";
 
 const HEADER_HEIGHT = 74;
 
+const heroWords = {
+  en: ["BUILT", "FOR", "LONG", "NIGHTS."],
+  hi: ["हर", "सफर", "रोशन", "रहे"],
+};
+
 const copy = {
   en: {
     eyebrow: "01  ───  TIGER SERIES",
@@ -39,6 +44,7 @@ export default function Hero() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
   const { language } = useLanguage();
   const t = copy[language];
+  const [w1, w2, w3, w4] = heroWords[language];
   const phase = progress < 0.28 ? 1 : progress < 0.68 ? 2 : 3;
   const instruction = t.instructions[phase - 1];
   const counter = phase === 1 ? "01 / 03" : phase === 2 ? "02 / 03" : "03 / 03";
@@ -64,12 +70,12 @@ export default function Hero() {
 
         <div aria-hidden="true" className={`z-0 flex px-4 ${styles.typeGroup}`}>
           <div className={`flex w-full max-w-[1400px] flex-col items-center gap-1 md:flex-row md:items-center md:justify-center md:gap-0 ${styles.typeTop}`}>
-            <span className={`${styles.word} ${styles.wordBuilt}`}>BUILT</span>
-            <span className={`${styles.word} ${styles.wordFor}`}>FOR</span>
+            <span className={`${styles.word} ${styles.wordBuilt}`}>{w1}</span>
+            <span className={`${styles.word} ${styles.wordFor}`}>{w2}</span>
           </div>
           <div className={`flex w-full max-w-[1400px] flex-col items-center gap-1 md:flex-row md:items-center md:justify-center md:gap-0 ${styles.typeBottom}`}>
-            <span className={`${styles.word} ${styles.wordLong}`}>LONG</span>
-            <span className={`${styles.word} ${styles.wordNights}`}>NIGHTS.</span>
+            <span className={`${styles.word} ${styles.wordLong}`}>{w3}</span>
+            <span className={`${styles.word} ${styles.wordNights}`}>{w4}</span>
           </div>
         </div>
 

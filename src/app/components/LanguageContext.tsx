@@ -7,6 +7,8 @@ export type Language = "en" | "hi";
 type LanguageContextValue = {
   language: Language;
   toggleLanguage: () => void;
+  showLanguagePopup: boolean;
+  chooseLanguage: (lang: Language) => void;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
@@ -14,22 +16,47 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "kag-language";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguageState] = useState<Language>("en");
+  const [showLanguagePopup, setShowLanguagePopup] = useState(false);
 
+  // Only decides whether to show the popup — does NOT write anything to
+  // storage itself. A first-time visitor has no stored key at all, so we
+  // must read-without-writing here; writing a default on mount would make
+  // "never chosen" indistinguishable from "explicitly chose English" on
+  // the next visit, which is exactly the bug this avoids.
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "hi" || stored === "en") setLanguage(stored);
+    if (stored === "hi" || stored === "en") {
+      setLanguageState(stored);
+    } else {
+      setShowLanguagePopup(true);
+    }
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, language);
     document.documentElement.lang = language;
     document.documentElement.classList.toggle("lang-hi", language === "hi");
   }, [language]);
 
-  const toggleLanguage = () => setLanguage((l) => (l === "en" ? "hi" : "en"));
+  /** The only path that persists to storage — an explicit user action
+     (popup choice or header toggle), never an automatic default. */
+  function persist(lang: Language) {
+    setLanguageState(lang);
+    window.localStorage.setItem(STORAGE_KEY, lang);
+  }
 
-  return <LanguageContext.Provider value={{ language, toggleLanguage }}>{children}</LanguageContext.Provider>;
+  const toggleLanguage = () => persist(language === "en" ? "hi" : "en");
+
+  const chooseLanguage = (lang: Language) => {
+    persist(lang);
+    setShowLanguagePopup(false);
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, toggleLanguage, showLanguagePopup, chooseLanguage }}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {

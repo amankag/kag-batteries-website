@@ -205,20 +205,107 @@
   }
 }
 
-/* "BUILT FOR LONG NIGHTS" is decorative background type — it's always
-   English, in both languages, it never gets translated. But two
-   sitewide Hindi rules still apply to it because they don't know this
-   text is exempt:
-     1. `html.lang-hi * { font-family: devanagari }` swaps its font
-     2. `html.lang-hi * { letter-spacing: normal !important }` strips
-        its `-0.095em` tight tracking (see .word above) — that tight
-        negative spacing is *why* these giant letters interlock at
-        the container edges by design; removing it makes the same
-        four words measurably wider, so they spread past the edges
-        of the screen instead of sitting flush like in English mode.
-   Force both properties back to their English-mode values for this
-   specific block, regardless of language. */
+/* "BUILT FOR LONG NIGHTS" used to be decorative background type that
+   never translated — always English regardless of language — which is
+   why an earlier version of this rule force-reverted the sitewide
+   Hindi font-family/letter-spacing swap here. It's now a real
+   translated headline (see heroWords in hero.tsx), so for Hindi mode
+   we WANT the sitewide Devanagari font and normal letter-spacing to
+   apply, same as every other headline on the site — negative tracking
+   on Devanagari causes matra collision, same reasoning as the h1/h2
+   line-height rule in globals.css. No override needed here anymore.
+
+   What DOES still need overriding: this design's overlap effect —
+   0.76 line-height between the two rows, zero gap between same-row
+   words, and large scroll-driven translateX offsets that deliberately
+   cross words over each other — is tuned for plain Latin blocks with
+   no ascenders/descenders. Devanagari matras extend above and below
+   the baseline, so the same tightness would visually collide/clip
+   matras both at rest and while scrolling. Loosen all three for
+   Hindi specifically, independent of the general letter-spacing fix
+   above. */
+:global(html.lang-hi) .typeGroup {
+  /* English centers the whole block so it interlaces with the torch by
+     design. Anchoring to the top instead keeps Hindi's 4 stacked mobile
+     lines clear of the torch. Also pulls the box's own top edge up from
+     22% to reclaim the gap that opened above the first line once it was
+     no longer vertically centered — that reclaimed room goes toward a
+     bigger font-size below instead of sitting empty. */
+  justify-content: flex-start;
+  inset: 13% 0 17%;
+}
+
+@media (min-width: 701px) {
+  :global(html.lang-hi) .typeGroup {
+    inset: 15% 2.2% 15%;
+  }
+}
+
 :global(html.lang-hi) .word {
-  font-family: var(--font-geist-sans), Arial, sans-serif !important;
-  letter-spacing: -0.095em !important;
+  /* First pass shrank this far more than needed out of caution about
+     clearing the torch — landed at roughly half of English's vw scale
+     (9vw vs 21.5vw mobile) and read as visually weak next to it.
+     Brought back up close to the original bold scale; the repositioned
+     .typeGroup above (top-anchored, reclaimed space) is what actually
+     keeps this clear of the torch, not a smaller font.
+
+     Second pass (100px cap) left 162px of unused space above the torch
+     at 375x812 — measured, then confirmed too much space in a real
+     screenshot at 400x918. Grown further since there was clear room.
+
+     Third pass (30vw) fixed the vertical gap but overflowed
+     horizontally — "रहे" clipped 8px past the viewport edge at 400px
+     width (row 2, "रोशन रहे", is the widest combination and the
+     actual constraint here, not the vertical gap). Sized down to fit
+     that row within the 16px side padding with margin to spare. */
+  line-height: 1.15;
+  font-size: clamp(72px, 25vw, 138px);
+}
+
+@media (max-width: 379px) {
+  :global(html.lang-hi) .word {
+    font-size: 24vw;
+  }
+}
+
+@media (min-width: 701px) {
+  :global(html.lang-hi) .word {
+    /* Measured at 1440x900: torch top sits at 459px. First attempt
+       (132px cap) still overlapped by 37px in practice — trimmed
+       further with margin to spare rather than re-measuring to the
+       exact pixel again. */
+    font-size: clamp(54px, 7.2vw, 104px);
+  }
+}
+
+:global(html.lang-hi) .typeTop,
+:global(html.lang-hi) .typeBottom {
+  gap: 3vw;
+  /* English stacks one-word-per-line on mobile (flex-col, only switching
+     to flex-row at md:768px) because 4 short English words still read
+     fine stacked. Hindi's 4 lines needed ~482px vs only ~317px actually
+     available above the torch at mobile heights — a real, unclosable
+     165px deficit at readable font sizes. Forcing 2-words-per-row at
+     every width (not just desktop) halves the line count instead. */
+  flex-direction: row !important;
+}
+
+:global(html.lang-hi) .wordBuilt {
+  transform: translateX(calc(var(--p) * -3vw));
+}
+:global(html.lang-hi) .wordFor {
+  transform: translateX(calc(var(--p) * 4vw));
+}
+:global(html.lang-hi) .wordLong {
+  transform: translateX(calc(var(--p) * -4vw));
+}
+:global(html.lang-hi) .wordNights {
+  transform: translateX(calc(var(--p) * 3vw));
+}
+
+@media (max-width: 700px) {
+  :global(html.lang-hi) .typeTop,
+  :global(html.lang-hi) .typeBottom {
+    gap: 2vw;
+  }
 }
