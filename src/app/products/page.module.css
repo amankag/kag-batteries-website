@@ -1,0 +1,93 @@
+/* Torch-beam shimmer — a slow light sweep passing across the heading
+   text, like a torch beam crossing the phrase before landing on "One
+   factory." Pure CSS (background-position animation clipped to text),
+   so it plays identically on mobile — no cursor/hover to depend on. */
+.torchSweep {
+  background-image: linear-gradient(
+    110deg,
+    #ffffff 20%,
+    #fefce8 38%,
+    #d9f36b 50%,
+    #fefce8 62%,
+    #ffffff 80%
+  );
+  background-size: 220% 100%;
+  background-position: 160% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: torchBeam 9s ease-in-out infinite;
+}
+
+@keyframes torchBeam {
+  0%,
+  12% {
+    background-position: 160% 0;
+  }
+  62%,
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+/* Living background glow — two soft colour blobs (brand lime + orange)
+   drifting slowly behind the heading, so the section itself feels alive
+   rather than a static gradient. Transform-only animation (cheap, no
+   layout thrash), independent of the text shimmer above. */
+.glowLime {
+  position: absolute;
+  top: -15%;
+  left: -10%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(217, 243, 107, 0.4), transparent 70%);
+  filter: blur(50px);
+  animation: driftLime 13s ease-in-out infinite;
+}
+
+.glowOrange {
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 121, 0, 0.32), transparent 70%);
+  filter: blur(60px);
+  animation: driftOrange 16s ease-in-out infinite;
+}
+
+@keyframes driftLime {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8%, 10%) scale(1.2);
+  }
+}
+
+@keyframes driftOrange {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-10%, -8%) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .torchSweep {
+    animation: none;
+    background-image: none;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+  }
+
+  .glowLime,
+  .glowOrange {
+    animation: none;
+  }
+}

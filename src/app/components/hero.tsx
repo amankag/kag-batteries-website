@@ -25,6 +25,7 @@ const copy = {
       </>
     ),
     cta: "Explore Tiger",
+    tagline: "Every journey, lit right — with the Tiger torch.",
   },
   hi: {
     eyebrow: "01  ───  टाइगर सीरीज़",
@@ -37,6 +38,7 @@ const copy = {
       </>
     ),
     cta: "टाइगर की जानकारी लें",
+    tagline: "आपका हर सफर रोशन रहे, टाइगर टॉर्च के संग।",
   },
 };
 
@@ -96,7 +98,7 @@ export default function Hero() {
         </div>
 
         <div
-          className={`absolute inset-x-0 bottom-24 z-30 flex flex-col items-center px-6 text-center md:inset-y-0 md:bottom-auto md:left-auto md:right-10 md:w-[38%] md:items-start md:justify-center md:text-left ${styles.productInfo}`}
+          className={`absolute inset-x-0 bottom-24 z-30 flex flex-col items-center px-6 text-center md:inset-y-0 md:left-auto md:right-10 md:w-[38%] md:items-start md:justify-center md:text-left ${styles.productInfo}`}
           style={{ pointerEvents: infoInteractive ? "auto" : "none" }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff7900]">Tiger KB-81</p>
@@ -110,6 +112,11 @@ export default function Hero() {
           >
             {t.cta} <span aria-hidden="true">↗</span>
           </Link>
+          {/* Desktop only — mobile's stacked bottom-24 layout doesn't have
+              the spare vertical room this needs. */}
+          <p className="mt-5 hidden max-w-[30ch] text-sm font-medium leading-snug text-[#11120f]/55 md:block">
+            {t.tagline}
+          </p>
         </div>
 
         <div className="absolute left-5 bottom-5 z-30 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#11120f]/70 md:left-10 md:bottom-8">

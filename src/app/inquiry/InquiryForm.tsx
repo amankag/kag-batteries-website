@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { initialProducts, DEALER_WHATSAPP } from "@/data/products";
+import { initialProducts, DEALER_WHATSAPP, categoryMeta } from "@/data/products";
 
 const INQUIRY_TYPES = [
   "Dealer / Retailer",
@@ -105,6 +105,8 @@ export default function InquiryForm() {
 
   const lithiumProducts = initialProducts.filter((p) => p.category === "lithium-ion");
   const leadAcidProducts = initialProducts.filter((p) => p.category === "lead-acid");
+  const vrlaProducts = initialProducts.filter((p) => p.category === "vrla");
+  const liquidProducts = initialProducts.filter((p) => p.category === "liquid");
 
   if (submitted) {
     return (
@@ -328,6 +330,66 @@ export default function InquiryForm() {
                 <input
                   type="checkbox"
                   className="mt-0.5 accent-blue-600 flex-shrink-0"
+                  checked={selectedProducts.includes(p.id)}
+                  onChange={() => toggleProduct(p.id)}
+                />
+                <div>
+                  <p className="text-sm font-semibold text-slate-800 leading-tight">{p.name}</p>
+                  <p className="text-xs text-slate-400 mt-0.5">{p.specs.batteryCapacity} · {p.pricingTiers[0].price}</p>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* VRLA Battery group */}
+        <div className="mt-4">
+          <p className={`text-xs font-bold rounded-lg px-3 py-1.5 mb-2 inline-block ${categoryMeta.vrla.pill}`}>
+            {categoryMeta.vrla.fullLabel} Batteries
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {vrlaProducts.map((p) => (
+              <label
+                key={p.id}
+                className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                  selectedProducts.includes(p.id)
+                    ? "border-amber-400 bg-amber-50"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  className="mt-0.5 accent-amber-600 flex-shrink-0"
+                  checked={selectedProducts.includes(p.id)}
+                  onChange={() => toggleProduct(p.id)}
+                />
+                <div>
+                  <p className="text-sm font-semibold text-slate-800 leading-tight">{p.name}</p>
+                  <p className="text-xs text-slate-400 mt-0.5">{p.specs.batteryCapacity} · {p.pricingTiers[0].price}</p>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Liquid Battery group */}
+        <div className="mt-4">
+          <p className={`text-xs font-bold rounded-lg px-3 py-1.5 mb-2 inline-block ${categoryMeta.liquid.pill}`}>
+            Liquid Batteries
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {liquidProducts.map((p) => (
+              <label
+                key={p.id}
+                className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                  selectedProducts.includes(p.id)
+                    ? "border-cyan-400 bg-cyan-50"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  className="mt-0.5 accent-cyan-600 flex-shrink-0"
                   checked={selectedProducts.includes(p.id)}
                   onChange={() => toggleProduct(p.id)}
                 />

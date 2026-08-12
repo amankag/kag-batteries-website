@@ -3,11 +3,17 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Product, DEALER_WHATSAPP } from "@/data/products";
+import { Product, DEALER_WHATSAPP, categoryMeta } from "@/data/products";
 import ColorSwatches from "@/app/components/ColorSwatches";
 
-type Category = "all" | "lithium-ion" | "lead-acid";
+type Category = "all" | Product["category"];
+type ProductType = "torch" | "battery";
 type ViewMode = "grid" | "list";
+
+const CATEGORIES_BY_TYPE: Record<ProductType, Product["category"][]> = {
+  torch: ["lithium-ion", "lead-acid"],
+  battery: ["vrla", "liquid"],
+};
 
 interface Props {
   products: Product[];
@@ -15,12 +21,18 @@ interface Props {
 
 export default function ProductCatalogueClient({ products }: Props) {
   const [search, setSearch] = useState("");
+  const [productType, setProductType] = useState<ProductType>("torch");
   const [category, setCategory] = useState<Category>("all");
   const [view, setView] = useState<ViewMode>("grid");
 
+  const typedProducts = useMemo(
+    () => products.filter((p) => (p.productType ?? "torch") === productType),
+    [products, productType]
+  );
+
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
-    return products.filter((p) => {
+    return typedProducts.filter((p) => {
       const matchesCategory = category === "all" || p.category === category;
       const matchesSearch =
         !q ||
@@ -30,13 +42,36 @@ export default function ProductCatalogueClient({ products }: Props) {
         (p.specs.beamDistance ?? "").toLowerCase().includes(q);
       return matchesCategory && matchesSearch;
     });
-  }, [products, search, category]);
+  }, [typedProducts, search, category]);
 
-  const lithiumCount = products.filter((p) => p.category === "lithium-ion").length;
-  const leadAcidCount = products.filter((p) => p.category === "lead-acid").length;
+  const torchCount = products.filter((p) => (p.productType ?? "torch") === "torch").length;
+  const batteryCount = products.filter((p) => p.productType === "battery").length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
+      {/* ── Product type toggle ─────────────────────────────────────────── */}
+      <div className="flex rounded-xl border border-slate-200 bg-white overflow-hidden mb-4 w-fit">
+        {(
+          [
+            { key: "torch", label: `Torches (${torchCount})` },
+            { key: "battery", label: `Batteries (${batteryCount})` },
+          ] as { key: ProductType; label: string }[]
+        ).map(({ key, label }) => (
+          <button
+            key={key}
+            onClick={() => {
+              setProductType(key);
+              setCategory("all");
+            }}
+            className={`px-4 py-2.5 text-xs font-bold transition-colors whitespace-nowrap ${
+              productType === key ? "bg-green-600 text-white" : "text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
       {/* ── Controls bar ────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
         {/* Search */}
@@ -62,9 +97,11 @@ export default function ProductCatalogueClient({ products }: Props) {
         <div className="flex rounded-xl border border-slate-200 bg-white overflow-hidden flex-shrink-0">
           {(
             [
-              { key: "all", label: `All (${products.length})` },
-              { key: "lithium-ion", label: `Li-Ion (${lithiumCount})` },
-              { key: "lead-acid", label: `Lead Acid (${leadAcidCount})` },
+              { key: "all", label: `All (${typedProducts.length})` },
+              ...CATEGORIES_BY_TYPE[productType].map((key) => ({
+                key,
+                label: `${categoryMeta[key].label} (${typedProducts.filter((p) => p.category === key).length})`,
+              })),
             ] as { key: Category; label: string }[]
           ).map(({ key, label }) => (
             <button
@@ -110,9 +147,9 @@ export default function ProductCatalogueClient({ products }: Props) {
 
       {/* ── Results count ───────────────────────────────────────────────── */}
       <p className="text-xs text-slate-400 font-medium mb-5">
-        Showing {filtered.length} of {products.length} models
+        Showing {filtered.length} of {typedProducts.length} {productType === "torch" ? "torch models" : "battery models"}
         {category !== "all" && (
-          <> · <span className="text-slate-600">{category === "lithium-ion" ? "Lithium-Ion" : "Lead Acid"} only</span></>
+          <> · <span className="text-slate-600">{categoryMeta[category].fullLabel} only</span></>
         )}
         {search && <> · search: &ldquo;{search}&rdquo;</>}
       </p>
@@ -146,10 +183,8 @@ export default function ProductCatalogueClient({ products }: Props) {
                 )}
                 {/* Category dot */}
                 <div
-                  className={`absolute top-2 right-2 w-2 h-2 rounded-full ${
-                    product.category === "lithium-ion" ? "bg-green-500" : "bg-blue-500"
-                  }`}
-                  title={product.category === "lithium-ion" ? "Lithium-Ion" : "Lead Acid"}
+                  className={`absolute top-2 right-2 w-2 h-2 rounded-full ${categoryMeta[product.category].dot}`}
+                  title={categoryMeta[product.category].fullLabel}
                 />
               </div>
 
@@ -216,13 +251,9 @@ export default function ProductCatalogueClient({ products }: Props) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start gap-2 flex-wrap mb-1">
                     <span
-                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                        product.category === "lithium-ion"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-blue-100 text-blue-700"
-                      }`}
+                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${categoryMeta[product.category].pill}`}
                     >
-                      {product.category === "lithium-ion" ? "Li-Ion" : "Lead Acid"}
+                      {categoryMeta[product.category].label}
                     </span>
                   </div>
                   <h2 className="text-sm sm:text-base font-bold text-slate-900 truncate">

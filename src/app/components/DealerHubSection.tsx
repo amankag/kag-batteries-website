@@ -50,7 +50,7 @@ const copy = {
       ctaPrimary: "Download product PDF",
       ctaSecondary: "Ask for it on WhatsApp",
     },
-    deckAlts: ["Champion torch spec sheet", "Tiger KB-81 torch spec sheet", "Venus KB-68 torch spec sheet"],
+    deckAlts: ["Safari KB-66 torch spec sheet", "Model KB-555 torch spec sheet", "Nano Classic KB-110 torch spec sheet"],
   },
   hi: {
     topline: "काग के साथ पार्टनरशिप",
@@ -82,14 +82,14 @@ const copy = {
       ctaPrimary: "प्रोडक्ट PDF डाउनलोड करें",
       ctaSecondary: "WhatsApp पर मांगें",
     },
-    deckAlts: ["चैंपियन टॉर्च स्पेक शीट", "टाइगर KB-81 टॉर्च स्पेक शीट", "वीनस KB-68 टॉर्च स्पेक शीट"],
+    deckAlts: ["सफारी KB-66 टॉर्च स्पेक शीट", "मॉडल KB-555 टॉर्च स्पेक शीट", "नैनो क्लासिक KB-110 टॉर्च स्पेक शीट"],
   },
 };
 
 const brochureDeckImages = [
-  "/product-images/pdf-champion.jpg",
-  "/product-images/pdf-tiger-kb-81.jpg",
-  "/product-images/pdf-venus-kb-68.jpg",
+  "/product-images/pdf-safari-kb66.png",
+  "/product-images/pdf-model-kb-555.png",
+  "/product-images/pdf-nano-classic-kb110.png",
 ];
 
 const clamp = (n: number) => Math.min(1, Math.max(0, n));

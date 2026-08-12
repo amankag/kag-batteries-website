@@ -7,6 +7,7 @@ export interface ProductSpecs {
   features?: string;
   batteryType?: string;
   batteryCapacity?: string;
+  terminals?: string;
 }
 
 export interface PricingTier {
@@ -23,12 +24,26 @@ export interface Product {
   tagline: string;
   description: string;
   highlights: string[];
-  category: "lithium-ion" | "lead-acid";
+  category: "lithium-ion" | "lead-acid" | "vrla" | "liquid";
+  /** "torch" (default, all 22 original catalogue entries) or "battery"
+      (standalone Kavery batteries, not torches). Lets shared UI switch
+      copy ("Torches" vs "Batteries") without inferring it from category. */
+  productType?: "torch" | "battery";
   specs: ProductSpecs;
   pricingTiers: PricingTier[];
   image?: string;
   colors?: { name: string; hex: string; type?: "body" | "trim" }[];
 }
+
+/** Shared label/color lookup for the `category` field — used by the
+    catalogue filters and the product detail page so both stay in sync
+    as new category values are added. */
+export const categoryMeta: Record<Product["category"], { label: string; fullLabel: string; dot: string; pill: string }> = {
+  "lithium-ion": { label: "Li-Ion", fullLabel: "Lithium-Ion", dot: "bg-green-500", pill: "bg-green-100 text-green-700" },
+  "lead-acid": { label: "Lead Acid", fullLabel: "Lead Acid", dot: "bg-blue-500", pill: "bg-blue-100 text-blue-700" },
+  vrla: { label: "VRLA", fullLabel: "SMF VRLA", dot: "bg-amber-500", pill: "bg-amber-100 text-amber-700" },
+  liquid: { label: "Liquid", fullLabel: "Liquid", dot: "bg-cyan-500", pill: "bg-cyan-100 text-cyan-700" },
+};
 
 export const DEALER_WHATSAPP = "919826918636";
 
@@ -759,5 +774,206 @@ export const initialProducts: Product[] = [
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
     image: "/product-images/new/power-house-roxy.png",
+  },
+
+  // ─── Kavery standalone batteries (not torches) ───────────────────────────
+  {
+    id: 23,
+    slug: "kavery-4v-2-5ah",
+    name: "Kavery 4V 2.5Ah",
+    tagline: "SMF VRLA Battery | Calcium Alloy | Maintenance Free",
+    description:
+      "The Kavery 4V 2.5Ah is a sealed, maintenance-free VRLA battery built with calcium alloy plates for a stable charge and long service life. It's a compact, dependable power source for small emergency lights and low-drain backup applications.",
+    highlights: ["Calcium alloy plates for longer life", "Sealed, maintenance-free design", "Shock-proof ABS casing", "Constant current delivery"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "SMF VRLA, Calcium Alloy",
+      batteryCapacity: "4V 2.5Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹137", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹105", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-4v-2-5ah.png",
+  },
+  {
+    id: 24,
+    slug: "kavery-4v-7ah",
+    name: "Kavery 4V 7Ah",
+    tagline: "SMF VRLA Battery | Calcium Alloy | Maintenance Free",
+    description:
+      "The Kavery 4V 7Ah is a sealed, maintenance-free VRLA battery with calcium alloy construction and colour-coded Faston terminals for easy, correct wiring. Its higher capacity suits emergency lights and torches that need longer backup between charges.",
+    highlights: ["Calcium alloy plates for longer life", "Colour-coded terminals for safe wiring", "Sealed, maintenance-free design", "Shock-proof ABS casing"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "SMF VRLA, Calcium Alloy",
+      batteryCapacity: "4V 7Ah",
+      terminals: "Faston Terminals (Green/Red)",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹228", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹175", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-4v-7ah.png",
+  },
+  {
+    id: 25,
+    slug: "kavery-nano-4v-4-5ah",
+    name: "Kavery Nano Comfort 4V 4.5Ah",
+    tagline: "SMF Battery | Comfort Series | Calcium Alloy",
+    description:
+      "The Kavery Nano Comfort 4V 4.5Ah is a sealed, maintenance-free battery from the Comfort series, built with calcium alloy for reliable, stable output. A practical mid-capacity choice for compact torches and small backup lighting.",
+    highlights: ["Calcium alloy plates for longer life", "Sealed, maintenance-free design", "Shock-proof ABS casing", "Compact form factor"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "SMF VRLA, Calcium Alloy",
+      batteryCapacity: "4V 4.5Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹202", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹155", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-nano-4v-4-5ah.png",
+  },
+  {
+    id: 26,
+    slug: "kavery-power-house-6v-5ah",
+    name: "Kavery Power House 6V 5Ah",
+    tagline: "VRLA Battery | Calcium Alloy | Maintenance Free",
+    description:
+      "The Kavery Power House 6V 5Ah is a sealed VRLA battery built for dependable mid-voltage backup. Calcium alloy construction and a shock-proof body make it a solid choice for heavier-duty torches and small appliances.",
+    highlights: ["Calcium alloy plates for longer life", "Sealed, maintenance-free design", "Shock-proof ABS casing", "Constant current delivery"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "VRLA, Calcium Alloy",
+      batteryCapacity: "6V 5Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹286", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹220", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-power-house-6v-5ah.png",
+  },
+  {
+    id: 27,
+    slug: "kavery-roxy-6v-5ah",
+    name: "Kavery Roxy 6V 5Ah",
+    tagline: "VRLA Battery | Calcium Alloy | Maintenance Free",
+    description:
+      "The Kavery Roxy 6V 5Ah is a sealed, maintenance-free VRLA battery from the Roxy range, built with calcium alloy for stable, long-lasting output. A reliable mid-voltage option for torches and small backup lighting setups.",
+    highlights: ["Calcium alloy plates for longer life", "Sealed, maintenance-free design", "Shock-proof ABS casing", "Constant current delivery"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "VRLA, Calcium Alloy",
+      batteryCapacity: "6V 5Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹254", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹195", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-roxy-6v-5ah.png",
+  },
+  {
+    id: 28,
+    slug: "kavery-extra-life-12v-8ah",
+    name: "Kavery Extra Life 12V-8Ah",
+    tagline: "SMF VRLA Battery | Ultimate Performance | Calcium Alloy",
+    description:
+      "The Kavery Extra Life 12V-8Ah is a sealed VRLA battery from the Ultimate Performance range, built with calcium alloy for a longer service life and stable high-voltage output. Suited to inverters, UPS backup and heavier-duty equipment.",
+    highlights: ["Calcium alloy plates for longer life", "Ultimate Performance, Extra Life range", "Sealed, maintenance-free design", "Shock-proof, constant current delivery"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "SMF VRLA, Calcium Alloy",
+      batteryCapacity: "12V 8Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹819", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹630", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-extra-life-12v-8ah.png",
+  },
+  {
+    id: 29,
+    slug: "kavery-roxy-12v-8ah",
+    name: "Kavery Roxy 12V-8Ah",
+    tagline: "SMF VRLA Battery | Calcium Alloy | Maintenance Free",
+    description:
+      "The Kavery Roxy 12V-8Ah is a sealed, maintenance-free VRLA battery from the Roxy range, built with calcium alloy for reliable high-voltage backup. A dependable choice for inverters, UPS systems and heavier-duty setups.",
+    highlights: ["Calcium alloy plates for longer life", "Sealed, maintenance-free design", "Shock-proof ABS casing", "Constant current delivery"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "SMF VRLA, Calcium Alloy",
+      batteryCapacity: "12V 8Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹741", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹570", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-roxy-12v-8ah.png",
+  },
+  {
+    id: 30,
+    slug: "kavery-extra-life-12v-13ah",
+    name: "Kavery Extra Life 12V-13Ah",
+    tagline: "SMF VRLA Battery | Ultimate Performance | Make in India",
+    description:
+      "The Kavery Extra Life 12V-13Ah is the highest-capacity battery in the Ultimate Performance range — a sealed, calcium alloy VRLA battery made in India for dependable high-voltage backup in inverters, UPS systems and heavy-duty equipment.",
+    highlights: ["Calcium alloy plates for longer life", "Ultimate Performance, Extra Life range", "Make in India", "Sealed, maintenance-free design"],
+    category: "vrla",
+    productType: "battery",
+    specs: {
+      batteryType: "SMF VRLA, Calcium Alloy",
+      batteryCapacity: "12V 13Ah",
+      features: "Heavy Duty, Shock Proof, Maintenance Free, Make in India",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹1,157", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹890", locked: true },
+    ],
+    image: "/product-images/batteries/kavery-extra-life-12v-13ah.png",
+  },
+  {
+    id: 31,
+    slug: "dh-accumulator-6v-7ah",
+    name: "DH Accumulator 6V 7Ah",
+    tagline: "Liquid Lead-Acid Battery | Sp. GR 1250 | Refillable",
+    description:
+      "The KAG DH Accumulator (Super Power) is a traditional liquid lead-acid battery in a transparent casing that lets you see the electrolyte level at a glance. Refillable and built for dependable long-term backup where a wet-cell battery is preferred over sealed VRLA.",
+    highlights: ["Transparent casing for level monitoring", "Refillable liquid lead-acid cell", "Sp. GR 1250 electrolyte", "Heavy-duty build for long service life"],
+    category: "liquid",
+    productType: "battery",
+    specs: {
+      batteryType: "Liquid Lead-Acid, Sp. GR 1250",
+      batteryCapacity: "6V 7Ah",
+      features: "Heavy Duty, Refillable",
+    },
+    pricingTiers: [
+      { label: "Retail MRP", moq: "1 unit+", price: "₹715", locked: false },
+      { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
+      { label: "Distributor Price", moq: "50+ units", price: "₹550", locked: true },
+    ],
+    image: "/product-images/batteries/dh-accumulator-6v-7ah.png",
   },
 ];

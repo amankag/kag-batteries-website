@@ -2,9 +2,11 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { initialProducts, DEALER_WHATSAPP } from "@/data/products";
+import { initialProducts, DEALER_WHATSAPP, categoryMeta } from "@/data/products";
 import BulkInquiryForm from "./BulkInquiryForm";
 import ColorSwatches from "@/app/components/ColorSwatches";
+import Header from "@/app/components/header";
+import { LanguageProvider } from "@/app/components/LanguageContext";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -31,15 +33,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
-    keywords: [
-      product.name,
-      "KAG Batteries",
-      "torch manufacturer India",
-      "LED torch bulk order",
-      "rechargeable torch dealer",
-      "torch wholesaler Indore",
-      product.category === "lithium-ion" ? "lithium ion torch" : "lead acid torch",
-    ].join(", "),
+    keywords: (product.productType === "battery"
+      ? [
+          product.name,
+          "KAG Batteries",
+          "Kavery battery manufacturer India",
+          `${categoryMeta[product.category].fullLabel} battery Indore`,
+          "battery wholesaler Indore",
+          "battery dealer MP Maharashtra",
+        ]
+      : [
+          product.name,
+          "KAG Batteries",
+          "torch manufacturer India",
+          "LED torch bulk order",
+          "rechargeable torch dealer",
+          "torch wholesaler Indore",
+          `${categoryMeta[product.category].fullLabel} torch`,
+        ]
+    ).join(", "),
     openGraph: {
       title,
       description,
@@ -119,7 +131,7 @@ export default async function ProductPage({ params }: PageProps) {
       : {}),
   };
 
-  const isLithium = product.category === "lithium-ion";
+  const isBattery = product.productType === "battery";
 
   return (
     <>
@@ -129,40 +141,31 @@ export default async function ProductPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
+      <LanguageProvider>
       <div className="min-h-screen bg-slate-50">
-        {/* ── Top nav bar ─────────────────────────────────────────────────── */}
-        <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-xl border-b border-white/10">
-          <div className="max-w-7xl mx-auto flex items-center gap-4 px-4 md:px-6 py-3">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-slate-300 hover:text-white transition text-sm font-medium"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back
-            </Link>
-            <span className="text-slate-600">/</span>
-            <Link href="/#products" className="text-slate-400 hover:text-white text-sm transition">
-              Products
-            </Link>
-            <span className="text-slate-600">/</span>
-            <span className="text-slate-200 text-sm font-medium truncate">{product.name}</span>
+        <Header />
 
-            <div className="ml-auto">
-              <Link href="/" className="flex items-center gap-2">
-                <span className="text-white font-semibold text-sm hidden sm:block">KAG Batteries</span>
-              </Link>
-            </div>
+        {/* ── Breadcrumb ──────────────────────────────────────────────────── */}
+        <div className="border-b border-slate-200 bg-white">
+          <div className="max-w-7xl mx-auto flex items-center gap-2 px-4 md:px-6 py-2.5 text-xs">
+            <Link href="/" className="text-slate-400 hover:text-slate-700 transition">
+              Home
+            </Link>
+            <span className="text-slate-300">/</span>
+            <Link href="/products" className="text-slate-400 hover:text-slate-700 transition">
+              Catalogue
+            </Link>
+            <span className="text-slate-300">/</span>
+            <span className="text-slate-600 font-medium truncate">{product.name}</span>
           </div>
-        </header>
+        </div>
 
         <main className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
           {/* ── Product hero: two-column ─────────────────────────────────── */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-12">
             {/* Left: Image */}
             <div className="relative">
-              <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-sm border border-slate-100 flex items-center justify-center">
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-sm border border-slate-100 flex items-center justify-center">
                 {product.image ? (
                   <Image
                     src={product.image}
@@ -184,13 +187,9 @@ export default async function ProductPage({ params }: PageProps) {
 
               {/* Category badge */}
               <div
-                className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                  isLithium
-                    ? "bg-green-100 text-green-700"
-                    : "bg-blue-100 text-blue-700"
-                }`}
+                className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${categoryMeta[product.category].pill}`}
               >
-                {isLithium ? "Lithium-Ion" : "Lead Acid"}
+                {categoryMeta[product.category].fullLabel}
               </div>
             </div>
 
@@ -301,6 +300,9 @@ export default async function ProductPage({ params }: PageProps) {
                 {product.specs.batteryCapacity && (
                   <SpecRow label="Capacity" value={product.specs.batteryCapacity} />
                 )}
+                {product.specs.terminals && (
+                  <SpecRow label="Terminals" value={product.specs.terminals} />
+                )}
                 {product.specs.reflector && (
                   <SpecRow label="Reflector" value={product.specs.reflector} />
                 )}
@@ -372,7 +374,7 @@ export default async function ProductPage({ params }: PageProps) {
           <section className="mt-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-black text-slate-900">
-                More {isLithium ? "Lithium-Ion" : "Lead Acid"} Torches
+                More {categoryMeta[product.category].fullLabel} {isBattery ? "Batteries" : "Torches"}
               </h2>
               <Link
                 href="/#products"
@@ -440,6 +442,7 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
         </footer>
       </div>
+      </LanguageProvider>
     </>
   );
 }

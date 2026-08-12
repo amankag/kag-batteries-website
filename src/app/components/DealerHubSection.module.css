@@ -232,25 +232,31 @@
   background: var(--orange);
 }
 
+/* Deck box is sized taller than the cards themselves (aspect-ratio 5/3
+   vs the cards' 1586/992 ≈ 1.6/1) to leave clearance for the fan/tilt
+   effect on hover without clipping the corners. */
 .brochureDeck {
   position: relative;
   width: 100%;
-  height: clamp(280px, 38vh, 420px);
+  aspect-ratio: 5 / 3;
 }
 
+/* Cards are sized to the exact aspect ratio of the source photos
+   (1586×992) so object-fit: cover never has to crop anything — width
+   is the only fixed dimension, height follows from aspect-ratio, and
+   inset: 0 + margin: auto centers the result on both axes. */
 .deckCard {
   position: absolute;
   inset: 0;
-  width: 62%;
-  height: 100%;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
+  width: 84%;
+  height: auto;
+  aspect-ratio: 1586 / 992;
+  margin: auto;
   padding: 0;
   overflow: hidden;
   border: 1px solid rgba(7, 26, 27, 0.14);
   border-radius: 22px;
-  background: #eee;
+  background: #0b0b0d;
   box-shadow: 0 24px 60px rgba(7, 26, 27, 0.16);
   cursor: pointer;
   transform-origin: 50% 135%;
@@ -316,13 +322,11 @@
   .pointRow { padding: 13px 0; }
   .pointRow > span { font-size: 18px; }
 
-  .brochureDeck { height: clamp(220px, 30vh, 300px); }
-  .deckCard { width: 58%; }
+  .deckCard { width: 78%; }
 }
 
 @media (max-width: 760px) and (max-height: 690px) {
   .copy h1 { font-size: clamp(28px, 8vw, 38px); }
-  .brochureDeck { height: 190px; }
 }
 
 /* Hindi mode legibility: Devanagari text needs larger sizes for readability.

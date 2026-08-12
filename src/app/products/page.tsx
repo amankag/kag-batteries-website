@@ -4,36 +4,43 @@ import ProductCatalogueClient from "./ProductCatalogueClient";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { LanguageProvider } from "../components/LanguageContext";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "All Torch Models – KAG Batteries | LED Torch Manufacturer Indore",
+  title: "Torches & Batteries – KAG Batteries | Manufacturer Indore",
   description:
-    "Browse all 22 KAG Batteries catalogue entries. Lithium-Ion and Lead Acid rechargeable torches for dealers and distributors. Factory-direct pricing from Indore. Bulk orders welcome.",
+    "Browse all 31 KAG Batteries catalogue entries — rechargeable LED torches plus standalone Kavery VRLA and liquid batteries. For dealers and distributors. Factory-direct pricing from Indore. Bulk orders welcome.",
   keywords:
-    "KAG Batteries torch catalogue, LED torch manufacturer Indore, rechargeable torch dealer price, lithium ion torch wholesale, lead acid torch bulk order, torch distributor MP Maharashtra",
+    "KAG Batteries catalogue, LED torch manufacturer Indore, Kavery battery manufacturer, rechargeable torch dealer price, VRLA battery wholesale, lead acid torch bulk order, torch and battery distributor MP Maharashtra",
   openGraph: {
-    title: "KAG Batteries – Complete Torch Catalogue",
+    title: "KAG Batteries – Torches & Batteries Catalogue",
     description:
-      "22 catalogue entries across 2 technology ranges. Factory-direct pricing for dealers and distributors across MP & Maharashtra.",
+      "31 catalogue entries across torches and standalone Kavery batteries. Factory-direct pricing for dealers and distributors across MP & Maharashtra.",
     type: "website",
     siteName: "KAG Batteries",
   },
 };
 
 export default function ProductsPage() {
-  const lithiumCount = initialProducts.filter((p) => p.category === "lithium-ion").length;
-  const leadAcidCount = initialProducts.filter((p) => p.category === "lead-acid").length;
+  const torchCount = initialProducts.filter((p) => (p.productType ?? "torch") === "torch").length;
+  const batteryCount = initialProducts.filter((p) => p.productType === "battery").length;
 
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-[#f2f0ea]">
         <Header />
         <main>
-          <section className="bg-[#071a1b] py-24 text-white md:py-32">
-            <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-              <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-[#d9f36b]">From the Indore factory</p>
-              <h1 className="font-display max-w-6xl text-6xl font-semibold leading-[0.9] tracking-[-0.05em] md:text-8xl">A beam for every kind of night.</h1>
-              <div className="mt-10 flex max-w-3xl flex-wrap items-center gap-x-8 gap-y-3 text-sm text-emerald-50/65"><span>{initialProducts.length} models to compare</span><span>{lithiumCount} lithium-ion choices</span><span>{leadAcidCount} lead-acid workhorses</span></div>
+          <section className="relative overflow-hidden bg-[#071a1b] py-12 text-white md:py-16">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className={styles.glowLime} />
+              <div className={styles.glowOrange} />
+            </div>
+            <div className="relative mx-auto max-w-[1440px] px-5 md:px-10">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[#d9f36b]">From the Indore factory</p>
+              <h1 className="font-display max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.03em] md:text-6xl">
+                <span className={styles.torchSweep}>Everything your shelf needs.</span> <span className="text-[#d9f36b]">One factory.</span>
+              </h1>
+              <div className="mt-5 flex max-w-3xl flex-wrap items-center gap-x-8 gap-y-2 text-sm text-emerald-50/70"><span>{initialProducts.length} models to compare</span><span>{torchCount} rechargeable torches</span><span>{batteryCount} Kavery batteries</span></div>
             </div>
           </section>
           <ProductCatalogueClient products={initialProducts} />
