@@ -1,0 +1,383 @@
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  background: #0d0f0e;
+  color: #f4f1e9;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────────── */
+
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(244, 241, 233, 0.1);
+  background: #071a1b;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  color: rgba(244, 241, 233, 0.8);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 150ms ease;
+}
+.backLink:hover {
+  color: #f4f1e9;
+}
+
+.title {
+  flex: 1 1 auto;
+  margin: 0;
+  min-width: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.controls {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.controls button,
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(244, 241, 233, 0.08);
+  color: #f4f1e9;
+  cursor: pointer;
+  transition: background 150ms ease, opacity 150ms ease;
+}
+.controls button:hover,
+.iconLink:hover {
+  background: rgba(244, 241, 233, 0.18);
+}
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.controls button:disabled:hover {
+  background: rgba(244, 241, 233, 0.08);
+}
+
+/* ── Book stage ──────────────────────────────────────────────────────── */
+
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 12px 56px;
+}
+
+.zoomViewport {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoomFrame {
+  /* Must be a real, definite box — react-pageflip's size="stretch" mode
+     measures this to decide how big to render the book. Without an
+     explicit width/height here it shrinks to fit its (stretch-sized)
+     child instead, a circular dependency that silently falls back to
+     the book's configured minWidth/minHeight. */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms ease;
+  transform-origin: center center;
+}
+
+.flipbook {
+  margin: 0 auto;
+}
+
+.page {
+  position: relative;
+  background: #17191b;
+  overflow: hidden;
+}
+
+.pageImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #17191b;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.pagePlaceholder {
+  filter: blur(3px);
+  transform: scale(1.03);
+}
+
+.pageNumber {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(7, 26, 27, 0.55);
+  color: rgba(244, 241, 233, 0.75);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+.navArrow {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(244, 241, 233, 0.1);
+  color: #f4f1e9;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 150ms ease, opacity 150ms ease;
+}
+.navArrow:hover {
+  background: rgba(244, 241, 233, 0.22);
+}
+.navArrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.navArrowLeft {
+  left: 8px;
+}
+.navArrowRight {
+  right: 8px;
+}
+
+/* ── Bottom bar ──────────────────────────────────────────────────────── */
+
+.bottombar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(244, 241, 233, 0.1);
+  background: #071a1b;
+}
+
+.pageIndicator {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(244, 241, 233, 0.65);
+  white-space: nowrap;
+}
+
+.whatsappCta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #071a1b;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 150ms ease;
+}
+.whatsappCta:hover {
+  background: #20b85a;
+}
+
+/* ── Thumbnail / index panel ─────────────────────────────────────────── */
+
+.thumbPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  width: min(320px, 82vw);
+  display: flex;
+  flex-direction: column;
+  background: #0f1213;
+  border-left: 1px solid rgba(244, 241, 233, 0.1);
+  box-shadow: -24px 0 48px rgba(0, 0, 0, 0.35);
+  animation: slideIn 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+.thumbHeader {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(244, 241, 233, 0.1);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(244, 241, 233, 0.7);
+}
+.thumbHeader button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(244, 241, 233, 0.08);
+  color: #f4f1e9;
+  cursor: pointer;
+}
+.thumbHeader button:hover {
+  background: rgba(244, 241, 233, 0.18);
+}
+
+.thumbGrid {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 14px;
+}
+
+.thumbItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.thumbItem:hover {
+  background: rgba(244, 241, 233, 0.06);
+}
+.thumbItem img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+.thumbItem span {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(244, 241, 233, 0.6);
+}
+.thumbActive {
+  border-color: #d9f36b;
+}
+.thumbActive span {
+  color: #d9f36b;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .topbar {
+    gap: 8px;
+    padding: 10px 10px;
+  }
+  .backLink span {
+    display: none;
+  }
+  .title {
+    font-size: 11px;
+  }
+  .controls button,
+  .iconLink {
+    width: 30px;
+    height: 30px;
+  }
+
+  .stage {
+    padding: 8px 8px;
+  }
+  .navArrow {
+    width: 34px;
+    height: 34px;
+  }
+  .navArrowLeft {
+    left: 2px;
+  }
+  .navArrowRight {
+    right: 2px;
+  }
+
+  .bottombar {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+  .whatsappCta {
+    font-size: 11px;
+    padding: 8px 14px;
+  }
+
+  .thumbPanel {
+    width: 100%;
+  }
+  .thumbGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbPanel {
+    animation: none;
+  }
+  .zoomFrame {
+    transition: none;
+  }
+}

@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { BookOpen } from "lucide-react";
 import { Product, DEALER_WHATSAPP, categoryMeta } from "@/data/products";
 import ColorSwatches from "@/app/components/ColorSwatches";
 
@@ -50,26 +51,39 @@ export default function ProductCatalogueClient({ products }: Props) {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
       {/* ── Product type toggle ─────────────────────────────────────────── */}
-      <div className="flex rounded-xl border border-slate-200 bg-white overflow-hidden mb-4 w-fit">
-        {(
-          [
-            { key: "torch", label: `Torches (${torchCount})` },
-            { key: "battery", label: `Batteries (${batteryCount})` },
-          ] as { key: ProductType; label: string }[]
-        ).map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => {
-              setProductType(key);
-              setCategory("all");
-            }}
-            className={`px-4 py-2.5 text-xs font-bold transition-colors whitespace-nowrap ${
-              productType === key ? "bg-green-600 text-white" : "text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <div className="flex rounded-xl border border-slate-200 bg-white overflow-hidden w-fit">
+          {(
+            [
+              { key: "torch", label: `Torches (${torchCount})` },
+              { key: "battery", label: `Batteries (${batteryCount})` },
+            ] as { key: ProductType; label: string }[]
+          ).map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => {
+                setProductType(key);
+                setCategory("all");
+              }}
+              className={`px-4 py-2.5 text-xs font-bold transition-colors whitespace-nowrap ${
+                productType === key ? "bg-green-600 text-white" : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Not a filter — takes you to the full-screen digital torch book.
+            Named specifically (not "Catalogue Book") since the brochure
+            behind it only covers torches, not the battery range. */}
+        <Link
+          href="/torch-book"
+          className="flex items-center gap-2 rounded-xl border border-slate-900 bg-slate-900 px-4 py-2.5 text-xs font-bold text-white whitespace-nowrap transition-colors hover:bg-slate-700"
+        >
+          <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
+          Torch Book
+        </Link>
       </div>
 
       {/* ── Controls bar ────────────────────────────────────────────────── */}
