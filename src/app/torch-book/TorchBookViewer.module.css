@@ -97,10 +97,28 @@
 .zoomViewport {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Only scrollable while actually zoomed in — at the default 1x fit,
+   overflow:auto here was flapping a scrollbar in and out as the flip
+   animation's shadow nudged content a pixel past the edge, and each
+   flap fed back into the ResizeObserver below (see TorchBookViewer.tsx),
+   forcing a full remount of the flip library mid-turn. */
+.zoomViewport.zoomed {
+  overflow: auto;
+}
+
+/* Applied only on the unzoomed portrait gesture surface: let the browser
+   own vertical panning (so the page can still scroll normally) while
+   horizontal movement is reserved for our swipe-to-turn handler, instead
+   of being consumed as a native horizontal pan. Deliberately not applied
+   when zoomed — panning around a zoomed page needs both axes. */
+.zoomViewport.gesturePanY {
+  touch-action: pan-y;
 }
 
 .zoomFrame {
@@ -138,9 +156,36 @@
   -webkit-user-drag: none;
 }
 
-.pagePlaceholder {
-  filter: blur(3px);
-  transform: scale(1.03);
+.loadingScreen {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.loadingBarTrack {
+  width: min(220px, 60vw);
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(244, 241, 233, 0.15);
+  overflow: hidden;
+}
+
+.loadingBarFill {
+  height: 100%;
+  background: #d9f36b;
+  transition: width 150ms ease;
+}
+
+.loadingScreen p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(244, 241, 233, 0.65);
 }
 
 .pageNumber {

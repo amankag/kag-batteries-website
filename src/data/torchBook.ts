@@ -1,5 +1,5 @@
 export const TORCH_BOOK_TITLE = "KAVERY Lighting Collection 2026";
-export const TORCH_BOOK_PAGE_COUNT = 21;
+export const TORCH_BOOK_PAGE_COUNT = 22;
 export const TORCH_BOOK_PDF = "/brochures/KAVERY_Lighting_Collection_2026.pdf";
 
 export interface TorchBookPage {
