@@ -617,11 +617,11 @@ export const initialProducts: Product[] = [
   },
   {
     id: 18,
-    slug: "kisan-sainik-model-kb-80",
-    name: "Kisan Sainik – Model KB-80",
+    slug: "kb-80",
+    name: "KB-80",
     tagline: "7500 mAh | 80mm Deep Laser Reflector | USB Charging",
     description:
-      "The KAG Kisan Sainik KB-80 is a high-capacity lithium-ion rechargeable torch with a 7500 mAh battery, 80mm deep laser reflector and USB/mobile charging. The brochure also shows a 4V 9Ah lead-acid variant callout for buyers who need a serviceable heavy-duty platform.",
+      "The KAG KB-80 is a high-capacity lithium-ion rechargeable torch with a 7500 mAh battery, 80mm deep laser reflector and USB/mobile charging. The brochure also shows a 4V 9Ah lead-acid variant callout for buyers who need a serviceable heavy-duty platform.",
     highlights: [
       "7500 mAh lithium-ion battery",
       "80mm deep laser reflector",
@@ -641,7 +641,7 @@ export const initialProducts: Product[] = [
       { label: "Dealer Price", moq: "10+ units", price: "Contact", locked: true },
       { label: "Distributor Price", moq: "50+ units", price: "Contact", locked: true },
     ],
-    image: "/product-images/new/kisan-sainik-kb80.png",
+    image: "/product-images/new/kb-80.png",
     colors: [
       { name: "Red", hex: "#DC2626", type: "body" },
       { name: "Yellow", hex: "#EAB308", type: "body" },

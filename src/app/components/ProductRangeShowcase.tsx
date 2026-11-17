@@ -16,7 +16,7 @@ import { useLanguage, type Language } from "./LanguageContext";
 const FEATURED_SLUGS = ["tiger-model-kb-81", "champion-model", "venus-model-kb-68", "power-house-roxy"];
 
 /** Extra models shown alongside the featured four in the Full Range radial. */
-const FULL_RANGE_EXTRA_SLUGS = ["kisan-sainik-model-kb-80", "jio-model-kb-88"];
+const FULL_RANGE_EXTRA_SLUGS = ["kb-80", "jio-model-kb-88"];
 
 /** Six evenly-spaced positions around the Full Range circle, matching FEATURED_SLUGS + FULL_RANGE_EXTRA_SLUGS. */
 const RADIAL_POSITIONS = ["posTop", "posUpperRight", "posLowerRight", "posBottom", "posLowerLeft", "posUpperLeft"] as const;
